@@ -61,7 +61,7 @@
             border-radius: 4rem; 
             transform-style: preserve-3d;
             perspective: 2000px; /* Enhanced perspective for smoother tilt */
-            will-change: transform, box-shadow;
+            will-change: transform, box-shadow, opacity, filter;
         }
 
         .service-card:hover {
@@ -382,6 +382,23 @@
                 padding-left: 1.5rem;
                 padding-right: 1.5rem;
             }
+
+            /* Mobile Stacked Services */
+            #services-grid {
+                position: relative;
+                height: 60vh; /* Controlled height for stack container */
+                display: block !important;
+                max-width: 90%;
+                margin: 0 auto;
+            }
+            .service-card {
+                position: absolute !important;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100% !important;
+                margin: 0 auto;
+            }
         }
 
         /* MODAL STYLES */
@@ -583,7 +600,7 @@
                         </span>
                         
                         <!-- New Aesthetic Trust Line -->
-                        <span class="block text-white/20 text-[9px] md:text-xs font-medium tracking-[0.2em] md:tracking-[0.3em] uppercase mt-10 border-t border-white/5 pt-6 w-fit mx-auto lg:mx-0">
+                        <span class="block text-white/20 text-[9px] md:text-xs font-medium tracking-[0.2em] md:tracking-[0.3em] uppercase mt-10 border-t border-white/5 pt-6 w-fit mx-auto lg:mx-0 text-center lg:text-left">
                             Permission-aware • Source-backed outputs • Quality checks & monitoring
                         </span>
                     </h1>
@@ -595,7 +612,7 @@
                     </div>
 
                     <!-- Refined Animated CTA Section -->
-                    <div class="flex flex-col sm:flex-row gap-6 md:gap-8 reveal-up items-center lg:items-start pt-2 parallax-item" data-speed="0.04">
+                    <div class="flex flex-col sm:flex-row gap-8 reveal-up items-center lg:items-start pt-2 parallax-item" data-speed="0.04">
                         <button class="btn-animated-primary group">
                             Begin Discovery <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                         </button>
@@ -677,7 +694,7 @@
                         <div class="process-neural-progress" id="neural-path-fill"></div>
                     </div>
 
-                    <div class="space-y-[25vh] lg:space-y-[40vh] pb-[40vh]" id="timeline-steps">
+                    <div class="space-y-[30vh] lg:space-y-[40vh] pb-[40vh]" id="timeline-steps">
                         <!-- Step 01 -->
                         <div class="process-node">
                             <div class="process-meta hidden lg:block">
@@ -687,7 +704,7 @@
                                 <div class="process-marker"></div>
                             </div>
                             <div class="process-info">
-                                <h3 class="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">Discover</h3>
+                                <h3 class="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">Discover</h3>
                                 <p class="text-base md:text-lg text-white/40 font-light leading-relaxed max-w-md">We identify the highest-leverage workflow or decision area, map the process, define KPIs, and agree success criteria.</p>
                             </div>
                         </div>
@@ -701,7 +718,7 @@
                                 <div class="process-marker"></div>
                             </div>
                             <div class="process-info">
-                                <h3 class="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">Design</h3>
+                                <h3 class="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">Design</h3>
                                 <p class="text-base md:text-lg text-white/40 font-light leading-relaxed max-w-md">We design the experience (copilot, automation, dashboard), security controls, and evaluation approach.</p>
                             </div>
                         </div>
@@ -715,7 +732,7 @@
                                 <div class="process-marker"></div>
                             </div>
                             <div class="process-info">
-                                <h3 class="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">Build</h3>
+                                <h3 class="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">Build</h3>
                                 <p class="text-base md:text-lg text-white/40 font-light leading-relaxed max-w-md">We integrate with your tools, implement guardrails, and ship in iterations so stakeholders can test early.</p>
                             </div>
                         </div>
@@ -729,7 +746,7 @@
                                 <div class="process-marker"></div>
                             </div>
                             <div class="process-info">
-                                <h3 class="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">Validate</h3>
+                                <h3 class="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">Validate</h3>
                                 <p class="text-base md:text-lg text-white/40 font-light leading-relaxed max-w-md">We run quality checks (eval sets, acceptance criteria), test edge cases, and harden monitoring.</p>
                             </div>
                         </div>
@@ -743,7 +760,7 @@
                                 <div class="process-marker"></div>
                             </div>
                             <div class="process-info">
-                                <h3 class="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">Launch + Improve</h3>
+                                <h3 class="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">Launch + Improve</h3>
                                 <p class="text-base md:text-lg text-white/40 font-light leading-relaxed max-w-md">We roll out to a pilot group, collect feedback, tune performance, and expand to more workflows.</p>
                             </div>
                         </div>
@@ -756,7 +773,7 @@
         <section id="governance" class="py-24 md:py-48 px-6 md:px-24 reveal-governance-wrap bg-transparent">
             <div class="max-w-7xl mx-auto glass rounded-[2.5rem] md:rounded-[4rem] p-10 md:p-32 border border-white/5 flex flex-col md:flex-row gap-16 md:gap-24 items-center overflow-hidden governance-container parallax-item" data-speed="-0.02">
                 <div class="flex-1 space-y-10 reveal-governance-text text-center md:text-left">
-                    <h2 class="text-4xl md:text-7xl font-light text-white tracking-tighter">Trust as a <span class="italic text-white/20 font-light">standard</span>.</h2>
+                    <h2 class="text-5xl md:text-7xl font-light text-white tracking-tighter">Trust as a <span class="italic text-white/20 font-light">standard</span>.</h2>
                     <p class="text-white/40 text-lg md:xl font-light leading-relaxed">
                         Enterprise AI requires enterprise-grade security. We implement multi-layer validation to prevent hallucinations and strictly enforce your internal data access policies.
                     </p>
@@ -940,7 +957,6 @@
             
             modalBody.innerHTML = `
                 <div class="grid lg:grid-cols-12 gap-12 md:gap-24 items-start">
-                    <!-- Main Content Stack -->
                     <div class="lg:col-span-7 space-y-16">
                         <div class="space-y-6">
                             <div class="reveal-modal-item">
@@ -959,7 +975,6 @@
                             </div>
                         </div>
 
-                        <!-- Refined Minimal Grid for Specs -->
                         <div class="grid md:grid-cols-2 gap-8 reveal-modal-item">
                             <div class="group p-10 border border-white/5 rounded-[2.5rem] bg-white/[0.01] hover:border-[#8b5e3c]/30 transition-all duration-700 relative overflow-hidden">
                                 <div class="absolute inset-0 bg-radial-gradient(circle at 0% 0%, rgba(139, 94, 60, 0.05) 0%, transparent 50%) pointer-events-none"></div>
@@ -991,7 +1006,6 @@
                             </div>
                         </div>
 
-                        <!-- Stakeholders Tags -->
                         <div class="reveal-modal-item space-y-6 pt-8">
                             <div class="h-[1px] w-full bg-white/5 mb-12"></div>
                             <h5 class="text-[10px] font-bold uppercase tracking-[0.5em] text-[#d4a373]">Optimized Integration Vectors:</h5>
@@ -1001,10 +1015,8 @@
                         </div>
                     </div>
 
-                    <!-- Side Action Panel -->
                     <div class="lg:col-span-5 space-y-8 lg:sticky lg:top-10">
-                        <div class="p-12 border border-white/10 rounded-[3rem] md:rounded-[4rem] space-y-12 bg-gradient-to-br from-white/[0.05] to-transparent reveal-modal-item relative overflow-hidden backdrop-blur-xl shadow-[inset_0_0_40px_rgba(139,94,60,0.05)]">
-                            <!-- Inner Glass Reflection Sweep -->
+                        <div class="p-12 border border-white/10 rounded-[4rem] space-y-12 bg-gradient-to-br from-white/[0.05] to-transparent reveal-modal-item relative overflow-hidden backdrop-blur-xl shadow-[inset_0_0_40px_rgba(139,94,60,0.05)]">
                             <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.01] to-transparent opacity-50"></div>
                             <div class="absolute -top-24 -right-24 w-64 h-64 bg-[#8b5e3c]/10 blur-[100px] rounded-full"></div>
                             
@@ -1039,7 +1051,6 @@
                             </div>
                         </div>
 
-                        <!-- Technical Meta Info Bar -->
                         <div class="px-12 py-6 flex justify-between items-center text-[9px] text-white/20 font-bold uppercase tracking-[0.5em] reveal-modal-item border border-white/10 rounded-full bg-white/[0.02] shadow-[0_5px_15px_rgba(0,0,0,0.2)]">
                             <div class="flex items-center gap-3">
                                 <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#8b5e3c]"></i> 
@@ -1055,7 +1066,6 @@
                 </div>
             `;
             
-            // GSAP Transition
             modal.style.opacity = '1';
             modal.style.pointerEvents = 'auto';
             document.body.style.overflow = 'hidden';
@@ -1108,7 +1118,6 @@
             backgroundRenderer.setSize(window.innerWidth, window.innerHeight);
             container.appendChild(backgroundRenderer.domElement);
 
-            // Create Starfield
             const starGeometry = new THREE.BufferGeometry();
             const starCount = 5000;
             const starPositions = new Float32Array(starCount * 3);
@@ -1118,44 +1127,24 @@
                 starPositions[i * 3] = (Math.random() - 0.5) * 4000;
                 starPositions[i * 3 + 1] = (Math.random() - 0.5) * 4000;
                 starPositions[i * 3 + 2] = (Math.random() - 0.5) * 4000;
-
                 const brightness = Math.random();
                 starColors[i * 3] = brightness;
                 starColors[i * 3 + 1] = brightness * 0.8;
                 starColors[i * 3 + 2] = brightness * 0.6;
             }
-
             starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
             starGeometry.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
-
-            const starMaterial = new THREE.PointsMaterial({
-                size: 2,
-                vertexColors: true,
-                transparent: true,
-                opacity: 0.8,
-                sizeAttenuation: true
-            });
-
+            const starMaterial = new THREE.PointsMaterial({ size: 2, vertexColors: true, transparent: true, opacity: 0.8, sizeAttenuation: true });
             starField = new THREE.Points(starGeometry, starMaterial);
             backgroundScene.add(starField);
 
-            // Create Bokeh Luminaries
             bokehGroup = new THREE.Group();
             const bokehCount = 40;
             const bokehGeometry = new THREE.SphereGeometry(15, 8, 8);
-
             for(let i = 0; i < bokehCount; i++) {
-                const bokehMaterial = new THREE.MeshBasicMaterial({
-                    color: i % 2 === 0 ? 0x8b5e3c : 0xffffff,
-                    transparent: true,
-                    opacity: Math.random() * 0.15
-                });
+                const bokehMaterial = new THREE.MeshBasicMaterial({ color: i % 2 === 0 ? 0x8b5e3c : 0xffffff, transparent: true, opacity: Math.random() * 0.15 });
                 const bokeh = new THREE.Mesh(bokehGeometry, bokehMaterial);
-                bokeh.position.set(
-                    (Math.random() - 0.5) * 3000,
-                    (Math.random() - 0.5) * 3000,
-                    (Math.random() - 0.5) * 3000
-                );
+                bokeh.position.set((Math.random() - 0.5) * 3000, (Math.random() - 0.5) * 3000, (Math.random() - 0.5) * 3000);
                 bokeh.scale.setScalar(Math.random() * 2 + 1);
                 bokehGroup.add(bokeh);
             }
@@ -1173,30 +1162,24 @@
                 backgroundCamera.updateProjectionMatrix();
                 backgroundRenderer.setSize(window.innerWidth, window.innerHeight);
             });
-
             animate();
         };
 
         const animate = () => {
             requestAnimationFrame(animate);
-
             mouseX += (targetX - mouseX) * 0.05;
             mouseY += (targetY - mouseY) * 0.05;
-
             starField.rotation.y += 0.0003;
             starField.rotation.x += 0.0001;
-            
             bokehGroup.rotation.y -= 0.0002;
             bokehGroup.rotation.z += 0.0001;
-
             backgroundCamera.position.x += (mouseX - backgroundCamera.position.x) * 0.05;
             backgroundCamera.position.y += (-mouseY - backgroundCamera.position.y) * 0.05;
             backgroundCamera.lookAt(backgroundScene.position);
-
             backgroundRenderer.render(backgroundScene, backgroundCamera);
         };
 
-        // --- HERO 3D OBJECT (NEURAL MESH Cluster) ---
+        // --- HERO 3D OBJECT ---
         let heroRenderer, heroScene, heroCamera, heroGroup, heroParticles, heroLines;
         let heroParticlesData = [];
         const initHero3D = () => {
@@ -1206,7 +1189,6 @@
             heroScene = new THREE.Scene();
             heroCamera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
             heroCamera.position.z = 8;
-
             heroRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
             heroRenderer.setSize(container.clientWidth, container.clientHeight);
             heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -1218,80 +1200,51 @@
             const pCount = 80;
             const r = 5; 
             const particlePositions = new Float32Array(pCount * 3);
-            
             for (let i = 0; i < pCount; i++) {
                 particlePositions[i * 3] = (Math.random() - 0.5) * r;
                 particlePositions[i * 3 + 1] = (Math.random() - 0.5) * r;
                 particlePositions[i * 3 + 2] = (Math.random() - 0.5) * r;
-
-                heroParticlesData.push({
-                    velocity: new THREE.Vector3(-0.005 + Math.random() * 0.01, -0.005 + Math.random() * 0.01, -0.005 + Math.random() * 0.01),
-                    numConnections: 0
-                });
+                heroParticlesData.push({ velocity: new THREE.Vector3(-0.005 + Math.random() * 0.01, -0.005 + Math.random() * 0.01, -0.005 + Math.random() * 0.01), numConnections: 0 });
             }
 
             const pGeo = new THREE.BufferGeometry();
             pGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3).setUsage(THREE.DynamicDrawUsage));
-            const pMat = new THREE.PointsMaterial({ 
-                color: 0x8b5e3c, 
-                size: 0.1, 
-                transparent: true, 
-                opacity: 0.9,
-                blending: THREE.AdditiveBlending 
-            });
+            const pMat = new THREE.PointsMaterial({ color: 0x8b5e3c, size: 0.1, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending });
             heroParticles = new THREE.Points(pGeo, pMat);
             heroGroup.add(heroParticles);
 
             const lineGeo = new THREE.BufferGeometry();
             const linePositions = new Float32Array(pCount * pCount * 3);
             lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3).setUsage(THREE.DynamicDrawUsage));
-            const lineMat = new THREE.LineBasicMaterial({ 
-                color: 0x8b5e3c, 
-                transparent: true, 
-                opacity: 0.4,
-                blending: THREE.AdditiveBlending 
-            });
+            const lineMat = new THREE.LineBasicMaterial({ color: 0x8b5e3c, transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending });
             heroLines = new THREE.LineSegments(lineGeo, lineMat);
             heroGroup.add(heroLines);
 
             const animateHero = () => {
                 requestAnimationFrame(animateHero);
-                
                 const pos = heroParticles.geometry.attributes.position.array;
                 const lPos = heroLines.geometry.attributes.position.array;
                 let lIdx = 0;
-
                 for (let i = 0; i < pCount; i++) {
                     pos[i*3] += heroParticlesData[i].velocity.x;
                     pos[i*3+1] += heroParticlesData[i].velocity.y;
                     pos[i*3+2] += heroParticlesData[i].velocity.z;
-
                     if (pos[i*3] < -2.5 || pos[i*3] > 2.5) heroParticlesData[i].velocity.x *= -1;
                     if (pos[i*3+1] < -2.5 || pos[i*3+1] > 2.5) heroParticlesData[i].velocity.y *= -1;
                     if (pos[i*3+2] < -2.5 || pos[i*3+2] > 2.5) heroParticlesData[i].velocity.z *= -1;
-
                     for (let j = i + 1; j < pCount; j++) {
-                        const dx = pos[i*3] - pos[j*3];
-                        const dy = pos[i*3+1] - pos[j*3+1];
-                        const dz = pos[i*3+2] - pos[j*3+2];
+                        const dx = pos[i*3] - pos[j*3], dy = pos[i*3+1] - pos[j*3+1], dz = pos[i*3+2] - pos[j*3+2];
                         const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
                         if (dist < 1.8) {
-                            lPos[lIdx++] = pos[i*3];
-                            lPos[lIdx++] = pos[i*3+1];
-                            lPos[lIdx++] = pos[i*3+2];
-                            lPos[lIdx++] = pos[j*3];
-                            lPos[lIdx++] = pos[j*3+1];
-                            lPos[lIdx++] = pos[j*3+2];
+                            lPos[lIdx++] = pos[i*3]; lPos[lIdx++] = pos[i*3+1]; lPos[lIdx++] = pos[i*3+2];
+                            lPos[lIdx++] = pos[j*3]; lPos[lIdx++] = pos[j*3+1]; lPos[lIdx++] = pos[j*3+2];
                         }
                     }
                 }
                 heroLines.geometry.setDrawRange(0, lIdx / 3);
                 heroLines.geometry.attributes.position.needsUpdate = true;
                 heroParticles.geometry.attributes.position.needsUpdate = true;
-                
-                heroGroup.rotation.y += 0.002;
-                heroGroup.rotation.x += 0.001;
-
+                heroGroup.rotation.y += 0.002; heroGroup.rotation.x += 0.001;
                 heroRenderer.render(heroScene, heroCamera);
             };
             animateHero();
@@ -1328,120 +1281,94 @@
                    .from(".reveal-about-img", { scale: 0.9, opacity: 0, duration: 1.5, ease: "expo.out" }, "-=1.5")
                    .from(".about-testimonial", { x: 40, opacity: 0, duration: 1.2, ease: "power3.out" }, "-=1");
 
-            // Initial state for GSAP scroll-in reveal
-            gsap.set(".service-card", { y: 80, opacity: 0, scale: 0.98 });
-
-            // REFINED SERVICE CARD ANIMATION (Per-card or per-row trigger)
-            document.querySelectorAll(".service-card").forEach((card, idx) => {
-                // Initial Reveal Animation
-                gsap.to(card, {
-                    scrollTrigger: { 
-                        trigger: card, 
-                        start: "top 92%", 
-                        toggleActions: "play reverse play reverse", 
-                    },
-                    y: 0,
-                    opacity: 1,
-                    scale: 1,
-                    duration: 1.2,
-                    ease: "power2.out",
-                    delay: window.innerWidth > 1024 ? (idx % 3) * 0.1 : 0
+            // --- SERVICE CARD ANIMATION (DESKTOP VS MOBILE CRED-STYLE STACK) ---
+            const cards = gsap.utils.toArray(".service-card");
+            
+            if (window.innerWidth > 1024) {
+                // Desktop Grid Reveal
+                gsap.set(".service-card", { y: 80, opacity: 0, scale: 0.98 });
+                cards.forEach((card, idx) => {
+                    gsap.to(card, {
+                        scrollTrigger: { trigger: card, start: "top 92%", toggleActions: "play reverse play reverse" },
+                        y: 0, opacity: 1, scale: 1, duration: 1.2, ease: "power2.out",
+                        delay: (idx % 3) * 0.1
+                    });
+                });
+            } else {
+                // MOBILE CRED-STYLE STACK ANIMATION
+                // Stack cards on top of each other with scale and opacity offset
+                gsap.set(cards, { yPercent: 0, opacity: 1, scale: 1, transformOrigin: "center center" });
+                
+                cards.forEach((card, i) => {
+                    gsap.set(card, { 
+                        scale: 1 - (i * 0.05), 
+                        yPercent: i * 8, 
+                        opacity: 1 - (i * 0.2),
+                        filter: `blur(${i * 2}px)`,
+                        zIndex: cards.length - i 
+                    });
                 });
 
-                // MOBILE FOCUS EFFECT: Glow and Blur for Stack-like Scroll Reveal
-                if (window.innerWidth < 1024) {
-                    const glow = card.querySelector('.card-glow');
-                    gsap.timeline({
-                        scrollTrigger: {
-                            trigger: card,
-                            start: "top bottom",
-                            end: "bottom top",
-                            scrub: true,
-                        }
-                    })
-                    // When approaching center, remove blur and add glow
-                    .fromTo(card, { filter: "blur(6px)", opacity: 0.4 }, { filter: "blur(0px)", opacity: 1, duration: 0.5, ease: "none" })
-                    .fromTo(glow, { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "none" }, "<")
-                    // When moving past center, return to blur and remove glow
-                    .to(card, { filter: "blur(6px)", opacity: 0.4, duration: 0.5, ease: "none" })
-                    .to(glow, { opacity: 0, duration: 0.5, ease: "none" }, "<");
-                }
-            });
-
-            // GLOBAL PARALLAX SYSTEM (Applying to non-grid elements)
-            document.querySelectorAll('.parallax-item').forEach(el => {
-                const speed = parseFloat(el.dataset.speed) || 0.1;
-                gsap.to(el, {
-                    y: (i, target) => speed * window.innerHeight,
-                    ease: "none",
+                const serviceStackTl = gsap.timeline({
                     scrollTrigger: {
-                        trigger: el,
-                        start: "top bottom",
-                        end: "bottom top",
-                        scrub: 1
+                        trigger: "#services",
+                        start: "top 15%",
+                        end: `+=${cards.length * 100}%`,
+                        pin: true,
+                        scrub: 1.2,
                     }
                 });
-            });
 
-            // 3D Tilt Interaction for Cards (Max 6°) + Shadow Parallax + Inner Element Lift
-            document.querySelectorAll('.service-card').forEach(card => {
-                card.addEventListener('mousemove', (e) => {
-                    const rect = card.getBoundingClientRect();
-                    const x = e.clientX - rect.left;
-                    const y = e.clientY - rect.top;
-                    const centerX = rect.width / 2;
-                    const centerY = rect.height / 2;
-                    
-                    const rotateX = ((y - centerY) / centerY) * -6;
-                    const rotateY = ((x - centerX) / centerX) * 6;
+                cards.forEach((card, i) => {
+                    if (i < cards.length - 1) {
+                        // Current card slides UP and OUT like CRED
+                        serviceStackTl.to(card, {
+                            yPercent: -140,
+                            scale: 1.1,
+                            opacity: 0,
+                            filter: "blur(15px)",
+                            ease: "power2.inOut",
+                            duration: 1
+                        }, i)
+                        // All subsequent cards move up and "forward" (un-blur and scale up)
+                        .to(cards.slice(i + 1), {
+                            scale: (j) => 1 - (j * 0.05),
+                            yPercent: (j) => j * 8,
+                            opacity: (j) => 1 - (j * 0.2),
+                            filter: (j) => `blur(${j * 2}px)`,
+                            ease: "power2.inOut",
+                            duration: 1
+                        }, i);
+                    }
+                });
+            }
 
-                    const shadowX = (x - centerX) / 5;
-                    const shadowY = (y - centerY) / 5;
-
-                    gsap.to(card, {
-                        rotateX: rotateX,
-                        rotateY: rotateY,
-                        boxShadow: `${-shadowX}px ${-shadowY}px 60px rgba(0,0,0,0.7)`,
-                        duration: 0.5,
-                        ease: "power2.out"
+            // 3D Tilt Interaction for Cards (DESKTOP ONLY)
+            if(window.innerWidth > 1024) {
+                document.querySelectorAll('.service-card').forEach(card => {
+                    card.addEventListener('mousemove', (e) => {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left, y = e.clientY - rect.top;
+                        const centerX = rect.width / 2, centerY = rect.height / 2;
+                        const rotateX = ((y - centerY) / centerY) * -6, rotateY = ((x - centerX) / centerX) * 6;
+                        const shadowX = (x - centerX) / 5, shadowY = (y - centerY) / 5;
+                        gsap.to(card, { rotateX: rotateX, rotateY: rotateY, boxShadow: `${-shadowX}px ${-shadowY}px 60px rgba(0,0,0,0.7)`, duration: 0.5, ease: "power2.out" });
+                        const content = card.querySelector('.card-content-lift');
+                        if (content) gsap.to(content, { x: (x - centerX) / 15, y: (y - centerY) / 15, duration: 0.5 });
                     });
-                    
-                    const content = card.querySelector('.card-content-lift');
-                    if (content) {
-                        gsap.to(content, {
-                            x: (x - centerX) / 15,
-                            y: (y - centerY) / 15,
-                            duration: 0.5
-                        });
-                    }
-                });
-
-                card.addEventListener('mouseleave', () => {
-                    gsap.to(card, {
-                        rotateX: 0,
-                        rotateY: 0,
-                        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-                        duration: 0.7,
-                        ease: "elastic.out(1, 0.3)"
+                    card.addEventListener('mouseleave', () => {
+                        gsap.to(card, { rotateX: 0, rotateY: 0, boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)", duration: 0.7, ease: "elastic.out(1, 0.3)" });
+                        const content = card.querySelector('.card-content-lift');
+                        if (content) gsap.to(content, { x: 0, y: 0, duration: 0.7 });
                     });
-                    const content = card.querySelector('.card-content-lift');
-                    if (content) {
-                        gsap.to(content, {
-                            x: 0,
-                            y: 0,
-                            duration: 0.7
-                        });
-                    }
                 });
-            });
+            }
 
             // NEURAL TIMELINE ANIMATIONS
             const steps = document.querySelectorAll('.process-node');
             steps.forEach((step) => {
                 ScrollTrigger.create({
-                    trigger: step,
-                    start: "top center+=100",
-                    end: "bottom center-=100",
+                    trigger: step, start: "top center+=100", end: "bottom center-=100",
                     onEnter: () => step.classList.add('active'),
                     onLeave: () => step.classList.remove('active'),
                     onEnterBack: () => step.classList.add('active'),
@@ -1449,16 +1376,9 @@
                 });
             });
 
-            // Smoothened Neural Path Fill
             gsap.to("#neural-path-fill", {
-                height: "100%",
-                ease: "none",
-                scrollTrigger: {
-                    trigger: "#timeline-steps",
-                    start: "top center",
-                    end: "bottom center",
-                    scrub: 1 // High scrub for fluid movement
-                }
+                height: "100%", ease: "none",
+                scrollTrigger: { trigger: "#timeline-steps", start: "top center", end: "bottom center", scrub: 1 }
             });
 
             // GOVERNANCE REVEAL
@@ -1477,9 +1397,7 @@
             gsap.to("#scroll-progress", { scale: "1 1", ease: "none", scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 0.3 } });
 
             ScrollTrigger.create({
-                trigger: "body",
-                start: "top top",
-                end: "bottom bottom",
+                trigger: "body", start: "top top", end: "bottom bottom",
                 onUpdate: (self) => {
                     const scroll = self.progress;
                     if(starField) starField.position.z = -scroll * 1000;
@@ -1489,7 +1407,6 @@
             });
         };
 
-        // Custom Cursor
         const cur = document.getElementById('cursor');
         const curF = document.getElementById('cursor-follower');
         document.addEventListener('mousemove', (e) => {
