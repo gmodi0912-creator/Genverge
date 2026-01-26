@@ -384,21 +384,32 @@
                 padding-right: 1.5rem;
             }
 
-            /* Mobile Stacked Services - Improved Height and Positioning */
+            /* Reduced Grid Height for better mobile framing */
             #services-grid {
                 position: relative;
-                height: 65vh; 
+                height: 55vh; 
                 display: block !important;
-                max-width: 95%;
+                max-width: 90%;
                 margin: 0 auto;
+                margin-top: 1rem;
             }
+            /* Adjusted card sizing and initial mobile styling */
             .service-card {
                 position: absolute !important;
-                top: 0;
-                left: 0;
-                width: 100%;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
                 height: 100% !important;
-                margin: 0 auto;
+                padding: 2.5rem !important; /* Reduced padding for smaller viewport */
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 3.5rem;
+            }
+            .service-card h3 {
+                font-size: 1.5rem !important;
+                margin-bottom: 1rem !important;
+            }
+            .service-card p {
+                font-size: 0.9rem !important;
             }
         }
 
@@ -590,7 +601,7 @@
                 <div class="hero-text-block">
                     <!-- Removed status-chip and introductory span for clean minimal look -->
                     
-                    <h1 class="mb-6 reveal-hero relative parallax-item" id="hero-headline" data-speed="0.02">
+                    <h1 class="mb-6 reveal-hero relative parallax-item" id="hero-headline" data-speed="0.08">
                         <span class="hero-headline-line">
                             <span class="hero-headline-main">Practical AI,</span>
                         </span>
@@ -608,14 +619,14 @@
                         </span>
                     </h1>
 
-                    <div class="reveal-up parallax-item" data-speed="0.03">
+                    <div class="reveal-up parallax-item" data-speed="0.12">
                         <p class="text-lg md:text-xl max-w-2xl mb-10 text-white/30 font-light leading-relaxed border-l-2 border-[#8b5e3c]/20 pl-12 text-center lg:text-left">
                             We architect high-fidelity AI ecosystems that integrate seamlessly with your workforce—transforming complex operational data into immediate competitive momentum.
                         </p>
                     </div>
 
                     <!-- Refined Animated CTA Section -->
-                    <div class="flex flex-col sm:flex-row gap-8 reveal-up items-center lg:items-start pt-2 parallax-item" data-speed="0.04">
+                    <div class="flex flex-col sm:flex-row gap-8 reveal-up items-center lg:items-start pt-2 parallax-item" data-speed="0.15">
                         <button class="btn-animated-primary group">
                             Begin Discovery <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                         </button>
@@ -626,14 +637,14 @@
                 </div>
 
                 <!-- Right 3D Visual Block (Behind section on mobile via CSS) -->
-                <div class="hero-visual-block reveal-hero-visual parallax-item" data-speed="-0.05">
+                <div class="hero-visual-block reveal-hero-visual parallax-item" data-speed="-0.1">
                     <div id="hero-3d-object"></div>
                 </div>
             </div>
         </section>
 
         <!-- About Section -->
-        <section id="about" class="py-24 md:py-48 px-6 md:px-24 relative overflow-hidden bg-transparent">
+        <section id="about" class="pt-24 pb-12 md:pt-48 md:pb-24 px-6 md:px-24 relative overflow-hidden bg-transparent">
             <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 md:gap-40 items-center">
                 <div class="space-y-12 about-text reveal-about-content">
                     <div class="space-y-4">
@@ -647,21 +658,21 @@
                         GenVerge specializes in operationalizing Large Language Models. We move beyond experimental playgrounds to create robust, permission-aware tools that integrate with your existing SOPs.
                     </p>
                     <div class="grid grid-cols-2 gap-20 pt-10 about-stats">
-                        <div class="parallax-item" data-speed="0.05">
+                        <div class="parallax-item" data-speed="0.2">
                             <h4 class="text-[#d4a373] text-4xl md:text-6xl font-light mb-3">90%</h4>
                             <p class="text-[10px] text-white/30 uppercase tracking-widest font-light">Adoption Rate</p>
                         </div>
-                        <div class="parallax-item" data-speed="0.1">
+                        <div class="parallax-item" data-speed="0.25">
                             <h4 class="text-[#d4a373] text-4xl md:text-6xl font-light mb-3">12+</h4>
                             <p class="text-[10px] text-white/30 uppercase tracking-widest font-light">SOP Frameworks</p>
                         </div>
                     </div>
                 </div>
                 <div class="relative about-image reveal-about-img">
-                    <div class="aspect-[4/5] rounded-[4rem] overflow-hidden border border-white/5 grayscale hover:grayscale-0 transition-all duration-1000 main-img-container parallax-item" data-speed="-0.04">
+                    <div class="aspect-[4/5] rounded-[4rem] overflow-hidden border border-white/5 grayscale hover:grayscale-0 transition-all duration-1000 main-img-container parallax-item" data-speed="-0.15">
                         <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000" alt="Sleek AI Architecture" class="w-full h-full object-cover">
                     </div>
-                    <div class="absolute -bottom-12 -right-12 glass p-10 rounded-[3rem] max-w-[280px] hidden lg:block parallax-item border border-white/10 about-testimonial" data-speed="-0.08">
+                    <div class="absolute -bottom-12 -right-12 glass p-10 rounded-[3rem] max-w-[280px] hidden lg:block parallax-item border border-white/10 about-testimonial" data-speed="-0.2">
                         <p class="text-sm text-white/50 leading-relaxed italic font-light">"GenVerge didn't just give us a chatbot; they re-wired our entire support workflow."</p>
                         <p class="text-[10px] mt-6 font-bold uppercase tracking-widest text-[#d4a373]">— Tech Founder</p>
                     </div>
@@ -670,7 +681,7 @@
         </section>
 
         <!-- Services Section -->
-        <section id="services" class="py-48 px-10 md:px-24 bg-white/[0.01]">
+        <section id="services" class="pt-12 pb-24 md:pt-24 md:pb-48 px-10 md:px-24 bg-white/[0.01]">
             <div class="max-w-[1600px] mx-auto">
                 <div class="mb-20 md:mb-32 reveal-services-head">
                     <span class="text-[#d4a373] text-[12px] font-light uppercase tracking-[0.6em] mb-6 block">Capabilities</span>
@@ -774,7 +785,7 @@
 
         <!-- Governance Section -->
         <section id="governance" class="py-48 px-10 md:px-24 reveal-governance-wrap bg-transparent">
-            <div class="max-w-7xl mx-auto glass rounded-[4rem] p-16 md:p-32 border border-white/5 flex flex-col md:flex-row gap-24 items-center overflow-hidden governance-container parallax-item" data-speed="-0.02">
+            <div class="max-w-7xl mx-auto glass rounded-[4rem] p-16 md:p-32 border border-white/5 flex flex-col md:flex-row gap-24 items-center overflow-hidden governance-container parallax-item" data-speed="-0.05">
                 <div class="flex-1 space-y-10 reveal-governance-text text-center md:text-left">
                     <h2 class="text-5xl md:text-7xl font-light text-white tracking-tighter">Trust as a <span class="italic text-white/20 font-light">standard</span>.</h2>
                     <p class="text-white/40 text-xl font-light leading-relaxed">
@@ -795,7 +806,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="w-full md:w-1/3 aspect-square relative flex items-center justify-center reveal-governance-visual parallax-item" data-speed="0.05">
+                <div class="w-full md:w-1/3 aspect-square relative flex items-center justify-center reveal-governance-visual parallax-item" data-speed="0.12">
                     <div class="absolute inset-0 border border-white/5 rounded-full animate-[spin_25s_linear_infinite]"></div>
                     <div class="absolute inset-10 border border-[#8b5e3c]/20 rounded-full animate-[spin_20s_linear_infinite_reverse]"></div>
                     <i data-lucide="shield" class="w-24 h-24 text-[#8b5e3c]/40"></i>
@@ -806,7 +817,7 @@
         <!-- Footer -->
         <footer class="py-32 px-10 md:px-24 border-t border-white/5 reveal-footer bg-transparent">
             <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between gap-32">
-                <div class="max-w-sm space-y-10 footer-col parallax-item" data-speed="0.02">
+                <div class="max-w-sm space-y-10 footer-col parallax-item" data-speed="0.05">
                     <div class="flex items-center gap-4">
                         <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769369853/GenVerge_1_zoczbv.png" alt="GenVerge Logo" class="h-8 md:h-10 w-auto filter brightness-110">
                     </div>
@@ -815,7 +826,7 @@
                     </p>
                 </div>
                 <div class="grid grid-cols-2 gap-32 footer-links-wrap">
-                    <div class="space-y-10 footer-col parallax-item" data-speed="0.03">
+                    <div class="space-y-10 footer-col parallax-item" data-speed="0.08">
                         <h5 class="text-[11px] font-light uppercase tracking-widest text-white/40">Navigation</h5>
                         <ul class="space-y-4 text-xs text-white/20 font-light">
                             <li class="hover:text-[#d4a373] cursor-pointer transition-colors">About Us</li>
@@ -823,7 +834,7 @@
                             <li class="hover:text-[#d4a373] cursor-pointer transition-colors">Privacy Center</li>
                         </ul>
                     </div>
-                    <div class="space-y-10 footer-col parallax-item" data-speed="0.04">
+                    <div class="space-y-10 footer-col parallax-item" data-speed="0.12">
                         <h5 class="text-[11px] font-light uppercase tracking-widest text-white/40">Connection</h5>
                         <ul class="space-y-4 text-xs text-white/20 font-light">
                             <li class="hover:text-[#d4a373] cursor-pointer transition-colors">LinkedIn</li>
@@ -1097,8 +1108,8 @@
             backgroundScene.add(bokehGroup);
 
             document.addEventListener('mousemove', (e) => {
-                starTargetX = (e.clientX - windowHalfX) * 0.2;
-                starTargetY = (e.clientY - windowHalfY) * 0.2;
+                starTargetX = (e.clientX - windowHalfX) * 0.15; // Refined background movement
+                starTargetY = (e.clientY - windowHalfY) * 0.15;
             });
 
             window.addEventListener('resize', () => {
@@ -1117,8 +1128,8 @@
             starField.rotation.x += 0.0001;
             bokehGroup.rotation.y -= 0.0002;
             bokehGroup.rotation.z += 0.0001;
-            backgroundCamera.position.x += (starTargetX - backgroundCamera.position.x) * 0.05;
-            backgroundCamera.position.y += (-starTargetY - backgroundCamera.position.y) * 0.05;
+            backgroundCamera.position.x += (starTargetX - backgroundCamera.position.x) * 0.04; // Smoother tracking
+            backgroundCamera.position.y += (-starTargetY - backgroundCamera.position.y) * 0.04;
             backgroundCamera.lookAt(backgroundScene.position);
             backgroundRenderer.render(backgroundScene, backgroundCamera);
         };
@@ -1246,15 +1257,23 @@
                     });
                 });
             } else {
-                // MOBILE AUTOMATIC STACK - BUTTERY SMOOTH REDESIGN
-                gsap.set(cards, { yPercent: 0, opacity: 1, scale: 1, force3D: true, transformOrigin: "center center" });
+                // MOBILE AUTOMATIC STACK - 100x BUTTERY SMOOTH REDESIGN
+                // Refined for "Queue" visibility and fit
+                gsap.set(cards, { 
+                    yPercent: 0, 
+                    opacity: 1, 
+                    scale: 1, 
+                    force3D: true, 
+                    transformOrigin: "center top",
+                    top: 0 
+                });
                 
                 cards.forEach((card, i) => {
                     gsap.set(card, { 
-                        scale: 1 - (i * 0.05), 
-                        yPercent: i * 8, 
-                        opacity: 1 - (i * 0.2),
-                        filter: `blur(${i * 1.5}px)`,
+                        scale: 1 - (i * 0.06), 
+                        yPercent: i * 14, // Increased peak for the "queue" effect
+                        opacity: 1 - (i * 0.35), // Sharper dropoff for better focus
+                        filter: `blur(${i * 3.5}px)`, // Refined queue blur
                         zIndex: cards.length - i 
                     });
                 });
@@ -1262,11 +1281,15 @@
                 const serviceStackTl = gsap.timeline({
                     scrollTrigger: {
                         trigger: "#services",
-                        start: "top 10%",
-                        end: `+=${cards.length * 150}%`, 
+                        start: "top 8%", 
+                        end: `+=${cards.length * 120}%`, 
                         pin: true,
-                        scrub: 0.8, // Low scrub factor for fluid, automatic shift feel
-                        snap: 1 / (cards.length - 1), // AUTOMATIC SHIFT: Snaps to the exact card position on one finger scroll
+                        scrub: 2.5, // 100x Enhanced buttery smooth feel (Higher scrub = more inertia)
+                        snap: {
+                            snapTo: 1 / (cards.length - 1),
+                            duration: 1.2, // Luxurious snap duration
+                            ease: "expo.inOut"
+                        },
                         invalidateOnRefresh: true,
                         anticipatePin: 1
                     }
@@ -1275,35 +1298,36 @@
                 cards.forEach((card, i) => {
                     if (i < cards.length - 1) {
                         serviceStackTl.to(card, {
-                            yPercent: -150,
-                            scale: 1.05,
+                            yPercent: -140, // Exit transition
+                            scale: 0.85,
                             opacity: 0,
-                            filter: "blur(10px)",
-                            ease: "power1.inOut",
+                            filter: "blur(20px)",
+                            ease: "expo.inOut",
                             duration: 1
                         }, i)
                         .to(cards.slice(i + 1), {
+                            // The "Next" card moves into focus with 100x smoothness
                             scale: (idx, target) => {
                                 const currentI = cards.indexOf(target);
                                 const relativeIdx = currentI - (i + 1);
-                                return 1 - (relativeIdx * 0.05);
+                                return 1 - (relativeIdx * 0.06);
                             },
                             yPercent: (idx, target) => {
                                 const currentI = cards.indexOf(target);
                                 const relativeIdx = currentI - (i + 1);
-                                return relativeIdx * 8;
+                                return relativeIdx * 14;
                             },
                             opacity: (idx, target) => {
                                 const currentI = cards.indexOf(target);
                                 const relativeIdx = currentI - (i + 1);
-                                return 1 - (relativeIdx * 0.2);
+                                return 1 - (relativeIdx * 0.35);
                             },
                             filter: (idx, target) => {
                                 const currentI = cards.indexOf(target);
                                 const relativeIdx = currentI - (i + 1);
-                                return `blur(${relativeIdx * 1.5}px)`;
+                                return `blur(${relativeIdx * 3.5}px)`;
                             },
-                            ease: "power1.inOut",
+                            ease: "expo.inOut",
                             duration: 1
                         }, i);
                     }
@@ -1340,24 +1364,51 @@
                 .from(".footer-bottom", { opacity: 0, duration: 1.5 }, "-=0.5");
 
             // UTILITIES
-            gsap.to("#scroll-progress", { scale: "1 1", ease: "none", scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 0.3 } });
+            gsap.to("#scroll-progress", { scale: "1 1", ease: "none", scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 0.5 } }); // Enhanced scrub
 
+            // GLOBAL ENHANCED PARALLAX & SMOOTHING
+            const parallaxItems = document.querySelectorAll('.parallax-item');
+            
             ScrollTrigger.create({
                 trigger: "body", start: "top top", end: "bottom bottom",
+                scrub: 2, // Globally enhance scroll momentum
                 onUpdate: (self) => {
                     const scroll = self.progress;
-                    if(starField) starField.position.z = -scroll * 1000;
-                    if(bokehGroup) bokehGroup.position.z = -scroll * 1500;
-                    if(heroScene) heroScene.position.y = scroll * 2.5;
+                    const velocity = self.getVelocity() / 1000;
+                    
+                    // Effective parallax movement
+                    parallaxItems.forEach(item => {
+                        const speed = parseFloat(item.getAttribute('data-speed')) || 0.1;
+                        const movement = (scroll * 1000) * speed;
+                        gsap.to(item, {
+                            y: movement,
+                            skewY: velocity * 0.1, // Dynamic skew based on scroll speed
+                            duration: 0.8,
+                            ease: "power2.out",
+                            overwrite: "auto"
+                        });
+                    });
+
+                    if(starField) {
+                        gsap.to(starField.position, { z: -scroll * 1200, duration: 1, ease: "power2.out" });
+                        gsap.to(starField.rotation, { y: scroll * 0.2, duration: 1 });
+                    }
+                    if(bokehGroup) {
+                        gsap.to(bokehGroup.position, { z: -scroll * 1800, duration: 1, ease: "power2.out" });
+                    }
+                    if(heroScene) {
+                        gsap.to(heroScene.position, { y: scroll * 3, duration: 1.2, ease: "power2.out" });
+                    }
                 }
             });
         };
 
+        // Cursor Smoothing
         const cur = document.getElementById('cursor');
         const curF = document.getElementById('cursor-follower');
         document.addEventListener('mousemove', (e) => {
-            gsap.to(cur, { x: e.clientX, y: e.clientY, duration: 0 });
-            gsap.to(curF, { x: e.clientX - 16, y: e.clientY - 16, duration: 0.3 });
+            gsap.to(cur, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "power3.out" });
+            gsap.to(curF, { x: e.clientX - 16, y: e.clientY - 16, duration: 0.6, ease: "expo.out" }); // More elastic follower
         });
     </script>
 </body>
