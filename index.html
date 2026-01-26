@@ -424,19 +424,6 @@
             mix-blend-mode: overlay;
         }
 
-        .bg-large-text {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 35vw;
-            color: rgba(255,255,255,0.02);
-            font-weight: 800;
-            white-space: nowrap;
-            z-index: -1;
-            pointer-events: none;
-        }
-
         .modal-technical-grid {
             background-image: radial-gradient(circle, rgba(139, 94, 60, 0.05) 1px, transparent 1px);
             background-size: 40px 40px;
@@ -565,7 +552,6 @@
         <div id="scroll-progress-fill"></div>
     </div>
 
-    <div class="custom-cursor hidden md:block" id="cursor"></div>
     <div class="custom-cursor hidden md:block" id="cursor"></div>
     <div class="cursor-follower hidden md:block" id="cursor-follower"></div>
 
@@ -853,7 +839,6 @@
     <!-- Detailed "New Page" Modal -->
     <div id="service-modal" class="fixed inset-0 z-[200] opacity-0 pointer-events-none transition-all duration-700 overflow-y-auto bg-[#0f0e0d] modal-technical-grid">
         <div class="modal-grain"></div>
-        <div class="bg-large-text" id="modal-bg-text">SERVICE</div>
         
         <div class="relative w-full min-h-screen py-16 px-10 md:px-24 z-10" id="modal-content">
             <!-- Top Nav Interface -->
@@ -964,10 +949,8 @@
         const modal = document.getElementById('service-modal');
         const modalBody = document.getElementById('modal-body');
         const closeModal = document.getElementById('close-modal');
-        const modalBgText = document.getElementById('modal-bg-text');
 
         function openModal(s) {
-            modalBgText.innerText = s.title.split(' ')[0].toUpperCase();
             modalBody.innerHTML = `
                 <div class="grid lg:grid-cols-12 gap-12 md:gap-24 items-start">
                     <div class="lg:col-span-7 space-y-16">
@@ -1043,8 +1026,7 @@
             gsap.timeline()
                 .to(modal, { opacity: 1, duration: 0.8, ease: "power3.inOut" })
                 .to(".reveal-modal-nav", { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.3")
-                .from(".reveal-modal-item", { y: 60, opacity: 0, filter: "blur(10px)", stagger: 0.12, duration: 1.4, ease: "power4.out" }, "-=0.8")
-                .from("#modal-bg-text", { scale: 1.1, opacity: 0, duration: 2.5, ease: "power4.out" }, "-=1.8");
+                .from(".reveal-modal-item", { y: 60, opacity: 0, filter: "blur(10px)", stagger: 0.12, duration: 1.4, ease: "power4.out" }, "-=0.8");
             
             lucide.createIcons();
         }
@@ -1257,8 +1239,7 @@
                     });
                 });
             } else {
-                // MOBILE AUTOMATIC STACK - 100x BUTTERY SMOOTH REDESIGN
-                // Refined for "Queue" visibility and fit
+                // MOBILE AUTOMATIC STACK - ULTIMATE SMOOTH REDESIGN
                 gsap.set(cards, { 
                     yPercent: 0, 
                     opacity: 1, 
@@ -1271,9 +1252,9 @@
                 cards.forEach((card, i) => {
                     gsap.set(card, { 
                         scale: 1 - (i * 0.06), 
-                        yPercent: i * 14, // Increased peak for the "queue" effect
-                        opacity: 1 - (i * 0.35), // Sharper dropoff for better focus
-                        filter: `blur(${i * 3.5}px)`, // Refined queue blur
+                        yPercent: i * 14, 
+                        opacity: 1 - (i * 0.35), 
+                        filter: `blur(${i * 2}px)`, 
                         zIndex: cards.length - i 
                     });
                 });
@@ -1281,14 +1262,14 @@
                 const serviceStackTl = gsap.timeline({
                     scrollTrigger: {
                         trigger: "#services",
-                        start: "top 8%", 
-                        end: `+=${cards.length * 120}%`, 
+                        start: "top 5%", 
+                        end: `+=${cards.length * 100}%`, 
                         pin: true,
-                        scrub: 2.5, // 100x Enhanced buttery smooth feel (Higher scrub = more inertia)
+                        scrub: 0.5, // 10x More Smoother & Reactive (Low scrub = instant response)
                         snap: {
                             snapTo: 1 / (cards.length - 1),
-                            duration: 1.2, // Luxurious snap duration
-                            ease: "expo.inOut"
+                            duration: 0.4, // Instant snap feel
+                            ease: "power2.out"
                         },
                         invalidateOnRefresh: true,
                         anticipatePin: 1
@@ -1298,15 +1279,14 @@
                 cards.forEach((card, i) => {
                     if (i < cards.length - 1) {
                         serviceStackTl.to(card, {
-                            yPercent: -140, // Exit transition
-                            scale: 0.85,
+                            yPercent: -120, // Faster exit
+                            scale: 0.9,
                             opacity: 0,
-                            filter: "blur(20px)",
-                            ease: "expo.inOut",
+                            filter: "blur(15px)",
+                            ease: "none", // Linear scrub for direct finger tracking
                             duration: 1
                         }, i)
                         .to(cards.slice(i + 1), {
-                            // The "Next" card moves into focus with 100x smoothness
                             scale: (idx, target) => {
                                 const currentI = cards.indexOf(target);
                                 const relativeIdx = currentI - (i + 1);
@@ -1325,9 +1305,9 @@
                             filter: (idx, target) => {
                                 const currentI = cards.indexOf(target);
                                 const relativeIdx = currentI - (i + 1);
-                                return `blur(${relativeIdx * 3.5}px)`;
+                                return `blur(${relativeIdx * 2}px)`;
                             },
-                            ease: "expo.inOut",
+                            ease: "none",
                             duration: 1
                         }, i);
                     }
