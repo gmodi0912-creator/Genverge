@@ -61,7 +61,8 @@
             border-radius: 4rem; 
             transform-style: preserve-3d;
             perspective: 2000px; /* Enhanced perspective for smoother tilt */
-            will-change: transform, box-shadow, opacity, filter;
+            will-change: transform, opacity, filter;
+            backface-visibility: hidden;
         }
 
         .service-card:hover {
@@ -561,17 +562,17 @@
     <nav class="fixed top-0 w-full z-[100] px-6 md:px-12 py-5 flex justify-between items-center transition-all duration-700 opacity-0" id="navbar">
         <div class="flex items-center gap-4 group cursor-pointer">
             <!-- Increased Logo Size -->
-            <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769369853/GenVerge_1_zoczbv.png" alt="GenVerge Logo" class="h-8 md:h-11 w-auto filter brightness-110">
+            <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769369853/GenVerge_1_zoczbv.png" alt="GenVerge Logo" class="h-11 md:h-10 w-auto filter brightness-110">
         </div>
         <!-- Grouped Elements Rightward -->
         <div class="flex items-center gap-12 md:gap-16">
-            <div class="hidden lg:flex gap-10 md:gap-16 text-[10px] font-medium tracking-[0.35em] uppercase text-white/30">
+            <div class="hidden lg:flex gap-12 md:gap-16 text-[10px] font-medium tracking-[0.35em] uppercase text-white/30">
                 <a href="#about" class="nav-link">About</a>
                 <a href="#services" class="nav-link">Services</a>
                 <a href="#process" class="nav-link">Process</a>
                 <a href="#governance" class="nav-link">Governance</a>
             </div>
-            <button class="px-6 md:px-8 py-2.5 border border-white/5 text-white text-[8px] md:text-[9px] font-bold rounded-full hover:bg-white hover:text-black transition-all uppercase tracking-[0.25em]">
+            <button class="px-6 md:px-8 py-2.5 border border-white/5 text-white text-[9px] font-bold rounded-full hover:bg-white hover:text-black transition-all uppercase tracking-[0.25em]">
                 Discovery Call
             </button>
         </div>
@@ -582,11 +583,13 @@
 
     <main class="relative z-10">
         <!-- Hero Section -->
-        <section id="hero" class="hero-container px-6 md:px-24 overflow-hidden">
+        <section id="hero" class="hero-container px-10 md:px-24 overflow-hidden">
             
             <div class="max-w-[1600px] mx-auto hero-layout-wrap" id="hero-main-content">
                 <!-- Left Text Content -->
                 <div class="hero-text-block">
+                    <!-- Removed status-chip and introductory span for clean minimal look -->
+                    
                     <h1 class="mb-6 reveal-hero relative parallax-item" id="hero-headline" data-speed="0.02">
                         <span class="hero-headline-line">
                             <span class="hero-headline-main">Practical AI,</span>
@@ -600,19 +603,19 @@
                         </span>
                         
                         <!-- New Aesthetic Trust Line -->
-                        <span class="block text-white/20 text-[9px] md:text-xs font-medium tracking-[0.2em] md:tracking-[0.3em] uppercase mt-10 border-t border-white/5 pt-6 w-fit mx-auto lg:mx-0 text-center lg:text-left">
+                        <span class="block text-white/20 text-[10px] md:text-xs font-medium tracking-[0.3em] uppercase mt-10 border-t border-white/5 pt-6 w-fit mx-auto lg:mx-0 text-center lg:text-left">
                             Permission-aware • Source-backed outputs • Quality checks & monitoring
                         </span>
                     </h1>
 
                     <div class="reveal-up parallax-item" data-speed="0.03">
-                        <p class="text-lg md:text-xl max-w-2xl mb-10 text-white/30 font-light leading-relaxed lg:border-l-2 border-[#8b5e3c]/20 lg:pl-12 text-center lg:text-left">
+                        <p class="text-lg md:text-xl max-w-2xl mb-10 text-white/30 font-light leading-relaxed border-l-2 border-[#8b5e3c]/20 pl-12 text-center lg:text-left">
                             We architect high-fidelity AI ecosystems that integrate seamlessly with your workforce—transforming complex operational data into immediate competitive momentum.
                         </p>
                     </div>
 
                     <!-- Refined Animated CTA Section -->
-                    <div class="flex flex-col sm:flex-row gap-6 md:gap-8 reveal-up items-center lg:items-start pt-2 parallax-item" data-speed="0.04">
+                    <div class="flex flex-col sm:flex-row gap-8 reveal-up items-center lg:items-start pt-2 parallax-item" data-speed="0.04">
                         <button class="btn-animated-primary group">
                             Begin Discovery <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                         </button>
@@ -630,63 +633,62 @@
         </section>
 
         <!-- About Section -->
-        <section id="about" class="pt-24 pb-12 md:py-48 px-6 md:px-24 relative overflow-hidden bg-transparent">
+        <section id="about" class="py-24 md:py-48 px-6 md:px-24 relative overflow-hidden bg-transparent">
             <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 md:gap-40 items-center">
                 <div class="space-y-12 about-text reveal-about-content">
                     <div class="space-y-4">
                         <span class="text-[#d4a373] text-[12px] font-light uppercase tracking-[0.6em] block about-heading">About Us</span>
                         <div class="h-[1px] w-24 bg-[#8b5e3c] about-accent-line"></div>
                     </div>
-                    <h2 class="text-4xl md:text-6xl font-light text-white leading-[1.1] tracking-tighter about-title text-center md:text-left">
+                    <h2 class="text-5xl md:text-6xl font-light text-white leading-[1.05] tracking-tighter about-title text-center md:text-left">
                         We bridge the gap between <span class="text-white/30 italic">raw potential</span> and measurable performance.
                     </h2>
-                    <p class="text-lg md:text-xl text-white/40 font-light leading-relaxed about-description text-center md:text-left">
+                    <p class="text-xl text-white/40 font-light leading-relaxed about-description text-center md:text-left">
                         GenVerge specializes in operationalizing Large Language Models. We move beyond experimental playgrounds to create robust, permission-aware tools that integrate with your existing SOPs.
                     </p>
-                    <div class="grid grid-cols-2 gap-10 md:gap-20 pt-6 about-stats">
+                    <div class="grid grid-cols-2 gap-20 pt-10 about-stats">
                         <div class="parallax-item" data-speed="0.05">
                             <h4 class="text-[#d4a373] text-4xl md:text-6xl font-light mb-3">90%</h4>
-                            <p class="text-[9px] md:text-[10px] text-white/30 uppercase tracking-widest font-light">Adoption Rate</p>
+                            <p class="text-[10px] text-white/30 uppercase tracking-widest font-light">Adoption Rate</p>
                         </div>
                         <div class="parallax-item" data-speed="0.1">
                             <h4 class="text-[#d4a373] text-4xl md:text-6xl font-light mb-3">12+</h4>
-                            <p class="text-[9px] md:text-[10px] text-white/30 uppercase tracking-widest font-light">SOP Frameworks</p>
+                            <p class="text-[10px] text-white/30 uppercase tracking-widest font-light">SOP Frameworks</p>
                         </div>
                     </div>
                 </div>
-                <div class="relative about-image reveal-about-img mt-12 md:mt-0">
-                    <div class="aspect-[4/5] rounded-[2.5rem] md:rounded-[4rem] overflow-hidden border border-white/5 grayscale hover:grayscale-0 transition-all duration-1000 main-img-container parallax-item" data-speed="-0.04">
+                <div class="relative about-image reveal-about-img">
+                    <div class="aspect-[4/5] rounded-[4rem] overflow-hidden border border-white/5 grayscale hover:grayscale-0 transition-all duration-1000 main-img-container parallax-item" data-speed="-0.04">
                         <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000" alt="Sleek AI Architecture" class="w-full h-full object-cover">
                     </div>
-                    <div class="absolute -bottom-8 md:-bottom-12 -right-4 md:-right-12 glass p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] max-w-[240px] md:max-w-[280px] hidden sm:block parallax-item border border-white/10 about-testimonial" data-speed="-0.08">
-                        <p class="text-xs md:text-sm text-white/50 leading-relaxed italic font-light">"GenVerge didn't just give us a chatbot; they re-wired our entire support workflow."</p>
-                        <p class="text-[9px] md:text-[10px] mt-6 font-bold uppercase tracking-widest text-[#d4a373]">— Tech Founder</p>
+                    <div class="absolute -bottom-12 -right-12 glass p-10 rounded-[3rem] max-w-[280px] hidden lg:block parallax-item border border-white/10 about-testimonial" data-speed="-0.08">
+                        <p class="text-sm text-white/50 leading-relaxed italic font-light">"GenVerge didn't just give us a chatbot; they re-wired our entire support workflow."</p>
+                        <p class="text-[10px] mt-6 font-bold uppercase tracking-widest text-[#d4a373]">— Tech Founder</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Services Section -->
-        <section id="services" class="pt-12 pb-24 md:py-48 px-6 md:px-24 bg-white/[0.01]">
+        <section id="services" class="py-48 px-10 md:px-24 bg-white/[0.01]">
             <div class="max-w-[1600px] mx-auto">
                 <div class="mb-20 md:mb-32 reveal-services-head">
                     <span class="text-[#d4a373] text-[12px] font-light uppercase tracking-[0.6em] mb-6 block">Capabilities</span>
                     <h2 class="text-5xl md:text-8xl font-light text-white tracking-tighter text-center md:text-left">Our Services</h2>
                 </div>
 
-                <!-- Grid for Desktop / Container for Mobile Stack -->
-                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10" id="services-grid">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10" id="services-grid">
                     <!-- Dynamic Grid Rendering -->
                 </div>
             </div>
         </section>
 
         <!-- Process Section - NEURAL TIMELINE -->
-        <section id="process" class="py-24 md:py-48 px-6 md:px-24 relative overflow-hidden bg-transparent">
+        <section id="process" class="py-48 px-10 md:px-24 relative overflow-hidden">
             <div class="max-w-7xl mx-auto">
-                <div class="mb-20 md:mb-32 text-center lg:text-left">
+                <div class="mb-32 text-center lg:text-left">
                     <span class="text-[#8b5e3c] text-[11px] font-bold uppercase tracking-[0.8em] mb-6 block">The Protocol</span>
-                    <h2 class="text-5xl md:text-8xl font-light text-white tracking-tighter leading-none">Operational <br><span class="italic text-white/20">Roadmap.</span></h2>
+                    <h2 class="text-6xl md:text-8xl font-light text-white tracking-tighter leading-none">Operational <br><span class="italic text-white/20">Roadmap.</span></h2>
                 </div>
 
                 <div class="relative min-h-[150vh]">
@@ -705,8 +707,8 @@
                                 <div class="process-marker"></div>
                             </div>
                             <div class="process-info">
-                                <h3 class="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">Discover</h3>
-                                <p class="text-base md:text-lg text-white/40 font-light leading-relaxed max-w-md">We identify the highest-leverage workflow or decision area, map the process, define KPIs, and agree success criteria.</p>
+                                <h3 class="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">Discover</h3>
+                                <p class="text-lg text-white/40 font-light leading-relaxed max-w-md">We identify the highest-leverage workflow or decision area, map the process, define KPIs, and agree success criteria.</p>
                             </div>
                         </div>
 
@@ -720,7 +722,7 @@
                             </div>
                             <div class="process-info">
                                 <h3 class="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">Design</h3>
-                                <p class="text-base md:text-lg text-white/40 font-light leading-relaxed max-w-md">We design the experience (copilot, automation, dashboard), security controls, and evaluation approach.</p>
+                                <p class="text-lg text-white/40 font-light leading-relaxed max-w-md">We design the experience (copilot, automation, dashboard), security controls, and evaluation approach.</p>
                             </div>
                         </div>
 
@@ -733,8 +735,8 @@
                                 <div class="process-marker"></div>
                             </div>
                             <div class="process-info">
-                                <h3 class="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">Build</h3>
-                                <p class="text-base md:text-lg text-white/40 font-light leading-relaxed max-w-md">We integrate with your tools, implement guardrails, and ship in iterations so stakeholders can test early.</p>
+                                <h3 class="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">Build</h3>
+                                <p class="text-lg text-white/40 font-light leading-relaxed max-w-md">We integrate with your tools, implement guardrails, and ship in iterations so stakeholders can test early.</p>
                             </div>
                         </div>
 
@@ -747,8 +749,8 @@
                                 <div class="process-marker"></div>
                             </div>
                             <div class="process-info">
-                                <h3 class="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">Validate</h3>
-                                <p class="text-base md:text-lg text-white/40 font-light leading-relaxed max-w-md">We run quality checks (eval sets, acceptance criteria), test edge cases, and harden monitoring.</p>
+                                <h3 class="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">Validate</h3>
+                                <p class="text-lg text-white/40 font-light leading-relaxed max-w-md">We run quality checks (eval sets, acceptance criteria), test edge cases, and harden monitoring.</p>
                             </div>
                         </div>
 
@@ -761,8 +763,8 @@
                                 <div class="process-marker"></div>
                             </div>
                             <div class="process-info">
-                                <h3 class="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">Launch + Improve</h3>
-                                <p class="text-base md:text-lg text-white/40 font-light leading-relaxed max-w-md">We roll out to a pilot group, collect feedback, tune performance, and expand to more workflows.</p>
+                                <h3 class="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">Launch + Improve</h3>
+                                <p class="text-lg text-white/40 font-light leading-relaxed max-w-md">We roll out to a pilot group, collect feedback, tune performance, and expand to more workflows.</p>
                             </div>
                         </div>
                     </div>
@@ -771,39 +773,39 @@
         </section>
 
         <!-- Governance Section -->
-        <section id="governance" class="py-24 md:py-48 px-6 md:px-24 reveal-governance-wrap bg-transparent">
-            <div class="max-w-7xl mx-auto glass rounded-[2.5rem] md:rounded-[4rem] p-10 md:p-32 border border-white/5 flex flex-col md:flex-row gap-16 md:gap-24 items-center overflow-hidden governance-container parallax-item" data-speed="-0.02">
+        <section id="governance" class="py-48 px-10 md:px-24 reveal-governance-wrap bg-transparent">
+            <div class="max-w-7xl mx-auto glass rounded-[4rem] p-16 md:p-32 border border-white/5 flex flex-col md:flex-row gap-24 items-center overflow-hidden governance-container parallax-item" data-speed="-0.02">
                 <div class="flex-1 space-y-10 reveal-governance-text text-center md:text-left">
-                    <h2 class="text-4xl md:text-7xl font-light text-white tracking-tighter">Trust as a <span class="italic text-white/20 font-light">standard</span>.</h2>
-                    <p class="text-white/40 text-lg md:xl font-light leading-relaxed">
+                    <h2 class="text-5xl md:text-7xl font-light text-white tracking-tighter">Trust as a <span class="italic text-white/20 font-light">standard</span>.</h2>
+                    <p class="text-white/40 text-xl font-light leading-relaxed">
                         Enterprise AI requires enterprise-grade security. We implement multi-layer validation to prevent hallucinations and strictly enforce your internal data access policies.
                     </p>
-                    <div class="flex flex-wrap justify-center md:justify-start gap-10 md:gap-16 governance-chips">
-                        <div class="flex items-center gap-4 md:gap-6 gov-chip">
-                            <div class="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full border border-[#8b5e3c] text-[#8b5e3c]">
-                                <i data-lucide="lock" class="w-5 h-5 md:w-6 md:h-6"></i>
+                    <div class="flex flex-wrap justify-center md:justify-start gap-16 governance-chips">
+                        <div class="flex items-center gap-6 gov-chip">
+                            <div class="w-14 h-14 flex items-center justify-center rounded-full border border-[#8b5e3c] text-[#8b5e3c]">
+                                <i data-lucide="lock" class="w-6 h-6"></i>
                             </div>
-                            <span class="text-[10px] md:text-[11px] font-light uppercase tracking-[0.3em] text-white/50">PII Masking</span>
+                            <span class="text-[11px] font-light uppercase tracking-[0.3em] text-white/50">PII Masking</span>
                         </div>
-                        <div class="flex items-center gap-4 md:gap-6 gov-chip">
-                            <div class="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center rounded-full border border-[#8b5e3c] text-[#8b5e3c]">
-                                <i data-lucide="shield-check" class="w-5 h-5 md:w-6 md:h-6"></i>
+                        <div class="flex items-center gap-6 gov-chip">
+                            <div class="w-14 h-14 flex items-center justify-center rounded-full border border-[#8b5e3c] text-[#8b5e3c]">
+                                <i data-lucide="shield-check" class="w-6 h-6"></i>
                             </div>
-                            <span class="text-[10px] md:text-[11px] font-light uppercase tracking-[0.3em] text-white/50">SOC2 Protocols</span>
+                            <span class="text-[11px] font-light uppercase tracking-[0.3em] text-white/50">SOC2 Protocols</span>
                         </div>
                     </div>
                 </div>
-                <div class="w-2/3 md:w-1/3 aspect-square relative flex items-center justify-center reveal-governance-visual parallax-item" data-speed="0.05">
+                <div class="w-full md:w-1/3 aspect-square relative flex items-center justify-center reveal-governance-visual parallax-item" data-speed="0.05">
                     <div class="absolute inset-0 border border-white/5 rounded-full animate-[spin_25s_linear_infinite]"></div>
                     <div class="absolute inset-10 border border-[#8b5e3c]/20 rounded-full animate-[spin_20s_linear_infinite_reverse]"></div>
-                    <i data-lucide="shield" class="w-16 md:w-24 h-16 md:h-24 text-[#8b5e3c]/40"></i>
+                    <i data-lucide="shield" class="w-24 h-24 text-[#8b5e3c]/40"></i>
                 </div>
             </div>
         </section>
 
         <!-- Footer -->
-        <footer class="py-24 md:py-32 px-6 md:px-24 border-t border-white/5 reveal-footer bg-transparent">
-            <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between gap-16 md:gap-32">
+        <footer class="py-32 px-10 md:px-24 border-t border-white/5 reveal-footer bg-transparent">
+            <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between gap-32">
                 <div class="max-w-sm space-y-10 footer-col parallax-item" data-speed="0.02">
                     <div class="flex items-center gap-4">
                         <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769369853/GenVerge_1_zoczbv.png" alt="GenVerge Logo" class="h-8 md:h-10 w-auto filter brightness-110">
@@ -812,10 +814,10 @@
                         Architecting the future of human-AI collaboration. Elegant systems for complex operational challenges.
                     </p>
                 </div>
-                <div class="grid grid-cols-2 gap-16 md:gap-32 footer-links-wrap">
+                <div class="grid grid-cols-2 gap-32 footer-links-wrap">
                     <div class="space-y-10 footer-col parallax-item" data-speed="0.03">
                         <h5 class="text-[11px] font-light uppercase tracking-widest text-white/40">Navigation</h5>
-                        <ul class="space-y-4 text-[10px] md:text-xs text-white/20 font-light">
+                        <ul class="space-y-4 text-xs text-white/20 font-light">
                             <li class="hover:text-[#d4a373] cursor-pointer transition-colors">About Us</li>
                             <li class="hover:text-[#d4a373] cursor-pointer transition-colors">Capability Grid</li>
                             <li class="hover:text-[#d4a373] cursor-pointer transition-colors">Privacy Center</li>
@@ -823,14 +825,14 @@
                     </div>
                     <div class="space-y-10 footer-col parallax-item" data-speed="0.04">
                         <h5 class="text-[11px] font-light uppercase tracking-widest text-white/40">Connection</h5>
-                        <ul class="space-y-4 text-[10px] md:text-xs text-white/20 font-light">
+                        <ul class="space-y-4 text-xs text-white/20 font-light">
                             <li class="hover:text-[#d4a373] cursor-pointer transition-colors">LinkedIn</li>
                             <li class="hover:text-[#d4a373] cursor-pointer transition-colors">Strategic Ops</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="max-w-[1600px] mx-auto mt-24 md:mt-32 pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[8px] md:text-[10px] text-white/10 font-bold uppercase tracking-[0.4em] footer-bottom text-center md:text-left">
+            <div class="max-w-[1600px] mx-auto mt-32 pt-10 border-t border-white/5 flex justify-between items-center text-[10px] text-white/10 font-bold uppercase tracking-[0.4em] footer-bottom">
                 <span>© 2024 GenVerge. Pure Intelligence.</span>
                 <span>London / Dubai / Remote</span>
             </div>
@@ -842,7 +844,7 @@
         <div class="modal-grain"></div>
         <div class="bg-large-text" id="modal-bg-text">SERVICE</div>
         
-        <div class="relative w-full min-h-screen py-16 px-6 md:px-24 z-10" id="modal-content">
+        <div class="relative w-full min-h-screen py-16 px-10 md:px-24 z-10" id="modal-content">
             <!-- Top Nav Interface -->
             <div class="max-w-7xl mx-auto flex justify-between items-center mb-16 opacity-0 reveal-modal-nav">
                 <div class="flex items-center gap-4 group cursor-pointer" id="close-modal">
@@ -1216,7 +1218,7 @@
                 .from(".reveal-about-img", { scale: 0.9, opacity: 0, duration: 1.5, ease: "expo.out" }, "-=1.5")
                 .from(".about-testimonial", { x: 40, opacity: 0, duration: 1.2, ease: "power3.out" }, "-=1");
 
-            // --- SERVICE CARD ANIMATION (DESKTOP GRID VS MOBILE AUTOMATIC STACK) ---
+            // --- SERVICE CARD ANIMATION (OPTIMIZED FOR BUTTERY SMOOTHNESS) ---
             const cards = gsap.utils.toArray(".service-card");
             
             if (window.innerWidth > 1024) {
@@ -1233,26 +1235,26 @@
                         const centerX = rect.width / 2, centerY = rect.height / 2;
                         const rotateX = ((y - centerY) / centerY) * -6, rotateY = ((x - centerX) / centerX) * 6;
                         const shadowX = (x - centerX) / 5, shadowY = (y - centerY) / 5;
-                        gsap.to(card, { rotateX: rotateX, rotateY: rotateY, boxShadow: `${-shadowX}px ${-shadowY}px 60px rgba(0,0,0,0.7)`, duration: 0.5, ease: "power2.out" });
+                        gsap.to(card, { rotateX: rotateX, rotateY: rotateY, boxShadow: `${-shadowX}px ${-shadowY}px 60px rgba(0,0,0,0.7)`, duration: 0.4, ease: "power1.out" });
                         const content = card.querySelector('.card-content-lift');
-                        if (content) gsap.to(content, { x: (x - centerX) / 15, y: (y - centerY) / 15, duration: 0.5 });
+                        if (content) gsap.to(content, { x: (x - centerX) / 15, y: (y - centerY) / 15, duration: 0.4 });
                     });
                     card.addEventListener('mouseleave', () => {
-                        gsap.to(card, { rotateX: 0, rotateY: 0, boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)", duration: 0.7, ease: "elastic.out(1, 0.3)" });
+                        gsap.to(card, { rotateX: 0, rotateY: 0, boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)", duration: 0.6, ease: "power2.out" });
                         const content = card.querySelector('.card-content-lift');
-                        if (content) gsap.to(content, { x: 0, y: 0, duration: 0.7 });
+                        if (content) gsap.to(content, { x: 0, y: 0, duration: 0.6 });
                     });
                 });
             } else {
-                // MOBILE AUTOMATIC STACK (FIXED & IMPROVED)
-                gsap.set(cards, { yPercent: 0, opacity: 1, scale: 1, transformOrigin: "center center" });
+                // MOBILE AUTOMATIC STACK - BUTTERY SMOOTH REDESIGN
+                gsap.set(cards, { yPercent: 0, opacity: 1, scale: 1, force3D: true, transformOrigin: "center center" });
                 
                 cards.forEach((card, i) => {
                     gsap.set(card, { 
                         scale: 1 - (i * 0.05), 
                         yPercent: i * 8, 
                         opacity: 1 - (i * 0.2),
-                        filter: `blur(${i * 2}px)`,
+                        filter: `blur(${i * 1.5}px)`,
                         zIndex: cards.length - i 
                     });
                 });
@@ -1261,39 +1263,56 @@
                     scrollTrigger: {
                         trigger: "#services",
                         start: "top 10%",
-                        end: `+=${cards.length * 150}%`, // Longer scroll for smooth automatic shifts
+                        end: `+=${cards.length * 150}%`, 
                         pin: true,
-                        scrub: 1.2,
-                        invalidateOnRefresh: true
+                        scrub: 0.8, // Low scrub factor for fluid, automatic shift feel
+                        snap: 1 / (cards.length - 1), // AUTOMATIC SHIFT: Snaps to the exact card position on one finger scroll
+                        invalidateOnRefresh: true,
+                        anticipatePin: 1
                     }
                 });
 
                 cards.forEach((card, i) => {
                     if (i < cards.length - 1) {
-                        // Top Card Peels away
                         serviceStackTl.to(card, {
                             yPercent: -150,
-                            scale: 1.1,
+                            scale: 1.05,
                             opacity: 0,
-                            filter: "blur(20px)",
-                            ease: "power2.inOut",
+                            filter: "blur(10px)",
+                            ease: "power1.inOut",
                             duration: 1
                         }, i)
-                        // SHIFT FORWARD: Every remaining card updates its relative index position
                         .to(cards.slice(i + 1), {
-                            scale: (idx) => 1 - (idx * 0.05),
-                            yPercent: (idx) => idx * 8,
-                            opacity: (idx) => 1 - (idx * 0.2),
-                            filter: (idx) => `blur(${idx * 2}px)`,
-                            ease: "power2.inOut",
+                            scale: (idx, target) => {
+                                const currentI = cards.indexOf(target);
+                                const relativeIdx = currentI - (i + 1);
+                                return 1 - (relativeIdx * 0.05);
+                            },
+                            yPercent: (idx, target) => {
+                                const currentI = cards.indexOf(target);
+                                const relativeIdx = currentI - (i + 1);
+                                return relativeIdx * 8;
+                            },
+                            opacity: (idx, target) => {
+                                const currentI = cards.indexOf(target);
+                                const relativeIdx = currentI - (i + 1);
+                                return 1 - (relativeIdx * 0.2);
+                            },
+                            filter: (idx, target) => {
+                                const currentI = cards.indexOf(target);
+                                const relativeIdx = currentI - (i + 1);
+                                return `blur(${relativeIdx * 1.5}px)`;
+                            },
+                            ease: "power1.inOut",
                             duration: 1
                         }, i);
                     }
                 });
             }
 
-            // NEURAL TIMELINE
-            document.querySelectorAll('.process-node').forEach((step) => {
+            // NEURAL TIMELINE ANIMATIONS
+            const steps = document.querySelectorAll('.process-node');
+            steps.forEach((step) => {
                 ScrollTrigger.create({
                     trigger: step, start: "top center+=100", end: "bottom center-=100",
                     onEnter: () => step.classList.add('active'),
@@ -1308,19 +1327,19 @@
                 scrollTrigger: { trigger: "#timeline-steps", start: "top center", end: "bottom center", scrub: 1 }
             });
 
-            // GOVERNANCE
+            // GOVERNANCE REVEAL
             gsap.timeline({ scrollTrigger: { trigger: "#governance", start: "top 70%" } })
                 .from(".governance-container", { scale: 0.95, opacity: 0, duration: 1.5, ease: "expo.out" })
                 .from(".reveal-governance-text > *", { y: 30, opacity: 0, stagger: 0.2, duration: 1.2, ease: "power3.out" }, "-=1")
                 .from(".gov-chip", { scale: 0.8, opacity: 0, stagger: 0.15, duration: 1, ease: "back.out(1.7)" }, "-=0.8")
                 .from(".reveal-governance-visual", { rotate: 45, opacity: 0, duration: 1.5, ease: "power3.out" }, "-=1.5");
 
-            // FOOTER
+            // FOOTER REVEAL
             gsap.timeline({ scrollTrigger: { trigger: "footer", start: "top 85%" } })
                 .from(".footer-col", { y: 30, opacity: 0, stagger: 0.15, duration: 1.2, ease: "power3.out" })
                 .from(".footer-bottom", { opacity: 0, duration: 1.5 }, "-=0.5");
 
-            // GLOBAL UTILITIES
+            // UTILITIES
             gsap.to("#scroll-progress", { scale: "1 1", ease: "none", scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 0.3 } });
 
             ScrollTrigger.create({
