@@ -383,12 +383,12 @@
                 padding-right: 1.5rem;
             }
 
-            /* Mobile Stacked Services */
+            /* Mobile Stacked Services - Improved Height and Positioning */
             #services-grid {
                 position: relative;
-                height: 60vh; /* Controlled height for stack container */
+                height: 65vh; 
                 display: block !important;
-                max-width: 90%;
+                max-width: 95%;
                 margin: 0 auto;
             }
             .service-card {
@@ -564,7 +564,7 @@
             <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769369853/GenVerge_1_zoczbv.png" alt="GenVerge Logo" class="h-8 md:h-11 w-auto filter brightness-110">
         </div>
         <!-- Grouped Elements Rightward -->
-        <div class="flex items-center gap-6 md:gap-16">
+        <div class="flex items-center gap-12 md:gap-16">
             <div class="hidden lg:flex gap-10 md:gap-16 text-[10px] font-medium tracking-[0.35em] uppercase text-white/30">
                 <a href="#about" class="nav-link">About</a>
                 <a href="#services" class="nav-link">Services</a>
@@ -606,13 +606,13 @@
                     </h1>
 
                     <div class="reveal-up parallax-item" data-speed="0.03">
-                        <p class="text-lg md:text-xl max-w-2xl mb-10 text-white/30 font-light leading-relaxed lg:border-l-2 border-[#8b5e3c]/20 lg:pl-12">
+                        <p class="text-lg md:text-xl max-w-2xl mb-10 text-white/30 font-light leading-relaxed lg:border-l-2 border-[#8b5e3c]/20 lg:pl-12 text-center lg:text-left">
                             We architect high-fidelity AI ecosystems that integrate seamlessly with your workforce—transforming complex operational data into immediate competitive momentum.
                         </p>
                     </div>
 
                     <!-- Refined Animated CTA Section -->
-                    <div class="flex flex-col sm:flex-row gap-8 reveal-up items-center lg:items-start pt-2 parallax-item" data-speed="0.04">
+                    <div class="flex flex-col sm:flex-row gap-6 md:gap-8 reveal-up items-center lg:items-start pt-2 parallax-item" data-speed="0.04">
                         <button class="btn-animated-primary group">
                             Begin Discovery <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                         </button>
@@ -630,17 +630,17 @@
         </section>
 
         <!-- About Section -->
-        <section id="about" class="py-24 md:py-48 px-6 md:px-24 relative overflow-hidden bg-transparent">
+        <section id="about" class="pt-24 pb-12 md:py-48 px-6 md:px-24 relative overflow-hidden bg-transparent">
             <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 md:gap-40 items-center">
                 <div class="space-y-12 about-text reveal-about-content">
                     <div class="space-y-4">
                         <span class="text-[#d4a373] text-[12px] font-light uppercase tracking-[0.6em] block about-heading">About Us</span>
                         <div class="h-[1px] w-24 bg-[#8b5e3c] about-accent-line"></div>
                     </div>
-                    <h2 class="text-4xl md:text-6xl font-light text-white leading-[1.1] tracking-tighter about-title">
+                    <h2 class="text-4xl md:text-6xl font-light text-white leading-[1.1] tracking-tighter about-title text-center md:text-left">
                         We bridge the gap between <span class="text-white/30 italic">raw potential</span> and measurable performance.
                     </h2>
-                    <p class="text-lg md:text-xl text-white/40 font-light leading-relaxed about-description">
+                    <p class="text-lg md:text-xl text-white/40 font-light leading-relaxed about-description text-center md:text-left">
                         GenVerge specializes in operationalizing Large Language Models. We move beyond experimental playgrounds to create robust, permission-aware tools that integrate with your existing SOPs.
                     </p>
                     <div class="grid grid-cols-2 gap-10 md:gap-20 pt-6 about-stats">
@@ -667,13 +667,14 @@
         </section>
 
         <!-- Services Section -->
-        <section id="services" class="py-24 md:py-48 px-6 md:px-24 bg-white/[0.01]">
+        <section id="services" class="pt-12 pb-24 md:py-48 px-6 md:px-24 bg-white/[0.01]">
             <div class="max-w-[1600px] mx-auto">
                 <div class="mb-20 md:mb-32 reveal-services-head">
                     <span class="text-[#d4a373] text-[12px] font-light uppercase tracking-[0.6em] mb-6 block">Capabilities</span>
-                    <h2 class="text-5xl md:text-8xl font-light text-white tracking-tighter">Our Services</h2>
+                    <h2 class="text-5xl md:text-8xl font-light text-white tracking-tighter text-center md:text-left">Our Services</h2>
                 </div>
 
+                <!-- Grid for Desktop / Container for Mobile Stack -->
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-10" id="services-grid">
                     <!-- Dynamic Grid Rendering -->
                 </div>
@@ -704,7 +705,7 @@
                                 <div class="process-marker"></div>
                             </div>
                             <div class="process-info">
-                                <h3 class="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">Discover</h3>
+                                <h3 class="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">Discover</h3>
                                 <p class="text-base md:text-lg text-white/40 font-light leading-relaxed max-w-md">We identify the highest-leverage workflow or decision area, map the process, define KPIs, and agree success criteria.</p>
                             </div>
                         </div>
@@ -732,7 +733,7 @@
                                 <div class="process-marker"></div>
                             </div>
                             <div class="process-info">
-                                <h3 class="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">Build</h3>
+                                <h3 class="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">Build</h3>
                                 <p class="text-base md:text-lg text-white/40 font-light leading-relaxed max-w-md">We integrate with your tools, implement guardrails, and ship in iterations so stakeholders can test early.</p>
                             </div>
                         </div>
@@ -746,7 +747,7 @@
                                 <div class="process-marker"></div>
                             </div>
                             <div class="process-info">
-                                <h3 class="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">Validate</h3>
+                                <h3 class="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">Validate</h3>
                                 <p class="text-base md:text-lg text-white/40 font-light leading-relaxed max-w-md">We run quality checks (eval sets, acceptance criteria), test edge cases, and harden monitoring.</p>
                             </div>
                         </div>
@@ -760,7 +761,7 @@
                                 <div class="process-marker"></div>
                             </div>
                             <div class="process-info">
-                                <h3 class="text-4xl md:text-5xl font-light text-white mb-6 tracking-tight">Launch + Improve</h3>
+                                <h3 class="text-3xl md:text-5xl font-light text-white mb-6 tracking-tight">Launch + Improve</h3>
                                 <p class="text-base md:text-lg text-white/40 font-light leading-relaxed max-w-md">We roll out to a pilot group, collect feedback, tune performance, and expand to more workflows.</p>
                             </div>
                         </div>
@@ -773,7 +774,7 @@
         <section id="governance" class="py-24 md:py-48 px-6 md:px-24 reveal-governance-wrap bg-transparent">
             <div class="max-w-7xl mx-auto glass rounded-[2.5rem] md:rounded-[4rem] p-10 md:p-32 border border-white/5 flex flex-col md:flex-row gap-16 md:gap-24 items-center overflow-hidden governance-container parallax-item" data-speed="-0.02">
                 <div class="flex-1 space-y-10 reveal-governance-text text-center md:text-left">
-                    <h2 class="text-5xl md:text-7xl font-light text-white tracking-tighter">Trust as a <span class="italic text-white/20 font-light">standard</span>.</h2>
+                    <h2 class="text-4xl md:text-7xl font-light text-white tracking-tighter">Trust as a <span class="italic text-white/20 font-light">standard</span>.</h2>
                     <p class="text-white/40 text-lg md:xl font-light leading-relaxed">
                         Enterprise AI requires enterprise-grade security. We implement multi-layer validation to prevent hallucinations and strictly enforce your internal data access policies.
                     </p>
@@ -946,7 +947,7 @@
         });
         lucide.createIcons();
 
-        // --- MODAL LOGIC (SUBTLE MINIMAL PREMIUM VIEW) ---
+        // --- MODAL LOGIC ---
         const modal = document.getElementById('service-modal');
         const modalBody = document.getElementById('modal-body');
         const closeModal = document.getElementById('close-modal');
@@ -954,7 +955,6 @@
 
         function openModal(s) {
             modalBgText.innerText = s.title.split(' ')[0].toUpperCase();
-            
             modalBody.innerHTML = `
                 <div class="grid lg:grid-cols-12 gap-12 md:gap-24 items-start">
                     <div class="lg:col-span-7 space-y-16">
@@ -964,28 +964,19 @@
                                     <div class="w-1.5 h-1.5 rounded-full bg-[#8b5e3c]"></div>
                                     <span class="text-[10px] font-bold uppercase tracking-[0.6em] text-white/20">Operational Core Architecture</span>
                                 </div>
-                                <h2 class="text-4xl md:text-7xl font-light text-white leading-none tracking-tight">
-                                    ${s.title}
-                                </h2>
+                                <h2 class="text-4xl md:text-7xl font-light text-white leading-none tracking-tight">${s.title}</h2>
                             </div>
                             <div class="reveal-modal-item">
-                                <p class="text-xl md:text-3xl text-white/30 font-light leading-relaxed max-w-2xl italic">
-                                    ${s.fullDesc}
-                                </p>
+                                <p class="text-xl md:text-3xl text-white/30 font-light leading-relaxed max-w-2xl italic">${s.fullDesc}</p>
                             </div>
                         </div>
-
                         <div class="grid md:grid-cols-2 gap-8 reveal-modal-item">
                             <div class="group p-10 border border-white/5 rounded-[2.5rem] bg-white/[0.01] hover:border-[#8b5e3c]/30 transition-all duration-700 relative overflow-hidden">
                                 <div class="absolute inset-0 bg-radial-gradient(circle at 0% 0%, rgba(139, 94, 60, 0.05) 0%, transparent 50%) pointer-events-none"></div>
                                 <div class="absolute inset-0 border-[0.5px] border-white/10 rounded-[2.5rem] pointer-events-none"></div>
-                                <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
-                                    <i data-lucide="cpu" class="w-12 h-12"></i>
-                                </div>
+                                <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity"><i data-lucide="cpu" class="w-12 h-12"></i></div>
                                 <div class="flex items-center gap-4 mb-6">
-                                    <div class="w-8 h-8 rounded-lg bg-[#8b5e3c]/10 flex items-center justify-center text-[#8b5e3c] shadow-[0_0_15px_rgba(139,94,60,0.1)]">
-                                        <i data-lucide="terminal" class="w-4 h-4"></i>
-                                    </div>
+                                    <div class="w-8 h-8 rounded-lg bg-[#8b5e3c]/10 flex items-center justify-center text-[#8b5e3c] shadow-[0_0_15px_rgba(139,94,60,0.1)]"><i data-lucide="terminal" class="w-4 h-4"></i></div>
                                     <span class="text-[10px] font-bold uppercase tracking-widest text-white/50">Technical Core</span>
                                 </div>
                                 <p class="text-sm text-white/50 font-light leading-relaxed">Integrated LLM orchestration using secure API endpoints and high-fidelity custom knowledge vectors.</p>
@@ -993,74 +984,40 @@
                             <div class="group p-10 border border-white/5 rounded-[2.5rem] bg-white/[0.01] hover:border-[#8b5e3c]/30 transition-all duration-700 relative overflow-hidden">
                                 <div class="absolute inset-0 bg-radial-gradient(circle at 0% 0%, rgba(139, 94, 60, 0.05) 0%, transparent 50%) pointer-events-none"></div>
                                 <div class="absolute inset-0 border-[0.5px] border-white/10 rounded-[2.5rem] pointer-events-none"></div>
-                                <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
-                                    <i data-lucide="shield" class="w-12 h-12"></i>
-                                </div>
+                                <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity"><i data-lucide="shield" class="w-12 h-12"></i></div>
                                 <div class="flex items-center gap-4 mb-6">
-                                    <div class="w-8 h-8 rounded-lg bg-[#8b5e3c]/10 flex items-center justify-center text-[#8b5e3c] shadow-[0_0_15px_rgba(139,94,60,0.1)]">
-                                        <i data-lucide="key" class="w-4 h-4"></i>
-                                    </div>
+                                    <div class="w-8 h-8 rounded-lg bg-[#8b5e3c]/10 flex items-center justify-center text-[#8b5e3c] shadow-[0_0_15px_rgba(139,94,60,0.1)]"><i data-lucide="key" class="w-4 h-4"></i></div>
                                     <span class="text-[10px] font-bold uppercase tracking-widest text-white/50">Auth Framework</span>
                                 </div>
                                 <p class="text-sm text-white/50 font-light leading-relaxed">Role-based access controls mapped directly to your internal enterprise hierarchy and security protocols.</p>
                             </div>
                         </div>
-
                         <div class="reveal-modal-item space-y-6 pt-8">
                             <div class="h-[1px] w-full bg-white/5 mb-12"></div>
                             <h5 class="text-[10px] font-bold uppercase tracking-[0.5em] text-[#d4a373]">Optimized Integration Vectors:</h5>
-                            <div class="flex flex-wrap gap-4">
-                                ${s.bestFor.map(b => `<span class="px-8 py-3 rounded-full border border-white/10 bg-white/[0.02] text-[10px] uppercase font-bold tracking-[0.2em] text-white/60 hover:text-white transition-colors cursor-default shadow-[inset_0_0_10px_rgba(255,255,255,0.02)]">${b}</span>`).join('')}
-                            </div>
+                            <div class="flex flex-wrap gap-4">${s.bestFor.map(b => `<span class="px-8 py-3 rounded-full border border-white/10 bg-white/[0.02] text-[10px] uppercase font-bold tracking-[0.2em] text-white/60 hover:text-white transition-colors cursor-default shadow-[inset_0_0_10px_rgba(255,255,255,0.02)]">${b}</span>`).join('')}</div>
                         </div>
                     </div>
-
                     <div class="lg:col-span-5 space-y-8 lg:sticky lg:top-10">
                         <div class="p-12 border border-white/10 rounded-[4rem] space-y-12 bg-gradient-to-br from-white/[0.05] to-transparent reveal-modal-item relative overflow-hidden backdrop-blur-xl shadow-[inset_0_0_40px_rgba(139,94,60,0.05)]">
                             <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.01] to-transparent opacity-50"></div>
                             <div class="absolute -top-24 -right-24 w-64 h-64 bg-[#8b5e3c]/10 blur-[100px] rounded-full"></div>
-                            
                             <div class="space-y-10 relative z-10">
                                 <h4 class="text-[11px] font-bold uppercase tracking-[0.5em] text-white/50 pb-6 border-b border-white/10">Strategic Outcomes</h4>
-                                <div class="space-y-10">
-                                    ${s.outcomes.map(o => `
-                                        <div class="flex items-start gap-8 group">
-                                            <div class="w-10 h-10 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center group-hover:border-[#8b5e3c]/50 transition-all shadow-[0_0_15px_rgba(0,0,0,0.3)]">
-                                                <i data-lucide="check" class="w-4 h-4 text-[#8b5e3c]"></i>
-                                            </div>
-                                            <p class="text-xl text-white/70 font-light italic leading-tight group-hover:text-white transition-colors">${o}</p>
-                                        </div>
-                                    `).join('')}
-                                </div>
+                                <div class="space-y-10">${s.outcomes.map(o => `<div class="flex items-start gap-8 group"><div class="w-10 h-10 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center group-hover:border-[#8b5e3c]/50 transition-all shadow-[0_0_15px_rgba(0,0,0,0.3)]"><i data-lucide="check" class="w-4 h-4 text-[#8b5e3c]"></i></div><p class="text-xl text-white/70 font-light italic leading-tight group-hover:text-white transition-colors">${o}</p></div>`).join('')}</div>
                             </div>
-                            
                             <div class="space-y-10 pt-10 border-t border-white/10 relative z-10">
                                 <div class="flex justify-between items-center px-2">
-                                    <div class="flex flex-col gap-1">
-                                        <span class="text-[9px] text-white/30 uppercase tracking-[0.4em]">Engagement Model</span>
-                                        <span class="text-lg text-[#d4a373] font-light shadow-text">${s.engagement}</span>
-                                    </div>
-                                    <div class="text-right flex flex-col gap-1">
-                                        <span class="text-[9px] text-white/30 uppercase tracking-[0.4em]">Priority Level</span>
-                                        <span class="text-lg text-white/80 font-light">High</span>
-                                    </div>
+                                    <div class="flex flex-col gap-1"><span class="text-[9px] text-white/30 uppercase tracking-[0.4em]">Engagement Model</span><span class="text-lg text-[#d4a373] font-light shadow-text">${s.engagement}</span></div>
+                                    <div class="text-right flex flex-col gap-1"><span class="text-[9px] text-white/30 uppercase tracking-[0.4em]">Priority Level</span><span class="text-lg text-white/80 font-light">High</span></div>
                                 </div>
-                                <button class="btn-animated-primary w-full justify-center group py-6 text-xs tracking-[0.4em] shadow-[0_10px_30px_rgba(139,94,60,0.1)]">
-                                    INITIALIZE DEPLOYMENT <i data-lucide="arrow-right" class="w-4 h-4 ml-4 group-hover:translate-x-2 transition-transform"></i>
-                                </button>
+                                <button class="btn-animated-primary w-full justify-center group py-6 text-xs tracking-[0.4em] shadow-[0_10px_30px_rgba(139,94,60,0.1)]">INITIALIZE DEPLOYMENT <i data-lucide="arrow-right" class="w-4 h-4 ml-4 group-hover:translate-x-2 transition-transform"></i></button>
                             </div>
                         </div>
-
                         <div class="px-12 py-6 flex justify-between items-center text-[9px] text-white/20 font-bold uppercase tracking-[0.5em] reveal-modal-item border border-white/10 rounded-full bg-white/[0.02] shadow-[0_5px_15px_rgba(0,0,0,0.2)]">
-                            <div class="flex items-center gap-3">
-                                <i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#8b5e3c]"></i> 
-                                <span class="text-white/40">SOC2 COMPLIANT</span>
-                            </div>
+                            <div class="flex items-center gap-3"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#8b5e3c]"></i><span class="text-white/40">SOC2 COMPLIANT</span></div>
                             <div class="w-1 h-1 rounded-full bg-white/10"></div>
-                            <div class="flex items-center gap-3">
-                                <i data-lucide="cpu" class="w-3.5 h-3.5 text-[#8b5e3c]"></i> 
-                                <span class="text-white/40">256-BIT ENCRYPTED</span>
-                            </div>
+                            <div class="flex items-center gap-3"><i data-lucide="cpu" class="w-3.5 h-3.5 text-[#8b5e3c]"></i><span class="text-white/40">256-BIT ENCRYPTED</span></div>
                         </div>
                     </div>
                 </div>
@@ -1070,23 +1027,11 @@
             modal.style.pointerEvents = 'auto';
             document.body.style.overflow = 'hidden';
             
-            const modalTl = gsap.timeline();
-            modalTl.to(modal, { opacity: 1, duration: 0.8, ease: "power3.inOut" })
-                   .to(".reveal-modal-nav", { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.3")
-                   .from(".reveal-modal-item", { 
-                       y: 60, 
-                       opacity: 0, 
-                       filter: "blur(10px)",
-                       stagger: 0.12, 
-                       duration: 1.4, 
-                       ease: "power4.out" 
-                   }, "-=0.8")
-                   .from("#modal-bg-text", { 
-                       scale: 1.1, 
-                       opacity: 0, 
-                       duration: 2.5, 
-                       ease: "power4.out" 
-                   }, "-=1.8");
+            gsap.timeline()
+                .to(modal, { opacity: 1, duration: 0.8, ease: "power3.inOut" })
+                .to(".reveal-modal-nav", { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.3")
+                .from(".reveal-modal-item", { y: 60, opacity: 0, filter: "blur(10px)", stagger: 0.12, duration: 1.4, ease: "power4.out" }, "-=0.8")
+                .from("#modal-bg-text", { scale: 1.1, opacity: 0, duration: 2.5, ease: "power4.out" }, "-=1.8");
             
             lucide.createIcons();
         }
@@ -1102,8 +1047,7 @@
 
         // --- THREE.JS (Space Background) ---
         let backgroundRenderer, backgroundScene, backgroundCamera, starField, bokehGroup;
-        let mouseX = 0, mouseY = 0;
-        let targetX = 0, targetY = 0;
+        let starTargetX = 0, starTargetY = 0;
         let windowHalfX = window.innerWidth / 2;
         let windowHalfY = window.innerHeight / 2;
 
@@ -1151,8 +1095,8 @@
             backgroundScene.add(bokehGroup);
 
             document.addEventListener('mousemove', (e) => {
-                targetX = (e.clientX - windowHalfX) * 0.2;
-                targetY = (e.clientY - windowHalfY) * 0.2;
+                starTargetX = (e.clientX - windowHalfX) * 0.2;
+                starTargetY = (e.clientY - windowHalfY) * 0.2;
             });
 
             window.addEventListener('resize', () => {
@@ -1162,19 +1106,17 @@
                 backgroundCamera.updateProjectionMatrix();
                 backgroundRenderer.setSize(window.innerWidth, window.innerHeight);
             });
-            animate();
+            animateSpace();
         };
 
-        const animate = () => {
-            requestAnimationFrame(animate);
-            mouseX += (targetX - mouseX) * 0.05;
-            mouseY += (targetY - mouseY) * 0.05;
+        const animateSpace = () => {
+            requestAnimationFrame(animateSpace);
             starField.rotation.y += 0.0003;
             starField.rotation.x += 0.0001;
             bokehGroup.rotation.y -= 0.0002;
             bokehGroup.rotation.z += 0.0001;
-            backgroundCamera.position.x += (mouseX - backgroundCamera.position.x) * 0.05;
-            backgroundCamera.position.y += (-mouseY - backgroundCamera.position.y) * 0.05;
+            backgroundCamera.position.x += (starTargetX - backgroundCamera.position.x) * 0.05;
+            backgroundCamera.position.y += (-starTargetY - backgroundCamera.position.y) * 0.05;
             backgroundCamera.lookAt(backgroundScene.position);
             backgroundRenderer.render(backgroundScene, backgroundCamera);
         };
@@ -1248,13 +1190,6 @@
                 heroRenderer.render(heroScene, heroCamera);
             };
             animateHero();
-
-            window.addEventListener('resize', () => {
-                if(!container) return;
-                heroCamera.aspect = container.clientWidth / container.clientHeight;
-                heroCamera.updateProjectionMatrix();
-                heroRenderer.setSize(container.clientWidth, container.clientHeight);
-            });
         };
 
         // --- GSAP ANIMATIONS ---
@@ -1265,87 +1200,33 @@
             initHero3D();
 
             // REVEAL HERO
-            const tl = gsap.timeline();
-            tl.to("#hero-main-content, #navbar", { opacity: 1, duration: 1.2, ease: "power2.out" })
-            .from(".hero-headline-line span", { y: 150, opacity: 0, filter: "blur(18px)", duration: 1.8, stagger: 0.15, ease: "expo.out" }, "-=0.4")
-            .from(".reveal-hero-visual", { scale: 0.7, opacity: 0, duration: 2, ease: "expo.out" }, "-=1.5")
-            .from(".reveal-up", { y: 40, opacity: 0, duration: 1.5, stagger: 0.15, ease: "power3.out" }, "-=1.5");
+            gsap.timeline()
+                .to("#hero-main-content, #navbar", { opacity: 1, duration: 1.2, ease: "power2.out" })
+                .from(".hero-headline-line span", { y: 150, opacity: 0, filter: "blur(18px)", duration: 1.8, stagger: 0.15, ease: "expo.out" }, "-=0.4")
+                .from(".reveal-hero-visual", { scale: 0.7, opacity: 0, duration: 2, ease: "expo.out" }, "-=1.5")
+                .from(".reveal-up", { y: 40, opacity: 0, duration: 1.5, stagger: 0.15, ease: "power3.out" }, "-=1.5");
 
             // ABOUT REVEAL
-            const aboutTl = gsap.timeline({ scrollTrigger: { trigger: "#about", start: "top 70%" } });
-            aboutTl.from(".about-heading", { y: 20, opacity: 0, duration: 1, ease: "power3.out" })
-                   .from(".about-accent-line", { width: 0, duration: 1, ease: "power3.out" }, "-=0.8")
-                   .from(".about-title", { y: 30, opacity: 0, duration: 1.2, ease: "power3.out" }, "-=0.6")
-                   .from(".about-description", { y: 20, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.8")
-                   .from(".about-stats > div", { y: 30, opacity: 0, stagger: 0.2, duration: 1, ease: "power3.out" }, "-=0.8")
-                   .from(".reveal-about-img", { scale: 0.9, opacity: 0, duration: 1.5, ease: "expo.out" }, "-=1.5")
-                   .from(".about-testimonial", { x: 40, opacity: 0, duration: 1.2, ease: "power3.out" }, "-=1");
+            gsap.timeline({ scrollTrigger: { trigger: "#about", start: "top 70%" } })
+                .from(".about-heading", { y: 20, opacity: 0, duration: 1, ease: "power3.out" })
+                .from(".about-accent-line", { width: 0, duration: 1, ease: "power3.out" }, "-=0.8")
+                .from(".about-title", { y: 30, opacity: 0, duration: 1.2, ease: "power3.out" }, "-=0.6")
+                .from(".about-description", { y: 20, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.8")
+                .from(".about-stats > div", { y: 30, opacity: 0, stagger: 0.2, duration: 1, ease: "power3.out" }, "-=0.8")
+                .from(".reveal-about-img", { scale: 0.9, opacity: 0, duration: 1.5, ease: "expo.out" }, "-=1.5")
+                .from(".about-testimonial", { x: 40, opacity: 0, duration: 1.2, ease: "power3.out" }, "-=1");
 
-            // --- SERVICE CARD ANIMATION (DESKTOP VS MOBILE CRED-STYLE STACK) ---
+            // --- SERVICE CARD ANIMATION (DESKTOP GRID VS MOBILE AUTOMATIC STACK) ---
             const cards = gsap.utils.toArray(".service-card");
             
             if (window.innerWidth > 1024) {
-                // Desktop Grid Reveal
-                gsap.set(".service-card", { y: 80, opacity: 0, scale: 0.98 });
+                gsap.set(".service-card", { y: 80, opacity: 0, scale: 0.98, position: "relative", zIndex: "auto" });
                 cards.forEach((card, idx) => {
                     gsap.to(card, {
                         scrollTrigger: { trigger: card, start: "top 92%", toggleActions: "play reverse play reverse" },
-                        y: 0, opacity: 1, scale: 1, duration: 1.2, ease: "power2.out",
-                        delay: (idx % 3) * 0.1
+                        y: 0, opacity: 1, scale: 1, duration: 1.2, ease: "power2.out", delay: (idx % 3) * 0.1
                     });
-                });
-            } else {
-                // MOBILE CRED-STYLE STACK ANIMATION
-                // Stack cards on top of each other with scale and opacity offset
-                gsap.set(cards, { yPercent: 0, opacity: 1, scale: 1, transformOrigin: "center center" });
-                
-                cards.forEach((card, i) => {
-                    gsap.set(card, { 
-                        scale: 1 - (i * 0.05), 
-                        yPercent: i * 8, 
-                        opacity: 1 - (i * 0.2),
-                        filter: `blur(${i * 2}px)`,
-                        zIndex: cards.length - i 
-                    });
-                });
 
-                const serviceStackTl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: "#services",
-                        start: "top 15%",
-                        end: `+=${cards.length * 100}%`,
-                        pin: true,
-                        scrub: 1.2,
-                    }
-                });
-
-                cards.forEach((card, i) => {
-                    if (i < cards.length - 1) {
-                        // Current card slides UP and OUT like CRED
-                        serviceStackTl.to(card, {
-                            yPercent: -140,
-                            scale: 1.1,
-                            opacity: 0,
-                            filter: "blur(15px)",
-                            ease: "power2.inOut",
-                            duration: 1
-                        }, i)
-                        // All subsequent cards move up and "forward" (un-blur and scale up)
-                        .to(cards.slice(i + 1), {
-                            scale: (j) => 1 - (j * 0.05),
-                            yPercent: (j) => j * 8,
-                            opacity: (j) => 1 - (j * 0.2),
-                            filter: (j) => `blur(${j * 2}px)`,
-                            ease: "power2.inOut",
-                            duration: 1
-                        }, i);
-                    }
-                });
-            }
-
-            // 3D Tilt Interaction for Cards (DESKTOP ONLY)
-            if(window.innerWidth > 1024) {
-                document.querySelectorAll('.service-card').forEach(card => {
                     card.addEventListener('mousemove', (e) => {
                         const rect = card.getBoundingClientRect();
                         const x = e.clientX - rect.left, y = e.clientY - rect.top;
@@ -1362,11 +1243,57 @@
                         if (content) gsap.to(content, { x: 0, y: 0, duration: 0.7 });
                     });
                 });
+            } else {
+                // MOBILE AUTOMATIC STACK (FIXED & IMPROVED)
+                gsap.set(cards, { yPercent: 0, opacity: 1, scale: 1, transformOrigin: "center center" });
+                
+                cards.forEach((card, i) => {
+                    gsap.set(card, { 
+                        scale: 1 - (i * 0.05), 
+                        yPercent: i * 8, 
+                        opacity: 1 - (i * 0.2),
+                        filter: `blur(${i * 2}px)`,
+                        zIndex: cards.length - i 
+                    });
+                });
+
+                const serviceStackTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#services",
+                        start: "top 10%",
+                        end: `+=${cards.length * 150}%`, // Longer scroll for smooth automatic shifts
+                        pin: true,
+                        scrub: 1.2,
+                        invalidateOnRefresh: true
+                    }
+                });
+
+                cards.forEach((card, i) => {
+                    if (i < cards.length - 1) {
+                        // Top Card Peels away
+                        serviceStackTl.to(card, {
+                            yPercent: -150,
+                            scale: 1.1,
+                            opacity: 0,
+                            filter: "blur(20px)",
+                            ease: "power2.inOut",
+                            duration: 1
+                        }, i)
+                        // SHIFT FORWARD: Every remaining card updates its relative index position
+                        .to(cards.slice(i + 1), {
+                            scale: (idx) => 1 - (idx * 0.05),
+                            yPercent: (idx) => idx * 8,
+                            opacity: (idx) => 1 - (idx * 0.2),
+                            filter: (idx) => `blur(${idx * 2}px)`,
+                            ease: "power2.inOut",
+                            duration: 1
+                        }, i);
+                    }
+                });
             }
 
-            // NEURAL TIMELINE ANIMATIONS
-            const steps = document.querySelectorAll('.process-node');
-            steps.forEach((step) => {
+            // NEURAL TIMELINE
+            document.querySelectorAll('.process-node').forEach((step) => {
                 ScrollTrigger.create({
                     trigger: step, start: "top center+=100", end: "bottom center-=100",
                     onEnter: () => step.classList.add('active'),
@@ -1381,19 +1308,19 @@
                 scrollTrigger: { trigger: "#timeline-steps", start: "top center", end: "bottom center", scrub: 1 }
             });
 
-            // GOVERNANCE REVEAL
-            const govTl = gsap.timeline({ scrollTrigger: { trigger: "#governance", start: "top 70%" } });
-            govTl.from(".governance-container", { scale: 0.95, opacity: 0, duration: 1.5, ease: "expo.out" })
-                 .from(".reveal-governance-text > *", { y: 30, opacity: 0, stagger: 0.2, duration: 1.2, ease: "power3.out" }, "-=1")
-                 .from(".gov-chip", { scale: 0.8, opacity: 0, stagger: 0.15, duration: 1, ease: "back.out(1.7)" }, "-=0.8")
-                 .from(".reveal-governance-visual", { rotate: 45, opacity: 0, duration: 1.5, ease: "power3.out" }, "-=1.5");
+            // GOVERNANCE
+            gsap.timeline({ scrollTrigger: { trigger: "#governance", start: "top 70%" } })
+                .from(".governance-container", { scale: 0.95, opacity: 0, duration: 1.5, ease: "expo.out" })
+                .from(".reveal-governance-text > *", { y: 30, opacity: 0, stagger: 0.2, duration: 1.2, ease: "power3.out" }, "-=1")
+                .from(".gov-chip", { scale: 0.8, opacity: 0, stagger: 0.15, duration: 1, ease: "back.out(1.7)" }, "-=0.8")
+                .from(".reveal-governance-visual", { rotate: 45, opacity: 0, duration: 1.5, ease: "power3.out" }, "-=1.5");
 
-            // FOOTER REVEAL
-            const footerTl = gsap.timeline({ scrollTrigger: { trigger: "footer", start: "top 85%" } });
-            footerTl.from(".footer-col", { y: 30, opacity: 0, stagger: 0.15, duration: 1.2, ease: "power3.out" })
-                    .from(".footer-bottom", { opacity: 0, duration: 1.5 }, "-=0.5");
+            // FOOTER
+            gsap.timeline({ scrollTrigger: { trigger: "footer", start: "top 85%" } })
+                .from(".footer-col", { y: 30, opacity: 0, stagger: 0.15, duration: 1.2, ease: "power3.out" })
+                .from(".footer-bottom", { opacity: 0, duration: 1.5 }, "-=0.5");
 
-            // UTILITIES
+            // GLOBAL UTILITIES
             gsap.to("#scroll-progress", { scale: "1 1", ease: "none", scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 0.3 } });
 
             ScrollTrigger.create({
