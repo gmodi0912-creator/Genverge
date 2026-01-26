@@ -840,16 +840,16 @@
     <div id="service-modal" class="fixed inset-0 z-[200] opacity-0 pointer-events-none transition-all duration-700 overflow-y-auto bg-[#0f0e0d] modal-technical-grid">
         <div class="modal-grain"></div>
         
-        <div class="relative w-full min-h-screen py-16 px-10 md:px-24 z-10" id="modal-content">
+        <div class="relative w-full min-h-screen py-8 sm:py-16 px-4 sm:px-10 md:px-24 z-10" id="modal-content">
             <!-- Top Nav Interface -->
-            <div class="max-w-7xl mx-auto flex justify-between items-center mb-16 opacity-0 reveal-modal-nav">
+            <div class="max-w-7xl mx-auto flex justify-between items-center mb-12 sm:mb-16 opacity-0 reveal-modal-nav">
                 <div class="flex items-center gap-4 group cursor-pointer" id="close-modal">
                     <div class="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-[#8b5e3c] group-hover:bg-[#8b5e3c] group-hover:text-white transition-all">
                         <i data-lucide="chevron-left" class="w-4 h-4"></i>
                     </div>
                     <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-white/30 group-hover:text-white transition-all">Services / Overview</span>
                 </div>
-                <div class="hidden md:flex gap-6 items-center">
+                <div class="hidden sm:flex gap-6 items-center">
                     <div class="px-5 py-2 rounded-full border border-white/5 bg-white/[0.01] text-[9px] font-bold uppercase tracking-[0.4em] text-white/20">Operational Layer 02</div>
                     <div class="w-2 h-2 rounded-full bg-[#8b5e3c] animate-pulse"></div>
                 </div>
@@ -953,21 +953,21 @@
         function openModal(s) {
             modalBody.innerHTML = `
                 <div class="grid lg:grid-cols-12 gap-12 md:gap-24 items-start">
-                    <div class="lg:col-span-7 space-y-16">
+                    <div class="lg:col-span-7 space-y-12 sm:space-y-16">
                         <div class="space-y-6">
                             <div class="reveal-modal-item">
-                                <div class="flex items-center gap-4 mb-8">
+                                <div class="flex items-center gap-4 mb-6 sm:mb-8">
                                     <div class="w-1.5 h-1.5 rounded-full bg-[#8b5e3c]"></div>
-                                    <span class="text-[10px] font-bold uppercase tracking-[0.6em] text-white/20">Operational Core Architecture</span>
+                                    <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.6em] text-white/20">Operational Core Architecture</span>
                                 </div>
-                                <h2 class="text-4xl md:text-7xl font-light text-white leading-none tracking-tight">${s.title}</h2>
+                                <h2 class="text-3xl sm:text-4xl md:text-7xl font-light text-white leading-tight sm:leading-none tracking-tight">${s.title}</h2>
                             </div>
                             <div class="reveal-modal-item">
-                                <p class="text-xl md:text-3xl text-white/30 font-light leading-relaxed max-w-2xl italic">${s.fullDesc}</p>
+                                <p class="text-lg sm:text-xl md:text-3xl text-white/30 font-light leading-relaxed max-w-2xl italic">${s.fullDesc}</p>
                             </div>
                         </div>
-                        <div class="grid md:grid-cols-2 gap-8 reveal-modal-item">
-                            <div class="group p-10 border border-white/5 rounded-[2.5rem] bg-white/[0.01] hover:border-[#8b5e3c]/30 transition-all duration-700 relative overflow-hidden">
+                        <div class="grid sm:grid-cols-2 gap-6 sm:gap-8 reveal-modal-item">
+                            <div class="group p-8 sm:p-10 border border-white/5 rounded-[2.5rem] bg-white/[0.01] hover:border-[#8b5e3c]/30 transition-all duration-700 relative overflow-hidden">
                                 <div class="absolute inset-0 bg-radial-gradient(circle at 0% 0%, rgba(139, 94, 60, 0.05) 0%, transparent 50%) pointer-events-none"></div>
                                 <div class="absolute inset-0 border-[0.5px] border-white/10 rounded-[2.5rem] pointer-events-none"></div>
                                 <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity"><i data-lucide="cpu" class="w-12 h-12"></i></div>
@@ -977,7 +977,7 @@
                                 </div>
                                 <p class="text-sm text-white/50 font-light leading-relaxed">Integrated LLM orchestration using secure API endpoints and high-fidelity custom knowledge vectors.</p>
                             </div>
-                            <div class="group p-10 border border-white/5 rounded-[2.5rem] bg-white/[0.01] hover:border-[#8b5e3c]/30 transition-all duration-700 relative overflow-hidden">
+                            <div class="group p-8 sm:p-10 border border-white/5 rounded-[2.5rem] bg-white/[0.01] hover:border-[#8b5e3c]/30 transition-all duration-700 relative overflow-hidden">
                                 <div class="absolute inset-0 bg-radial-gradient(circle at 0% 0%, rgba(139, 94, 60, 0.05) 0%, transparent 50%) pointer-events-none"></div>
                                 <div class="absolute inset-0 border-[0.5px] border-white/10 rounded-[2.5rem] pointer-events-none"></div>
                                 <div class="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity"><i data-lucide="shield" class="w-12 h-12"></i></div>
@@ -988,31 +988,31 @@
                                 <p class="text-sm text-white/50 font-light leading-relaxed">Role-based access controls mapped directly to your internal enterprise hierarchy and security protocols.</p>
                             </div>
                         </div>
-                        <div class="reveal-modal-item space-y-6 pt-8">
-                            <div class="h-[1px] w-full bg-white/5 mb-12"></div>
+                        <div class="reveal-modal-item space-y-6 pt-4 sm:pt-8">
+                            <div class="h-[1px] w-full bg-white/5 mb-8 sm:mb-12"></div>
                             <h5 class="text-[10px] font-bold uppercase tracking-[0.5em] text-[#d4a373]">Optimized Integration Vectors:</h5>
-                            <div class="flex flex-wrap gap-4">${s.bestFor.map(b => `<span class="px-8 py-3 rounded-full border border-white/10 bg-white/[0.02] text-[10px] uppercase font-bold tracking-[0.2em] text-white/60 hover:text-white transition-colors cursor-default shadow-[inset_0_0_10px_rgba(255,255,255,0.02)]">${b}</span>`).join('')}</div>
+                            <div class="flex flex-wrap gap-3 sm:gap-4">${s.bestFor.map(b => `<span class="px-6 sm:px-8 py-2.5 sm:py-3 rounded-full border border-white/10 bg-white/[0.02] text-[9px] sm:text-[10px] uppercase font-bold tracking-[0.2em] text-white/60 hover:text-white transition-colors cursor-default shadow-[inset_0_0_10px_rgba(255,255,255,0.02)]">${b}</span>`).join('')}</div>
                         </div>
                     </div>
-                    <div class="lg:col-span-5 space-y-8 lg:sticky lg:top-10">
-                        <div class="p-12 border border-white/10 rounded-[4rem] space-y-12 bg-gradient-to-br from-white/[0.05] to-transparent reveal-modal-item relative overflow-hidden backdrop-blur-xl shadow-[inset_0_0_40px_rgba(139,94,60,0.05)]">
+                    <div class="lg:col-span-5 space-y-8 lg:sticky lg:top-10 mt-12 lg:mt-0">
+                        <div class="p-8 sm:p-12 border border-white/10 rounded-[3rem] sm:rounded-[4rem] space-y-12 bg-gradient-to-br from-white/[0.05] to-transparent reveal-modal-item relative overflow-hidden backdrop-blur-xl shadow-[inset_0_0_40px_rgba(139,94,60,0.05)]">
                             <div class="absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.01] to-transparent opacity-50"></div>
                             <div class="absolute -top-24 -right-24 w-64 h-64 bg-[#8b5e3c]/10 blur-[100px] rounded-full"></div>
-                            <div class="space-y-10 relative z-10">
+                            <div class="space-y-8 sm:space-y-10 relative z-10">
                                 <h4 class="text-[11px] font-bold uppercase tracking-[0.5em] text-white/50 pb-6 border-b border-white/10">Strategic Outcomes</h4>
-                                <div class="space-y-10">${s.outcomes.map(o => `<div class="flex items-start gap-8 group"><div class="w-10 h-10 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center group-hover:border-[#8b5e3c]/50 transition-all shadow-[0_0_15px_rgba(0,0,0,0.3)]"><i data-lucide="check" class="w-4 h-4 text-[#8b5e3c]"></i></div><p class="text-xl text-white/70 font-light italic leading-tight group-hover:text-white transition-colors">${o}</p></div>`).join('')}</div>
+                                <div class="space-y-8 sm:space-y-10">${s.outcomes.map(o => `<div class="flex items-start gap-6 sm:gap-8 group"><div class="w-8 sm:w-10 h-8 sm:h-10 shrink-0 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center group-hover:border-[#8b5e3c]/50 transition-all shadow-[0_0_15px_rgba(0,0,0,0.3)]"><i data-lucide="check" class="w-3 sm:w-4 h-3 sm:h-4 text-[#8b5e3c]"></i></div><p class="text-lg sm:text-xl text-white/70 font-light italic leading-tight group-hover:text-white transition-colors">${o}</p></div>`).join('')}</div>
                             </div>
-                            <div class="space-y-10 pt-10 border-t border-white/10 relative z-10">
+                            <div class="space-y-8 sm:space-y-10 pt-10 border-t border-white/10 relative z-10">
                                 <div class="flex justify-between items-center px-2">
-                                    <div class="flex flex-col gap-1"><span class="text-[9px] text-white/30 uppercase tracking-[0.4em]">Engagement Model</span><span class="text-lg text-[#d4a373] font-light shadow-text">${s.engagement}</span></div>
-                                    <div class="text-right flex flex-col gap-1"><span class="text-[9px] text-white/30 uppercase tracking-[0.4em]">Priority Level</span><span class="text-lg text-white/80 font-light">High</span></div>
+                                    <div class="flex flex-col gap-1"><span class="text-[8px] sm:text-[9px] text-white/30 uppercase tracking-[0.4em]">Engagement</span><span class="text-base sm:text-lg text-[#d4a373] font-light">${s.engagement}</span></div>
+                                    <div class="text-right flex flex-col gap-1"><span class="text-[8px] sm:text-[9px] text-white/30 uppercase tracking-[0.4em]">Priority</span><span class="text-base sm:text-lg text-white/80 font-light">High</span></div>
                                 </div>
-                                <button class="btn-animated-primary w-full justify-center group py-6 text-xs tracking-[0.4em] shadow-[0_10px_30px_rgba(139,94,60,0.1)]">INITIALIZE DEPLOYMENT <i data-lucide="arrow-right" class="w-4 h-4 ml-4 group-hover:translate-x-2 transition-transform"></i></button>
+                                <button class="btn-animated-primary w-full justify-center group py-4 sm:py-6 text-[10px] sm:text-xs tracking-[0.4em] shadow-[0_10px_30px_rgba(139,94,60,0.1)]">INITIALIZE DEPLOYMENT <i data-lucide="arrow-right" class="w-4 h-4 ml-4 group-hover:translate-x-2 transition-transform"></i></button>
                             </div>
                         </div>
-                        <div class="px-12 py-6 flex justify-between items-center text-[9px] text-white/20 font-bold uppercase tracking-[0.5em] reveal-modal-item border border-white/10 rounded-full bg-white/[0.02] shadow-[0_5px_15px_rgba(0,0,0,0.2)]">
+                        <div class="px-6 sm:px-12 py-5 sm:py-6 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-0 text-[8px] sm:text-[9px] text-white/20 font-bold uppercase tracking-[0.5em] reveal-modal-item border border-white/10 rounded-[2rem] sm:rounded-full bg-white/[0.02] shadow-[0_5px_15px_rgba(0,0,0,0.2)]">
                             <div class="flex items-center gap-3"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-[#8b5e3c]"></i><span class="text-white/40">SOC2 COMPLIANT</span></div>
-                            <div class="w-1 h-1 rounded-full bg-white/10"></div>
+                            <div class="hidden sm:block w-1 h-1 rounded-full bg-white/10"></div>
                             <div class="flex items-center gap-3"><i data-lucide="cpu" class="w-3.5 h-3.5 text-[#8b5e3c]"></i><span class="text-white/40">256-BIT ENCRYPTED</span></div>
                         </div>
                     </div>
