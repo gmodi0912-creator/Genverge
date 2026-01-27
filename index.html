@@ -1313,13 +1313,13 @@
                     scrollTrigger: {
                         trigger: "#services",
                         start: "top 5%", 
-                        end: `+=${cards.length * 150}%`, // Increased scroll distance for smoother, slower feel
+                        end: `+=${cards.length * 150}%`, 
                         pin: true,
-                        scrub: 2.5, // Increased scrub for much smoother inertia/slower response
+                        scrub: 1, // Balanced scrub for mobile responsiveness
                         snap: {
                             snapTo: 1 / (cards.length - 1),
-                            duration: 0.8,
-                            ease: "power2.out"
+                            duration: 0.45, // Refined 450ms snap speed for smooth, lag-free transitions
+                            ease: "power2.inOut"
                         },
                         invalidateOnRefresh: true,
                         anticipatePin: 1
@@ -1401,7 +1401,7 @@
             
             ScrollTrigger.create({
                 trigger: "body", start: "top top", end: "bottom bottom",
-                scrub: 4, // Increased from 2 to 4 for a significantly slower, heavier, more premium feel
+                scrub: 4, // Global body scrub for premium "weighted" feel
                 onUpdate: (self) => {
                     const scroll = self.progress;
                     const velocity = self.getVelocity() / 1000;
