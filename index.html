@@ -203,7 +203,7 @@
 
         .hero-headline-main {
             display: block;
-            font-size: clamp(2.5rem, 6vw, 5.5rem);
+            font-size: clamp(2rem, 6vw, 5.5rem);
             line-height: 1.05;
             letter-spacing: -0.05em;
             font-weight: 300; 
@@ -328,25 +328,6 @@
 
         .btn-animated-secondary:hover::after {
             width: 100%;
-        }
-
-        /* Scroll Progress Bar */
-        #scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: rgba(139, 94, 60, 0.1);
-            z-index: 200;
-            transform-origin: left;
-            scale: 0 1;
-        }
-
-        #scroll-progress-fill {
-            height: 100%;
-            width: 100%;
-            background: linear-gradient(90deg, var(--accent), var(--accent-light));
         }
 
         @media (max-width: 1024px) {
@@ -1062,6 +1043,152 @@
             opacity: 1;
         }
 
+        /* --- ENQUIRY FORM STYLES --- */
+        .enquiry-input-group {
+            position: relative;
+            margin-bottom: 2rem;
+        }
+
+        .enquiry-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.4);
+            display: block;
+            margin-bottom: 0.75rem;
+        }
+
+        .enquiry-field {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+            color: white;
+            font-size: 1.15rem;
+            font-weight: 300;
+            transition: all 0.5s ease;
+            border-radius: 0;
+        }
+
+        .enquiry-field:focus {
+            outline: none;
+            border-bottom-color: var(--accent-light);
+        }
+
+        .enquiry-field::placeholder {
+            color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* CUSTOM DROPDOWN STYLING */
+        .custom-dropdown {
+            position: relative;
+            width: 100%;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: border-color 0.4s ease;
+        }
+        
+        .custom-dropdown:hover {
+            border-bottom-color: rgba(139, 94, 60, 0.5);
+        }
+
+        .custom-dropdown.active {
+            border-bottom-color: var(--accent-light);
+        }
+
+        .dropdown-selected {
+            padding: 1rem 0;
+            font-size: 1.15rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .dropdown-selected i {
+            transition: transform 0.4s ease;
+            opacity: 0.4;
+        }
+
+        .custom-dropdown.active .dropdown-selected i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: rgba(20, 20, 20, 0.95);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 8px;
+            border-radius: 1.5rem;
+            z-index: 100;
+            max-height: 300px;
+            overflow-y: auto;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .custom-dropdown.active .dropdown-menu {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .dropdown-item {
+            padding: 1rem 1.5rem;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(139, 94, 60, 0.15);
+            color: white;
+            padding-left: 2rem;
+        }
+
+        .dropdown-item.selected {
+            color: var(--accent-light);
+            background: rgba(139, 94, 60, 0.05);
+        }
+
+        /* Responsive Contact Group */
+        .contact-group-layout {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 2rem;
+            align-items: flex-end;
+        }
+
+        .btn-consultation {
+            background: linear-gradient(135deg, #8b5e3c 0%, #63432b 100%);
+            color: white;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-size: 11px;
+            padding: 1.25rem 3.5rem;
+            border-radius: 100px;
+            transition: all 0.5s ease;
+            display: inline-block;
+            box-shadow: 0 10px 30px rgba(139, 94, 60, 0.2);
+        }
+
+        .btn-consultation:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 40px rgba(139, 94, 60, 0.4);
+            background: linear-gradient(135deg, #a6714a 0%, #8b5e3c 100%);
+        }
+
     </style>
 </head>
 <body class="selection:bg-[#8b5e3c] selection:text-white">
@@ -1076,13 +1203,13 @@
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-[100] px-6 md:px-12 py-5 flex justify-between items-center transition-all duration-700 opacity-0" id="navbar">
-        <div class="flex items-center gap-4 group cursor-pointer">
+        <div class="flex items-center gap-4 group cursor-pointer" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
             <!-- Logo remains prominent -->
             <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769369853/GenVerge_1_zoczbv.png" alt="GenVerge Logo" class="h-11 md:h-10 w-auto filter brightness-110">
         </div>
         <!-- Optimized Spacing for cleaner look -->
-        <div class="flex items-center gap-8 md:gap-10">
-            <div class="hidden lg:flex gap-8 md:gap-10 text-[10px] font-medium tracking-[0.2em] uppercase text-white/30">
+        <div class="flex items-center gap-4 md:gap-10">
+            <div class="hidden lg:flex gap-8 md:gap-10 text-[10px] font-medium tracking-[0.2em] uppercase text-white/95">
                 <a href="#about" class="nav-link">About</a>
                 <a href="#services" class="nav-link">Services</a>
                 <a href="#process" class="nav-link">Process</a>
@@ -1090,11 +1217,37 @@
                 <a href="#governance" class="nav-link">Governance</a>
             </div>
             <!-- Refined Button Proportions -->
-            <button class="px-4 md:px-5 py-2 border border-white/5 text-white text-[9px] font-bold rounded-full hover:bg-white hover:text-black transition-all uppercase tracking-[0.15em]">
+            <a href="#enquiry" class="hidden sm:block px-4 md:px-5 py-2 border border-white/5 text-white text-[9px] font-bold rounded-full hover:bg-white hover:text-black transition-all uppercase tracking-[0.15em]">
                 Discovery Call
+            </a>
+            <!-- Mobile Toggle -->
+            <button class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full glass border border-white/10 text-white/90" id="mobile-menu-toggle">
+                <i data-lucide="menu" class="w-5 h-5"></i>
             </button>
         </div>
     </nav>
+
+    <!-- Mobile Menu Side Drawer -->
+    <div id="mobile-menu" class="fixed inset-y-0 right-0 z-[150] w-[85%] max-w-[400px] bg-[#0f0e0d]/98 backdrop-blur-3xl border-l border-white/5 shadow-[-20px_0_60px_rgba(0,0,0,0.8)] flex flex-col p-8 opacity-0 pointer-events-none translate-x-full transition-all duration-500 lg:hidden">
+        <div class="flex justify-end mb-16">
+            <button class="w-12 h-12 flex items-center justify-center rounded-full glass border border-white/10 text-white/50 hover:text-white" id="mobile-menu-close">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <div class="flex flex-col gap-12 items-start pl-4">
+            <a href="#about" class="mobile-nav-link text-xl font-light tracking-[0.4em] uppercase text-white/95 hover:text-white transition-colors">About</a>
+            <a href="#services" class="mobile-nav-link text-xl font-light tracking-[0.4em] uppercase text-white/95 hover:text-white transition-colors">Services</a>
+            <a href="#process" class="mobile-nav-link text-xl font-light tracking-[0.4em] uppercase text-white/95 hover:text-white transition-colors">Process</a>
+            <a href="#security" class="mobile-nav-link text-xl font-light tracking-[0.4em] uppercase text-white/95 hover:text-white transition-colors">Security</a>
+            <a href="#governance" class="mobile-nav-link text-xl font-light tracking-[0.4em] uppercase text-white/95 hover:text-white transition-colors">Governance</a>
+            
+            <a href="#enquiry" class="mobile-nav-link mt-12 w-full text-center py-4 bg-[#8b5e3c]/10 border border-[#8b5e3c]/40 text-white text-[10px] font-bold rounded-full uppercase tracking-[0.3em] shadow-[0_0_30px_rgba(139,94,60,0.15)]">Discovery Call</a>
+        </div>
+        
+        <div class="mt-auto pt-10 border-t border-white/5 opacity-20">
+            <span class="text-[8px] uppercase tracking-widest font-bold">© 2024 GenVerge. Pure Intelligence.</span>
+        </div>
+    </div>
 
     <!-- 3D Global Background -->
     <div id="three-container"></div>
@@ -1132,12 +1285,12 @@
 
                     <!-- Refined Animated CTA Section -->
                     <div class="flex flex-col sm:flex-row gap-8 reveal-up items-center lg:items-start pt-2 parallax-item" data-speed="0.15">
-                        <button class="btn-animated-primary group">
+                        <a href="#enquiry" class="btn-animated-primary group">
                             Begin Discovery <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
-                        </button>
-                        <button class="btn-animated-secondary">
+                        </a>
+                        <a href="#process" class="btn-animated-secondary">
                             Our Methodology
-                        </button>
+                        </a>
                     </div>
                 </div>
 
@@ -1176,11 +1329,6 @@
                 <div class="relative about-image reveal-about-img">
                     <div class="aspect-[4/5] rounded-[4rem] overflow-hidden border border-white/5 grayscale hover:grayscale-0 transition-all duration-1000 main-img-container parallax-item" data-speed="-0.15">
                         <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&q=80&w=1000" alt="Sleek AI Architecture" class="w-full h-full object-cover">
-                    </div>
-                    <!-- Testimonial Block -->
-                    <div class="absolute -bottom-8 -right-4 md:-bottom-12 md:-right-12 glass p-6 md:p-10 rounded-[2rem] md:rounded-[3rem] max-w-[220px] md:max-w-[280px] block parallax-item border border-white/10 about-testimonial float-card" data-speed="-0.2">
-                        <p class="text-sm text-white/50 leading-relaxed italic font-light">"GenVerge didn't just give us a chatbot; they re-wired our entire support workflow."</p>
-                        <p class="text-[10px] mt-6 font-bold uppercase tracking-widest text-[#d4a373]">— Tech Founder</p>
                     </div>
                 </div>
             </div>
@@ -1442,7 +1590,7 @@
                         </div>
                         <div class="branch-container">
                             <div class="neural-leaf leaf-1"><div class="leaf-dot"></div><p class="leaf-text">24/7 Monitoring & Neural Evaluation</p></div>
-                            <div class="neural-leaf leaf-2"><div class="leaf-dot"></div><p class="leaf-text">Continuous model tuning & refinement</p></div>
+                            <div class="neural-leaf leaf-2"><div class="leaf-dot)</div><p class="leaf-text">Continuous model tuning & refinement</p></div>
                             <div class="neural-leaf leaf-3"><div class="leaf-dot"></div><p class="leaf-text">Strategic roadmap for new use cases</p></div>
                         </div>
                     </div>
@@ -1501,6 +1649,94 @@
                          <div class="absolute inset-4 bg-radial-gradient(circle, rgba(139, 94, 60, 0.05) 0%, transparent 70%) animate-pulse"></div>
                          <i data-lucide="shield" class="w-16 h-16 md:w-24 md:h-24 text-[#8b5e3c] filter drop-shadow-[0_0_30px_rgba(139,94,60,0.4)]"></i>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enquiry Form Section - REFINED & SLEEK -->
+        <section id="enquiry" class="py-24 px-10 md:px-24 bg-transparent relative overflow-hidden">
+            <div class="max-w-[1600px] mx-auto grid lg:grid-cols-2 gap-24 items-start">
+                <!-- Left: Text content -->
+                <div class="reveal-enquiry-text space-y-10">
+                    <div class="space-y-4">
+                        <span class="text-[#d4a373] text-[10px] font-bold uppercase tracking-[0.6em] block">Connect With Us</span>
+                        <h2 class="text-3xl md:text-5xl font-semibold tracking-tight leading-tight text-white uppercase">
+                            Let's Build <br> <span class="text-gradient font-light">The Future.</span>
+                        </h2>
+                    </div>
+                    <p class="text-white/50 text-xl font-light leading-relaxed max-w-md">
+                        Reach out to our engineering leads to discuss your vision and technical requirements.
+                    </p>
+                    <div class="flex gap-6 pt-6">
+                        <a href="#" class="w-12 h-12 rounded-full glass border border-white/10 flex items-center justify-center text-white/40 hover:text-[#d4a373] hover:border-[#8b5e3c]/50 transition-all duration-500">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-12 h-12 rounded-full glass border border-white/10 flex items-center justify-center text-white/40 hover:text-[#d4a373] hover:border-[#8b5e3c]/50 transition-all duration-500">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Form -->
+                <div class="reveal-enquiry-form">
+                    <form action="#" class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2">
+                        <div class="enquiry-input-group">
+                            <label class="enquiry-label">Full Name</label>
+                            <input type="text" class="enquiry-field" placeholder="Full Name">
+                        </div>
+                        <div class="enquiry-input-group">
+                            <label class="enquiry-label">E-mail</label>
+                            <input type="email" class="enquiry-field" placeholder="Email Address">
+                        </div>
+                        <div class="enquiry-input-group md:col-span-2">
+                            <label class="enquiry-label">Contact Number</label>
+                            <div class="contact-group-layout">
+                                <!-- Custom ISD Dropdown -->
+                                <div class="custom-dropdown" id="isd-dropdown">
+                                    <div class="dropdown-selected">
+                                        <span id="isd-label">+91 (IN)</span>
+                                        <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                                    </div>
+                                    <div class="dropdown-menu">
+                                        <div class="dropdown-item selected" data-value="+91" data-len="10">+91 (India)</div>
+                                        <div class="dropdown-item" data-value="+1" data-len="10">+1 (USA)</div>
+                                        <div class="dropdown-item" data-value="+44" data-len="10">+44 (UK)</div>
+                                        <div class="dropdown-item" data-value="+971" data-len="9">+971 (UAE)</div>
+                                        <div class="dropdown-item" data-value="+61" data-len="9">+61 (Australia)</div>
+                                        <div class="dropdown-item" data-value="+65" data-len="8">+65 (Singapore)</div>
+                                        <div class="dropdown-item" data-value="+49" data-len="11">+49 (Germany)</div>
+                                    </div>
+                                </div>
+                                <input type="tel" id="phone-input" class="enquiry-field" placeholder="Enter 10 digits" maxlength="10">
+                            </div>
+                        </div>
+                        <div class="enquiry-input-group md:col-span-2 mt-4">
+                            <label class="enquiry-label">Requirement Type</label>
+                            <!-- Custom Category Dropdown -->
+                            <div class="custom-dropdown" id="category-dropdown">
+                                <div class="dropdown-selected">
+                                    <span id="category-label">Select category</span>
+                                    <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                                </div>
+                                <div class="dropdown-menu">
+                                    <div class="dropdown-item" data-value="genai">GenAI Copilots & Internal Tools</div>
+                                    <div class="dropdown-item" data-value="automation">AI Automation (RPA + Agents)</div>
+                                    <div class="dropdown-item" data-value="data">Data-to-AI Foundations</div>
+                                    <div class="dropdown-item" data-value="rag">Knowledge Search (RAG)</div>
+                                    <div class="dropdown-item" data-value="decision">Decision Intelligence</div>
+                                    <div class="dropdown-item" data-value="visibility">Dashboards & Ops Visibility</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="enquiry-input-group md:col-span-2 mt-4">
+                            <label class="enquiry-label">Objective Overview</label>
+                            <textarea class="enquiry-field min-h-[100px] resize-none" placeholder="Brief overview of the service required..."></textarea>
+                        </div>
+                        
+                        <div class="md:col-span-2 pt-10">
+                            <button type="submit" class="btn-consultation">Request Consultation</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>
@@ -1587,38 +1823,63 @@
             </div>
         </section>
 
-        <!-- Footer - Reduced padding -->
-        <footer class="py-4 px-10 md:px-24 lg:pt-32 lg:pb-12 border-t border-white/5 reveal-footer bg-transparent">
-            <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row justify-between gap-32">
-                <div class="max-w-sm space-y-10 footer-col parallax-item" data-speed="0.05">
-                    <div class="flex items-center gap-4">
-                        <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769369853/GenVerge_1_zoczbv.png" alt="GenVerge Logo" class="h-8 md:h-10 w-auto filter brightness-110">
-                    </div>
-                    <p class="text-sm text-white/20 leading-relaxed font-light">
+        <!-- Footer - Standardized Professional Layout -->
+        <footer class="pt-24 pb-12 px-10 md:px-24 border-t border-white/5 bg-black/20" id="footer-contact">
+            <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 md:gap-12">
+                <!-- Branding & Tagline -->
+                <div class="space-y-8">
+                    <img src="https://res.cloudinary.com/dj159rgsr/image/upload/v1769369853/GenVerge_1_zoczbv.png" alt="GenVerge Logo" class="h-8 w-auto filter brightness-110">
+                    <p class="text-sm text-white/95 leading-relaxed font-light max-w-xs">
                         Architecting the future of human-AI collaboration. Elegant systems for complex operational challenges.
                     </p>
-                </div>
-                <div class="grid grid-cols-2 gap-32 footer-links-wrap">
-                    <div class="space-y-10 footer-col parallax-item" data-speed="0.08">
-                        <h5 class="text-[11px] font-light uppercase tracking-widest text-white/40">Navigation</h5>
-                        <ul class="space-y-4 text-xs text-white/20 font-light">
-                            <li class="hover:text-[#d4a373] cursor-pointer transition-colors">About Us</li>
-                            <li class="hover:text-[#d4a373] cursor-pointer transition-colors">Capability Grid</li>
-                            <li class="hover:text-[#d4a373] cursor-pointer transition-colors">Privacy Center</li>
-                        </ul>
+                    <div class="flex gap-6 pt-2">
+                        <a href="#" class="text-white/95 hover:text-[#d4a373] transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
+                        <a href="#" class="text-white/95 hover:text-[#d4a373] transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
                     </div>
-                    <div class="space-y-10 footer-col parallax-item" data-speed="0.12">
-                        <h5 class="text-[11px] font-light uppercase tracking-widest text-white/40">Connection</h5>
-                        <ul class="space-y-4 text-xs text-white/20 font-light">
-                            <li class="hover:text-[#d4a373] cursor-pointer transition-colors">LinkedIn</li>
-                            <li class="hover:text-[#d4a373] cursor-pointer transition-colors">Strategic Ops</li>
-                        </ul>
+                </div>
+
+                <!-- Platform Links -->
+                <div class="space-y-8">
+                    <h5 class="text-[11px] font-bold uppercase tracking-[0.3em] text-white/50">Capabilities</h5>
+                    <ul class="space-y-4 text-xs text-white/95 font-light">
+                        <li><a href="#services" class="hover:text-[#d4a373] transition-colors">GenAI Copilots</a></li>
+                        <li><a href="#services" class="hover:text-[#d4a373] transition-colors">AI Automation</a></li>
+                        <li><a href="#services" class="hover:text-[#d4a373] transition-colors">RAG Knowledge Search</a></li>
+                        <li><a href="#services" class="hover:text-[#d4a373] transition-colors">Decision Intelligence</a></li>
+                    </ul>
+                </div>
+
+                <!-- Company Links -->
+                <div class="space-y-8">
+                    <h5 class="text-[11px] font-bold uppercase tracking-[0.3em] text-white/50">Company</h5>
+                    <ul class="space-y-4 text-xs text-white/95 font-light">
+                        <li><a href="#about" class="hover:text-[#d4a373] transition-colors">About Us</a></li>
+                        <li><a href="#process" class="hover:text-[#d4a373] transition-colors">Our Protocol</a></li>
+                        <li><a href="#security" class="hover:text-[#d4a373] transition-colors">Security Architecture</a></li>
+                        <li><a href="#governance" class="hover:text-[#d4a373] transition-colors">Governance</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact/Action -->
+                <div class="space-y-8">
+                    <h5 class="text-[11px] font-bold uppercase tracking-[0.3em] text-white/80">Connect</h5>
+                    <div class="space-y-4">
+                        <p class="text-xs text-white/95 font-light italic">Ready to operationalize your data?</p>
+                        <a href="mailto:hello@genverge.ai" class="block text-sm text-[#d4a373] font-medium hover:underline">hello@genverge.ai</a>
+                        <button class="mt-4 px-6 py-2 border border-white/10 text-white text-[9px] font-bold rounded-full hover:bg-white hover:text-black transition-all uppercase tracking-[0.15em]">
+                            Discovery Call
+                        </button>
                     </div>
                 </div>
             </div>
-            <div class="max-w-[1600px] mx-auto mt-12 pt-10 border-t border-white/5 flex justify-between items-center text-[10px] text-white/10 font-bold uppercase tracking-[0.4em] footer-bottom">
-                <span>© 2024 GenVerge. Pure Intelligence.</span>
-                <span>London / Dubai / Remote</span>
+
+            <!-- Bottom Copyright bar -->
+            <div class="max-w-[1600px] mx-auto mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] text-white/60 font-bold uppercase tracking-[0.4em]">
+                <div class="flex items-center gap-8">
+                    <span>© 2024 GenVerge Inc.</span>
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
             </div>
         </footer>
     </main>
@@ -1636,7 +1897,6 @@
                     <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-white/30 group-hover:text-white transition-all">Services / Overview</span>
                 </div>
                 <div class="hidden sm:flex gap-6 items-center">
-                    <div class="px-5 py-2 rounded-full border border-white/5 bg-white/[0.01] text-[9px] font-bold uppercase tracking-[0.4em] text-white/20">Operational Layer 02</div>
                     <div class="w-2 h-2 rounded-full bg-[#8b5e3c] animate-pulse"></div>
                 </div>
             </div>
@@ -1655,6 +1915,90 @@
             { id: 'decision', icon: 'trending-up', title: 'Decision Intelligence', shortDesc: 'KPI-linked insights and next-best actions for operators and founders.', fullDesc: 'Dashboards show what happened. Decision Intelligence tells you what to do next based on your specific business rules.', bestFor: ['Founders', 'Ops fulfillment', 'Growth teams'], outcomes: ['Actionable Insights', 'Reduced Guesswork', 'Team Alignment'], engagement: 'Consulting + Platform' },
             { id: 'visibility', icon: 'layout-dashboard', title: 'Dashboards + Real-Time Ops Visibility', shortDesc: 'Live KPIs, alerts, and action signals—role-based and practical.', fullDesc: 'Custom dashboarding that provides live signals and alerts, ensuring role-based visibility across the organization.', bestFor: ['Department Heads', 'Executive North Star', 'Ops Tracking'], outcomes: ['Zero Reporting Latency', 'Accountability', 'Clear Trend-lines'], engagement: 'Project-based' }
         ];
+
+        // Custom Dropdown Implementation
+        function setupCustomDropdown(dropdownId, labelId) {
+            const dropdown = document.getElementById(dropdownId);
+            const label = document.getElementById(labelId);
+            const menu = dropdown.querySelector('.dropdown-menu');
+            const items = dropdown.querySelectorAll('.dropdown-item');
+            const phoneInput = document.getElementById('phone-input');
+
+            dropdown.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Close others
+                document.querySelectorAll('.custom-dropdown').forEach(d => {
+                    if(d.id !== dropdownId) d.classList.remove('active');
+                });
+                dropdown.classList.toggle('active');
+            });
+
+            items.forEach(item => {
+                item.addEventListener('click', () => {
+                    const value = item.getAttribute('data-value');
+                    const text = item.innerText;
+                    label.innerText = text;
+                    
+                    items.forEach(i => i.classList.remove('selected'));
+                    item.classList.add('selected');
+
+                    // ISD specific logic
+                    if (dropdownId === 'isd-dropdown') {
+                        const len = item.getAttribute('data-len');
+                        phoneInput.placeholder = `Enter ${len} digits`;
+                        phoneInput.maxLength = len;
+                        phoneInput.value = ''; // Clear for new format
+                    }
+                });
+            });
+        }
+
+        // Close dropdowns on outside click
+        window.addEventListener('click', () => {
+            document.querySelectorAll('.custom-dropdown').forEach(d => d.classList.remove('active'));
+        });
+
+        // --- MOBILE MENU LOGIC ---
+        const mobileToggle = document.getElementById('mobile-menu-toggle');
+        const mobileClose = document.getElementById('mobile-menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        const openMobileMenu = () => {
+            if (!mobileMenu) return;
+            gsap.to(mobileMenu, { 
+                x: 0, 
+                opacity: 1, 
+                pointerEvents: 'auto', 
+                duration: 0.6, 
+                ease: "expo.out" 
+            });
+            gsap.from(".mobile-nav-link", { 
+                x: 30, 
+                opacity: 0, 
+                stagger: 0.08, 
+                duration: 0.8, 
+                ease: "power3.out", 
+                delay: 0.2 
+            });
+        };
+
+        const closeMobileMenu = () => {
+            if (!mobileMenu) return;
+            gsap.to(mobileMenu, { 
+                x: '100%', 
+                opacity: 0, 
+                pointerEvents: 'none', 
+                duration: 0.5, 
+                ease: "expo.in" 
+            });
+        };
+
+        if (mobileToggle) mobileToggle.onclick = openMobileMenu;
+        if (mobileClose) mobileClose.onclick = closeMobileMenu;
+        mobileNavLinks.forEach(link => {
+            link.onclick = closeMobileMenu;
+        });
 
         // Security Glow Handler
         function handleCardGlow(e, card) {
@@ -1679,29 +2023,31 @@
 
         // --- RENDER SERVICES ---
         const grid = document.getElementById('services-grid');
-        services.forEach((s, idx) => {
-            const card = document.createElement('div');
-            card.className = "service-card p-10 md:p-12 lg:p-14 cursor-pointer min-h-[420px] md:min-h-[460px] opacity-0"; 
-            card.innerHTML = `
-                <div class="card-glow"></div>
-                <div class="relative z-10 card-content-lift">
-                    <div class="mb-10 md:mb-14 w-12 h-12 flex items-center justify-center rounded-2xl bg-white/[0.03] border border-white/5 text-[#8b5e3c] icon-lift">
-                        <i data-lucide="${s.icon}" class="w-6 h-6"></i>
-                    </div>
-                    <div class="text-lift">
-                        <h3 class="text-2xl md:text-3xl font-light tracking-tighter text-white mb-6 md:mb-10 leading-tight">${s.title}</h3>
-                        <div class="service-desc">
-                            <p class="text-base md:text-lg text-white/50 font-light tracking-tight leading-relaxed mb-6">${s.shortDesc}</p>
+        if (grid) {
+            services.forEach((s, idx) => {
+                const card = document.createElement('div');
+                card.className = "service-card p-10 md:p-12 lg:p-14 cursor-pointer min-h-[420px] md:min-h-[460px] opacity-0"; 
+                card.innerHTML = `
+                    <div class="card-glow"></div>
+                    <div class="relative z-10 card-content-lift">
+                        <div class="mb-10 md:mb-14 w-12 h-12 flex items-center justify-center rounded-2xl bg-white/[0.03] border border-white/5 text-[#8b5e3c] icon-lift">
+                            <i data-lucide="${s.icon}" class="w-6 h-6"></i>
+                        </div>
+                        <div class="text-lift">
+                            <h3 class="text-2xl md:text-3xl font-light tracking-tighter text-white mb-6 md:mb-10 leading-tight">${s.title}</h3>
+                            <div class="service-desc">
+                                <p class="text-base md:text-lg text-white/50 font-light tracking-tight leading-relaxed mb-6">${s.shortDesc}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="relative z-10 flex items-center gap-2 mt-12 pt-8 border-t border-white/5 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.5em] text-[#d4a373] group-hover:text-white transition-colors duration-300">
-                    View full services <i data-lucide="arrow-right" class="w-3 h-3"></i>
-                </div>
-            `;
-            card.onclick = () => openModal(s);
-            grid.appendChild(card);
-        });
+                    <div class="relative z-10 flex items-center gap-2 mt-12 pt-8 border-t border-white/5 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.5em] text-[#d4a373] group-hover:text-white transition-colors duration-300">
+                        View full services <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                    </div>
+                `;
+                card.onclick = () => openModal(s);
+                grid.appendChild(card);
+            });
+        }
         lucide.createIcons();
 
         // --- MODAL LOGIC ---
@@ -1710,6 +2056,7 @@
         const closeModal = document.getElementById('close-modal');
 
         function openModal(s) {
+            if (!modalBody) return;
             modalBody.innerHTML = `
                 <div class="grid lg:grid-cols-12 gap-12 md:gap-24 items-start">
                     <div class="lg:col-span-7 space-y-12 sm:space-y-16">
@@ -1753,26 +2100,30 @@
                 </div>
             `;
             
-            modal.style.opacity = '1';
-            modal.style.pointerEvents = 'auto';
-            document.body.style.overflow = 'hidden';
-            
-            gsap.timeline()
-                .to(modal, { opacity: 1, duration: 0.8, ease: "power3.inOut" })
-                .to(".reveal-modal-nav", { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.3")
-                .from(".reveal-modal-item", { y: 60, opacity: 0, filter: "blur(10px)", stagger: 0.12, duration: 1.4, ease: "power4.out" }, "-=0.8");
+            if (modal) {
+                modal.style.opacity = '1';
+                modal.style.pointerEvents = 'auto';
+                document.body.style.overflow = 'hidden';
+                
+                gsap.timeline()
+                    .to(modal, { opacity: 1, duration: 0.8, ease: "power3.inOut" })
+                    .to(".reveal-modal-nav", { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.3")
+                    .from(".reveal-modal-item", { y: 60, opacity: 0, filter: "blur(10px)", stagger: 0.12, duration: 1.4, ease: "power4.out" }, "-=0.8");
+            }
             
             lucide.createIcons();
         }
 
         const hideModal = () => {
-            gsap.to(modal, { opacity: 0, duration: 0.6, ease: "power3.inOut", onComplete: () => {
-                modal.style.pointerEvents = 'none';
-                document.body.style.overflow = 'auto';
-                modalBody.innerHTML = '';
-            }});
+            if (modal) {
+                gsap.to(modal, { opacity: 0, duration: 0.6, ease: "power3.inOut", onComplete: () => {
+                    modal.style.pointerEvents = 'none';
+                    document.body.style.overflow = 'auto';
+                    if (modalBody) modalBody.innerHTML = '';
+                }});
+            }
         };
-        closeModal.onclick = hideModal;
+        if (closeModal) closeModal.onclick = hideModal;
 
         // --- THREE.JS (Space Background) ---
         let backgroundRenderer, backgroundScene, backgroundCamera, starField, bokehGroup;
@@ -1782,6 +2133,7 @@
 
         const initThree = () => {
             const container = document.getElementById('three-container');
+            if (!container) return;
             backgroundScene = new THREE.Scene();
             backgroundCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
             backgroundCamera.position.z = 2000;
@@ -1812,13 +2164,11 @@
             }
             backgroundScene.add(bokehGroup);
             
-            // Refined mousemove listener
             document.addEventListener('mousemove', (e) => { 
                 starTargetX = (e.clientX - windowHalfX) * 0.15; 
                 starTargetY = (e.clientY - windowHalfY) * 0.15; 
             });
 
-            // Added window resize listener to maintain responsive interaction
             window.addEventListener('resize', () => {
                 windowHalfX = window.innerWidth / 2;
                 windowHalfY = window.innerHeight / 2;
@@ -1832,11 +2182,13 @@
 
         const animateSpace = () => {
             requestAnimationFrame(animateSpace);
-            starField.rotation.y += 0.0003;
-            backgroundCamera.position.x += (starTargetX - backgroundCamera.position.x) * 0.04;
-            backgroundCamera.position.y += (-starTargetY - backgroundCamera.position.y) * 0.04;
-            backgroundCamera.lookAt(backgroundScene.position);
-            backgroundRenderer.render(backgroundScene, backgroundCamera);
+            if (starField) starField.rotation.y += 0.0003;
+            if (backgroundCamera) {
+                backgroundCamera.position.x += (starTargetX - backgroundCamera.position.x) * 0.04;
+                backgroundCamera.position.y += (-starTargetY - backgroundCamera.position.y) * 0.04;
+                backgroundCamera.lookAt(backgroundScene.position);
+            }
+            if (backgroundRenderer) backgroundRenderer.render(backgroundScene, backgroundCamera);
         };
 
         // --- HERO 3D OBJECT (UPDATED NEURAL WEB PLEXUS) ---
@@ -1912,6 +2264,10 @@
         window.onload = () => {
             initThree();
             initHero3D();
+
+            // Setup enquiry dropdowns
+            setupCustomDropdown('isd-dropdown', 'isd-label');
+            setupCustomDropdown('category-dropdown', 'category-label');
 
             // REVEAL HERO
             gsap.timeline()
@@ -2003,6 +2359,11 @@
                 ease: "power2.out"
             }, "-=0.2");
 
+            // ENQUIRY REVEAL
+            gsap.timeline({ scrollTrigger: { trigger: "#enquiry", start: "top 70%" } })
+                .from(".reveal-enquiry-text", { x: -50, opacity: 0, duration: 1.2, ease: "power3.out" })
+                .from(".reveal-enquiry-form", { x: 50, opacity: 0, duration: 1.2, ease: "power3.out" }, "-=1.2");
+
             // FAQ REVEAL - Deep fix for visibility
             gsap.timeline({ scrollTrigger: { trigger: "#faq", start: "top 80%", toggleActions: "play none none none" } })
                 .from(".reveal-faq-head", { y: 30, opacity: 0, duration: 1, ease: "power3.out" })
@@ -2017,6 +2378,48 @@
 
             // FOOTER REVEAL
             gsap.timeline({ scrollTrigger: { trigger: "footer", start: "top 85%" } }).from(".footer-col", { y: 30, opacity: 0, stagger: 0.15, duration: 1.2, ease: "power3.out" });
+
+            // --- MOBILE MENU LOGIC ---
+            const mobileToggle = document.getElementById('mobile-menu-toggle');
+            const mobileClose = document.getElementById('mobile-menu-close');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+            const openMobileMenu = () => {
+                if (!mobileMenu) return;
+                gsap.to(mobileMenu, { 
+                    x: 0, 
+                    opacity: 1, 
+                    pointerEvents: 'auto', 
+                    duration: 0.6, 
+                    ease: "expo.out" 
+                });
+                gsap.from(".mobile-nav-link", { 
+                    x: 30, 
+                    opacity: 0, 
+                    stagger: 0.08, 
+                    duration: 0.8, 
+                    ease: "power3.out", 
+                    delay: 0.2 
+                });
+            };
+
+            const closeMobileMenu = () => {
+                if (!mobileMenu) return;
+                gsap.to(mobileMenu, { 
+                    x: '100%', 
+                    opacity: 0, 
+                    pointerEvents: 'none', 
+                    duration: 0.5, 
+                    ease: "expo.in" 
+                });
+            };
+
+            if (mobileToggle) mobileToggle.onclick = openMobileMenu;
+            if (mobileClose) mobileClose.onclick = closeMobileMenu;
+            mobileNavLinks.forEach(link => {
+                link.onclick = closeMobileMenu;
+            });
 
             // --- GLOBAL ENHANCED PARALLAX & SMOOTHING (INTERACTIVE DEPTH) ---
             const parallaxItems = document.querySelectorAll('.parallax-item');
@@ -2062,8 +2465,8 @@
         const cur = document.getElementById('cursor');
         const curF = document.getElementById('cursor-follower');
         document.addEventListener('mousemove', (e) => { 
-            gsap.to(cur, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "power3.out" }); 
-            gsap.to(curF, { x: e.clientX - 16, y: e.clientY - 16, duration: 0.6, ease: "expo.out" }); 
+            if (cur) gsap.to(cur, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "power3.out" }); 
+            if (curF) gsap.to(curF, { x: e.clientX - 16, y: e.clientY - 16, duration: 0.6, ease: "expo.out" }); 
         });
     </script>
 
