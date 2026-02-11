@@ -46,7 +46,16 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* High-End Agency Style Service Card with Refined 3D depth */
+        /* Glass Nav Scrolled State */
+        nav.nav-scrolled {
+            background: rgba(15, 14, 13, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        /* High-End Agency Style Service Card - Tilt Removed */
         .service-card {
             position: relative;
             transition: background 0.7s ease, border-color 0.7s ease;
@@ -59,8 +68,6 @@
             justify-content: space-between;
             height: 100%;
             border-radius: 4rem; 
-            transform-style: preserve-3d;
-            perspective: 2000px; /* Enhanced perspective for smoother tilt */
             will-change: transform, opacity, filter;
             backface-visibility: hidden;
         }
@@ -70,19 +77,10 @@
             border-color: rgba(139, 94, 60, 0.4);
         }
 
-        /* Inner element lift logic via preserve-3d */
-        .card-content-lift {
-            transform: translateZ(50px);
-            transform-style: preserve-3d;
-        }
-
-        .icon-lift {
-            transform: translateZ(80px);
-        }
-
-        .text-lift {
-            transform: translateZ(40px);
-        }
+        /* Depth lift logic removed for flat premium look */
+        .card-content-lift { transform: none; }
+        .icon-lift { transform: none; }
+        .text-lift { transform: none; }
 
         /* Hover Glow Effect */
         .card-glow {
@@ -95,7 +93,6 @@
             opacity: 0;
             transition: opacity 0.8s ease;
             pointer-events: none;
-            transform: translateZ(20px);
         }
 
         .service-card:hover .card-glow {
@@ -104,13 +101,13 @@
 
         .service-desc {
             opacity: 0.4;
-            transform: translateZ(30px) translateY(10px);
+            transform: translateY(10px);
             transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         .service-card:hover .service-desc {
             opacity: 0.9;
-            transform: translateZ(30px) translateY(0);
+            transform: translateY(0);
         }
 
         /* Simplified Single Dot Cursor */
@@ -330,6 +327,80 @@
             width: 100%;
         }
 
+        /* Cookie Banner Styling - Enhanced Spacing */
+        #cookie-banner {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            left: 30px;
+            max-width: 1100px;
+            margin: 0 auto;
+            z-index: 500;
+            padding: 1.75rem 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            border-radius: 2.5rem;
+            opacity: 0;
+            transform: translateY(100px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            #cookie-banner {
+                flex-direction: row;
+                text-align: left;
+                gap: 4rem;
+            }
+        }
+
+        #cookie-banner.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .cookie-btn-group {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .btn-cookie-primary {
+            padding: 0.75rem 2rem;
+            background: var(--accent);
+            color: white;
+            font-weight: 700;
+            font-size: 11px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cookie-secondary {
+            padding: 0.75rem 1.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 600;
+            font-size: 10px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cookie-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
         @media (max-width: 1024px) {
             .hero-container {
                 padding-top: 100px;
@@ -368,7 +439,6 @@
                 padding-right: 1.5rem;
             }
 
-            /* Reduced Grid Height for better mobile framing from genverge1.html */
             #services-grid {
                 position: relative;
                 height: 55vh; 
@@ -377,7 +447,6 @@
                 margin: 0 auto;
                 margin-top: 1rem;
             }
-            /* Adjusted card sizing and initial mobile stacking styling from genverge1.html */
             .service-card {
                 position: absolute !important;
                 top: 0 !important;
@@ -396,7 +465,6 @@
                 font-size: 0.9rem !important;
             }
 
-            /* NEW NON-BLOCKING MOBILE SECURITY STYLES */
             #security-cards-grid {
                 display: flex !important;
                 flex-direction: column;
@@ -418,10 +486,10 @@
                 flex-direction: column;
                 justify-content: center;
                 overflow: hidden;
-                filter: none !important; /* Force zero blur */
+                filter: none !important;
                 -webkit-filter: blur(0px) !important;
                 will-change: transform, opacity;
-                transform: translateZ(0); /* Hardware accelerate for crispness */
+                transform: translateZ(0);
                 -webkit-backface-visibility: hidden;
                 backface-visibility: hidden;
             }
@@ -442,9 +510,8 @@
                 color: var(--accent);
             }
 
-            /* MOBILE ROADMAP FIXES: Prevent font cluttering and overlapping grid */
             .process-neural-axis {
-                left: 2rem !important; /* Move axis to the left on mobile */
+                left: 2rem !important;
                 transform: none !important;
             }
             .process-neural-progress {
@@ -452,7 +519,7 @@
                 transform: none !important;
             }
             .process-node {
-                grid-template-columns: 4rem 1fr !important; /* Single column layout with marker prefix */
+                grid-template-columns: 4rem 1fr !important;
                 text-align: left !important;
                 gap: 0 !important;
             }
@@ -460,7 +527,7 @@
                 grid-column: 2 !important;
                 text-align: left !important;
                 padding: 0 0 0.5rem 1.5rem !important;
-                order: -1; /* Place Phase label above heading */
+                order: -1;
             }
             .process-marker-wrap {
                 grid-column: 1 !important;
@@ -472,24 +539,20 @@
                 padding: 0 0 2rem 1.5rem !important;
             }
             .process-info h3 {
-                font-size: 1.75rem !important; /* Reduce cluttering headline size */
+                font-size: 1.75rem !important;
                 margin-bottom: 0.75rem !important;
             }
             .process-info p {
-                font-size: 0.95rem !important; /* Scale down description text */
+                font-size: 0.95rem !important;
                 max-width: 100% !important;
             }
-            .process-node.active .process-info {
-                transform: none !important; /* Disable slide animation that might cause overflow */
-            }
 
-            /* MOBILE GOVERNANCE FIXES - Deep Streamlined & Fitted */
             .governance-container {
                 padding: 4rem 1.5rem !important; 
                 border-radius: 2.5rem !important;
                 display: flex !important;
                 flex-direction: column !important;
-                gap: 0 !important; /* No gap; use specific margins for precision */
+                gap: 0 !important;
                 text-align: left !important;
                 filter: none !important; 
                 -webkit-filter: blur(0px) !important;
@@ -498,25 +561,20 @@
                 -webkit-backface-visibility: hidden;
                 backface-visibility: hidden;
             }
-
-            /* Explicit mobile border removal */
             .governance-container::before {
                 display: none !important;
             }
-            
             .reveal-governance-text {
                 text-align: left !important;
                 margin-top: 0 !important;
             }
-
             .reveal-governance-text h2 {
                 font-size: 2rem !important; 
-                margin-top: 4.5rem !important; /* Massive definitive separation */
+                margin-top: 4.5rem !important;
                 text-align: left !important;
                 line-height: 1.15 !important;
                 display: block !important;
             }
-
             .reveal-governance-text p {
                 font-size: 0.9rem !important;
                 line-height: 1.5 !important;
@@ -526,23 +584,20 @@
                 color: rgba(255, 255, 255, 0.45) !important;
                 display: block !important;
             }
-
             .reveal-governance-visual {
-                max-width: 90px !important; /* Compact icon footprint */
+                max-width: 90px !important;
                 margin: 0 !important;
                 order: -1 !important; 
                 align-self: flex-start !important;
                 position: relative !important;
                 z-index: 10 !important;
             }
-
             .governance-chips {
                 display: flex !important;
                 flex-direction: column !important;
                 gap: 1rem !important;
                 width: 100% !important;
             }
-
             .gov-chip {
                 flex-direction: row !important;
                 align-items: center !important;
@@ -551,20 +606,8 @@
                 background: rgba(255, 255, 255, 0.04) !important;
                 border-radius: 1.25rem !important;
             }
-
-            .gov-chip .w-10 {
-                width: 2.5rem !important;
-                height: 2.5rem !important;
-                flex-shrink: 0;
-            }
-
-            .gov-chip .space-y-1 {
-                margin-left: 1rem !important;
-                text-align: left !important;
-            }
         }
 
-        /* MODAL STYLES */
         .modal-grain {
             position: fixed;
             inset: 0;
@@ -580,7 +623,6 @@
             background-size: 40px 40px;
         }
 
-        /* NEURAL TIMELINE PROCESS STYLES */
         .process-neural-axis {
             position: absolute;
             left: 50%;
@@ -658,9 +700,8 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        /* UPDATED NEURAL BACKGROUND STYLE FOR VISIBILITY */
         #three-container {
-            filter: blur(1px); /* Professional softening effect */
+            filter: blur(1px);
             opacity: 0.9; 
             transition: opacity 1s ease;
             pointer-events: none;
@@ -678,24 +719,12 @@
             animation: floating 8s ease-in-out infinite;
         }
 
-        /* Gradient Border Animation logic */
-        @property --border-angle {
-            syntax: "<angle>";
-            initial-value: 0deg;
-            inherits: false;
-        }
-
-        @keyframes rotate-gradient {
-            to { --border-angle: 360deg; }
-        }
-
         .gradient-border-animated {
             position: relative;
             background: rgba(255, 255, 255, 0.01) !important;
             z-index: 0;
         }
 
-        /* Enhanced Border Visibility Edits */
         .gradient-border-animated::before {
             content: "";
             position: absolute;
@@ -718,7 +747,6 @@
             opacity: 1; 
         }
 
-        /* Security Feature Card AI Optimizations */
         .ai-feature-card {
             position: relative;
             overflow: hidden;
@@ -726,15 +754,11 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             background: rgba(255, 255, 255, 0.02);
             transform: translateY(0) scale(1);
-            /* Match Service Card interactive foundation */
-            transform-style: preserve-3d;
-            perspective: 2000px;
         }
 
-        /* Neural bobbing keyframes - Refined for slow, playful motion */
         @keyframes ai-breathe {
-            0%, 100% { transform: translateY(0px) rotateX(0deg); }
-            50% { transform: translateY(-12px) rotateX(1deg); }
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-12px); }
         }
 
         .bob-1 { animation: ai-breathe 8s ease-in-out infinite; }
@@ -750,7 +774,6 @@
             pointer-events: none;
         }
 
-        /* ENHANCED SECURITY HOVER EFFECT */
         .ai-feature-card:hover {
             border-color: rgba(139, 94, 60, 0.8);
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(139, 94, 60, 0.1);
@@ -779,7 +802,6 @@
             transform: translateX(4px);
         }
 
-        /* Technical Grid Overlay for hover */
         .card-tech-grid {
             position: absolute;
             inset: 0;
@@ -794,13 +816,12 @@
             opacity: 0.5;
         }
 
-        /* UPDATED VERTICAL FAMILY-TREE ENGAGEMENT STYLES */
         .neural-engagement-wrap {
             position: relative;
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            padding: 1.5rem 0; /* Reduced padding from 2.5rem */
+            padding: 1.5rem 0;
             gap: 2rem;
         }
 
@@ -826,33 +847,34 @@
             cursor: pointer;
             transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             position: relative;
-            z-index: 50; /* Base layering */
+            z-index: 50; 
         }
 
-        /* FIXED: TARGET BOTH PLACEHOLDER AND GENERATED SVG ICONS */
         .hub-node i,
         .hub-node svg {
-            opacity: 1 !important; /* Force persistent visibility */
+            opacity: 1 !important;
             visibility: visible !important;
             transition: all 0.4s ease;
             position: relative;
-            z-index: 70 !important; /* Ensure fixed layering above node background */
+            z-index: 70 !important;
             display: block !important;
         }
 
-        .engagement-hub:hover .hub-node {
+        .engagement-hub:hover .hub-node,
+        .engagement-hub.active-reveal .hub-node {
             background: var(--accent);
             box-shadow: 0 0 40px rgba(139, 94, 60, 0.4);
             transform: scale(1.05);
             border-color: var(--accent-light);
         }
 
-        /* FIXED: ICON CONTRAST AND VISIBILITY ON HOVER */
         .engagement-hub:hover .hub-node i,
-        .engagement-hub:hover .hub-node svg {
-            color: #ffffff !important; /* Maintain high contrast against brown */
-            stroke: #ffffff !important; /* Ensure stroke-based icons stay white */
-            transform: scale(1.15); /* Prominent scale reinforcement */
+        .engagement-hub:hover .hub-node svg,
+        .engagement-hub.active-reveal .hub-node i,
+        .engagement-hub.active-reveal .hub-node svg {
+            color: #ffffff !important;
+            stroke: #ffffff !important;
+            transform: scale(1.15);
             opacity: 1 !important;
             z-index: 100 !important;
         }
@@ -870,7 +892,6 @@
             color: #fff;
         }
 
-        /* Downward Branching Structure */
         .branch-container {
             margin-top: 2rem;
             display: flex;
@@ -878,10 +899,11 @@
             align-items: center;
             gap: 1rem;
             width: 100%;
-            pointer-events: none; /* Hub interaction first */
+            pointer-events: none;
         }
 
-        .engagement-hub:hover .branch-container {
+        .engagement-hub:hover .branch-container,
+        .engagement-hub.active-reveal .branch-container {
             pointer-events: auto;
         }
 
@@ -902,15 +924,15 @@
             position: relative;
         }
 
-        /* Sequential vertical expansion on hover */
-        .engagement-hub:hover .neural-leaf {
+        .engagement-hub:hover .neural-leaf,
+        .engagement-hub.active-reveal .neural-leaf {
             opacity: 1;
             transform: translateY(0) scale(1);
         }
 
-        .engagement-hub:hover .leaf-1 { transition-delay: 0.1s; }
-        .engagement-hub:hover .leaf-2 { transition-delay: 0.2s; }
-        .engagement-hub:hover .leaf-3 { transition-delay: 0.3s; }
+        .engagement-hub:hover .leaf-1, .engagement-hub.active-reveal .leaf-1 { transition-delay: 0.1s; }
+        .engagement-hub:hover .leaf-2, .engagement-hub.active-reveal .leaf-2 { transition-delay: 0.2s; }
+        .engagement-hub:hover .leaf-3, .engagement-hub.active-reveal .leaf-3 { transition-delay: 0.3s; }
 
         .leaf-dot {
             width: 8px;
@@ -928,27 +950,6 @@
             line-height: 1.4;
         }
 
-        /* Mobile Engagement Adjustments */
-        @media (max-width: 1024px) {
-            .neural-engagement-wrap {
-                flex-direction: column;
-                min-height: auto;
-                gap: 4rem;
-                align-items: center;
-            }
-            .engagement-hub { 
-                width: 100%; 
-                min-height: auto;
-            }
-            .neural-leaf { 
-                opacity: 1 !important; 
-                transform: none !important; 
-                max-width: 100%;
-                margin-bottom: 0.5rem;
-            }
-        }
-
-        /* --- REDESIGNED GLASS FAQ SECTION --- */
         .faq-row {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(16px);
@@ -1043,7 +1044,6 @@
             opacity: 1;
         }
 
-        /* --- ENQUIRY FORM STYLES --- */
         .enquiry-input-group {
             position: relative;
             margin-bottom: 2rem;
@@ -1081,7 +1081,6 @@
             color: rgba(255, 255, 255, 0.15);
         }
 
-        /* CUSTOM DROPDOWN STYLING */
         .custom-dropdown {
             position: relative;
             width: 100%;
@@ -1161,7 +1160,6 @@
             background: rgba(139, 94, 60, 0.05);
         }
 
-        /* Responsive Contact Group */
         .contact-group-layout {
             display: grid;
             grid-template-columns: 140px 1fr;
@@ -1196,6 +1194,20 @@
     <!-- Scroll Progress Bar -->
     <div id="scroll-progress">
         <div id="scroll-progress-fill"></div>
+    </div>
+
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" class="glass shadow-2xl">
+        <div class="flex-1">
+            <p class="text-xs md:text-sm text-white/70 font-light leading-relaxed tracking-wider" style="letter-spacing: 0.07em;">
+                We use cookies to enhance your intelligence ecosystem experience. By continuing, you agree to our structural protocol and neural monitoring settings.
+            </p>
+        </div>
+        <div class="cookie-btn-group">
+            <button class="btn-cookie-primary" id="cookie-accept">Accept All</button>
+            <button class="btn-cookie-decline btn-cookie-secondary" id="cookie-decline">Decline</button>
+            <button class="btn-cookie-secondary" id="cookie-info">More Info</button>
+        </div>
     </div>
 
     <div class="custom-cursor hidden md:block" id="cursor"></div>
@@ -1252,11 +1264,11 @@
     <!-- 3D Global Background -->
     <div id="three-container"></div>
 
-    <main class="relative z-10">
+    <main id="main-content" class="relative z-10 opacity-1">
         <!-- Hero Section -->
         <section id="hero" class="hero-container px-10 md:px-24 overflow-hidden">
             
-            <div class="max-w-[1600px] mx-auto hero-layout-wrap" id="hero-main-content">
+            <div class="max-w-[1600px] mx-auto hero-layout-wrap opacity-0" id="hero-main-content">
                 <!-- Left Text Content -->
                 <div class="hero-text-block">
                     <h1 class="mb-6 reveal-hero relative parallax-item" id="hero-headline" data-speed="0.08">
@@ -1277,14 +1289,14 @@
                         </span>
                     </h1>
 
-                    <div class="reveal-up parallax-item" data-speed="0.12">
+                    <div class="reveal-up">
                         <p class="text-lg md:text-xl max-w-2xl mb-10 text-white/30 font-light leading-relaxed border-l-2 border-[#8b5e3c]/20 pl-12 text-center lg:text-left">
                             We architect high-fidelity AI ecosystems that integrate seamlessly with your workforce—transforming complex operational data into immediate competitive momentum.
                         </p>
                     </div>
 
                     <!-- Refined Animated CTA Section -->
-                    <div class="flex flex-col sm:flex-row gap-8 reveal-up items-center lg:items-start pt-2 parallax-item" data-speed="0.15">
+                    <div class="flex flex-col sm:flex-row gap-8 reveal-up items-center lg:items-start pt-2">
                         <a href="#enquiry" class="btn-animated-primary group">
                             Begin Discovery <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                         </a>
@@ -1295,14 +1307,14 @@
                 </div>
 
                 <!-- Right 3D Visual Block -->
-                <div class="hero-visual-block reveal-hero-visual parallax-item" data-speed="-0.1">
+                <div class="hero-visual-block reveal-hero-visual">
                     <div id="hero-3d-object"></div>
                 </div>
             </div>
         </section>
 
         <!-- About Section - Tighter Padding -->
-        <section id="about" class="pt-4 pb-2 md:pt-8 md:pb-4 px-6 md:px-24 lg:py-32 relative overflow-hidden bg-transparent">
+        <section id="about" class="pt-4 pb-2 md:pt-8 md:pb-4 px-6 md:px-24 lg:py-32 relative overflow-hidden bg-transparent section-to-reveal">
             <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-20 md:gap-40 items-center">
                 <div class="space-y-12 about-text reveal-about-content">
                     <div class="space-y-4">
@@ -1335,7 +1347,7 @@
         </section>
 
         <!-- Services Section - Tighter Padding -->
-        <section id="services" class="pt-4 pb-4 md:pt-6 md:pb-6 px-10 md:px-24 lg:py-32 bg-white/[0.01]">
+        <section id="services" class="pt-4 pb-4 md:pt-6 md:pb-6 px-10 md:px-24 lg:py-32 bg-white/[0.01] section-to-reveal">
             <div class="max-w-[1600px] mx-auto">
                 <div class="mb-16 md:mb-24 reveal-services-head">
                     <span class="text-[#d4a373] text-[12px] font-light uppercase tracking-[0.6em] mb-6 block">Capabilities</span>
@@ -1349,7 +1361,7 @@
         </section>
 
         <!-- Process Section - NEURAL TIMELINE - Reduced padding -->
-        <section id="process" class="py-4 px-10 md:px-24 lg:py-32 relative overflow-hidden">
+        <section id="process" class="py-4 px-10 md:px-24 lg:py-32 relative overflow-hidden section-to-reveal">
             <div class="max-w-7xl mx-auto">
                 <div class="mb-24 text-center lg:text-left">
                     <span class="text-[#8b5e3c] text-[11px] font-bold uppercase tracking-[0.8em] mb-6 block">The Protocol</span>
@@ -1438,7 +1450,7 @@
         </section>
 
         <!-- Security Section - Reduced padding -->
-        <section id="security" class="py-4 px-10 md:px-24 lg:py-32 bg-[#0a0a0a] relative overflow-hidden">
+        <section id="security" class="py-4 px-10 md:px-24 lg:py-32 bg-[#0a0a0a] relative overflow-hidden section-to-reveal">
             <!-- Subtle Grid Overlay -->
             <div class="absolute inset-0 opacity-[0.03] pointer-events-none modal-technical-grid"></div>
             
@@ -1536,17 +1548,17 @@
             </div>
         </section>
 
-        <!-- Engagement Section (VERTICAL TREE REDESIGN) - Reduced padding -->
-        <section id="engagement" class="py-4 px-10 md:px-24 lg:py-32 relative overflow-hidden">
+        <!-- Engagement Section (SINGLE HORIZONTAL LAYOUT ON DESKTOP) -->
+        <section id="engagement" class="py-4 px-10 md:px-24 lg:py-32 relative overflow-hidden section-to-reveal">
             <div class="max-w-[1600px] mx-auto">
                 <div class="mb-20 md:mb-24 text-center reveal-engagement-head">
                     <span class="text-[#d4a373] text-[12px] font-light uppercase tracking-[0.6em] mb-6 block">The Strategy</span>
-                    <h2 class="text-5xl md:text-8xl font-light text-white tracking-tighter leading-tight">
+                    <h2 class="text-4xl md:text-6xl font-light text-white tracking-tighter leading-tight">
                         Start small, Prove value, <br><span class="italic text-white/20">Then scale.</span>
                     </h2>
                 </div>
 
-                <div class="neural-engagement-wrap">
+                <div class="neural-engagement-wrap lg:flex-row lg:justify-center lg:items-start flex flex-col items-center lg:items-start gap-12 lg:gap-16">
                     <!-- Hub 1: Pilot -->
                     <div class="engagement-hub" data-hub="1">
                         <div class="hub-node">
@@ -1590,7 +1602,7 @@
                         </div>
                         <div class="branch-container">
                             <div class="neural-leaf leaf-1"><div class="leaf-dot"></div><p class="leaf-text">24/7 Monitoring & Neural Evaluation</p></div>
-                            <div class="neural-leaf leaf-2"><div class="leaf-dot)</div><p class="leaf-text">Continuous model tuning & refinement</p></div>
+                            <div class="neural-leaf leaf-2"><div class="leaf-dot"></div><p class="leaf-text">Continuous model tuning & refinement</p></div>
                             <div class="neural-leaf leaf-3"><div class="leaf-dot"></div><p class="leaf-text">Strategic roadmap for new use cases</p></div>
                         </div>
                     </div>
@@ -1599,7 +1611,7 @@
         </section>
 
         <!-- Governance Section - REDESIGNED & BREATHING -->
-        <section id="governance" class="py-4 px-10 md:px-24 lg:py-32 reveal-governance-wrap bg-transparent">
+        <section id="governance" class="py-4 px-10 md:px-24 lg:py-32 reveal-governance-wrap bg-transparent section-to-reveal">
             <div class="max-w-7xl mx-auto glass rounded-[4rem] px-8 py-16 md:p-24 border border-white/5 flex flex-col md:flex-row gap-16 md:gap-20 items-center overflow-hidden governance-container parallax-item gradient-border-animated" data-speed="-0.05">
                 <!-- Inner Decorative Grid -->
                 <div class="absolute inset-0 opacity-[0.03] pointer-events-none modal-technical-grid"></div>
@@ -1654,7 +1666,7 @@
         </section>
 
         <!-- Enquiry Form Section - REFINED & SLEEK -->
-        <section id="enquiry" class="py-24 px-10 md:px-24 bg-transparent relative overflow-hidden">
+        <section id="enquiry" class="py-24 px-10 md:px-24 bg-transparent relative overflow-hidden section-to-reveal">
             <div class="max-w-[1600px] mx-auto grid lg:grid-cols-2 gap-24 items-start">
                 <!-- Left: Text content -->
                 <div class="reveal-enquiry-text space-y-10">
@@ -1742,7 +1754,7 @@
         </section>
 
         <!-- FAQ Section - High-End Glassmorph Rows & Optimized Visibility -->
-        <section id="faq" class="py-12 px-10 md:px-24 lg:py-32 bg-transparent relative overflow-hidden">
+        <section id="faq" class="py-12 px-10 md:px-24 lg:py-32 bg-transparent relative overflow-hidden section-to-reveal">
             <div class="max-w-4xl mx-auto">
                 <div class="mb-12 reveal-faq-head">
                     <span class="text-[#d4a373] text-[11px] font-bold uppercase tracking-[0.6em] mb-4 block">Knowledge Base</span>
@@ -1824,7 +1836,7 @@
         </section>
 
         <!-- Footer - Standardized Professional Layout -->
-        <footer class="pt-24 pb-12 px-10 md:px-24 border-t border-white/5 bg-black/20" id="footer-contact">
+        <footer class="pt-24 pb-12 px-10 md:px-24 border-t border-white/5 bg-black/20 section-to-reveal" id="footer-contact">
             <div class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 md:gap-12">
                 <!-- Branding & Tagline -->
                 <div class="space-y-8">
@@ -1842,10 +1854,12 @@
                 <div class="space-y-8">
                     <h5 class="text-[11px] font-bold uppercase tracking-[0.3em] text-white/50">Capabilities</h5>
                     <ul class="space-y-4 text-xs text-white/95 font-light">
-                        <li><a href="#services" class="hover:text-[#d4a373] transition-colors">GenAI Copilots</a></li>
-                        <li><a href="#services" class="hover:text-[#d4a373] transition-colors">AI Automation</a></li>
-                        <li><a href="#services" class="hover:text-[#d4a373] transition-colors">RAG Knowledge Search</a></li>
+                        <li><a href="#services" class="hover:text-[#d4a373] transition-colors">GenAI Copilots & Internal Tools</a></li>
+                        <li><a href="#services" class="hover:text-[#d4a373] transition-colors">AI Automation (RPA + Agents)</a></li>
+                        <li><a href="#services" class="hover:text-[#d4a373] transition-colors">Data-to-AI Foundations</a></li>
+                        <li><a href="#services" class="hover:text-[#d4a373] transition-colors">Knowledge Search (RAG)</a></li>
                         <li><a href="#services" class="hover:text-[#d4a373] transition-colors">Decision Intelligence</a></li>
+                        <li><a href="#services" class="hover:text-[#d4a373] transition-colors">Dashboards & Ops Visibility</a></li>
                     </ul>
                 </div>
 
@@ -1861,14 +1875,14 @@
                 </div>
 
                 <!-- Contact/Action -->
-                <div class="space-y-8">
+                <div class="space-y-12">
                     <h5 class="text-[11px] font-bold uppercase tracking-[0.3em] text-white/80">Connect</h5>
-                    <div class="space-y-4">
-                        <p class="text-xs text-white/95 font-light italic">Ready to operationalize your data?</p>
+                    <div class="space-y-6">
+                        <p class="text-xs text-white/95 font-light italic tracking-wider" style="letter-spacing: 0.07em;">Ready to operationalize your data?</p>
                         <a href="mailto:hello@genverge.ai" class="block text-sm text-[#d4a373] font-medium hover:underline">hello@genverge.ai</a>
-                        <button class="mt-4 px-6 py-2 border border-white/10 text-white text-[9px] font-bold rounded-full hover:bg-white hover:text-black transition-all uppercase tracking-[0.15em]">
+                        <a href="#enquiry" class="mt-4 px-6 py-3 border border-white/10 text-white text-[9px] font-bold rounded-full hover:bg-white hover:text-black transition-all uppercase tracking-[0.15em] block text-center">
                             Discovery Call
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -1920,13 +1934,14 @@
         function setupCustomDropdown(dropdownId, labelId) {
             const dropdown = document.getElementById(dropdownId);
             const label = document.getElementById(labelId);
-            const menu = dropdown.querySelector('.dropdown-menu');
-            const items = dropdown.querySelectorAll('.dropdown-item');
+            const menu = dropdown ? dropdown.querySelector('.dropdown-menu') : null;
+            const items = dropdown ? dropdown.querySelectorAll('.dropdown-item') : [];
             const phoneInput = document.getElementById('phone-input');
+
+            if (!dropdown) return;
 
             dropdown.addEventListener('click', (e) => {
                 e.stopPropagation();
-                // Close others
                 document.querySelectorAll('.custom-dropdown').forEach(d => {
                     if(d.id !== dropdownId) d.classList.remove('active');
                 });
@@ -1942,18 +1957,16 @@
                     items.forEach(i => i.classList.remove('selected'));
                     item.classList.add('selected');
 
-                    // ISD specific logic
-                    if (dropdownId === 'isd-dropdown') {
+                    if (dropdownId === 'isd-dropdown' && phoneInput) {
                         const len = item.getAttribute('data-len');
                         phoneInput.placeholder = `Enter ${len} digits`;
                         phoneInput.maxLength = len;
-                        phoneInput.value = ''; // Clear for new format
+                        phoneInput.value = ''; 
                     }
                 });
             });
         }
 
-        // Close dropdowns on outside click
         window.addEventListener('click', () => {
             document.querySelectorAll('.custom-dropdown').forEach(d => d.classList.remove('active'));
         });
@@ -1966,39 +1979,18 @@
 
         const openMobileMenu = () => {
             if (!mobileMenu) return;
-            gsap.to(mobileMenu, { 
-                x: 0, 
-                opacity: 1, 
-                pointerEvents: 'auto', 
-                duration: 0.6, 
-                ease: "expo.out" 
-            });
-            gsap.from(".mobile-nav-link", { 
-                x: 30, 
-                opacity: 0, 
-                stagger: 0.08, 
-                duration: 0.8, 
-                ease: "power3.out", 
-                delay: 0.2 
-            });
+            gsap.to(mobileMenu, { x: 0, opacity: 1, pointerEvents: 'auto', duration: 0.6, ease: "expo.out" });
+            gsap.from(".mobile-nav-link", { x: 30, opacity: 0, stagger: 0.08, duration: 0.8, ease: "power3.out", delay: 0.2 });
         };
 
         const closeMobileMenu = () => {
             if (!mobileMenu) return;
-            gsap.to(mobileMenu, { 
-                x: '100%', 
-                opacity: 0, 
-                pointerEvents: 'none', 
-                duration: 0.5, 
-                ease: "expo.in" 
-            });
+            gsap.to(mobileMenu, { x: '100%', opacity: 0, pointerEvents: 'none', duration: 0.5, ease: "expo.in" });
         };
 
         if (mobileToggle) mobileToggle.onclick = openMobileMenu;
         if (mobileClose) mobileClose.onclick = closeMobileMenu;
-        mobileNavLinks.forEach(link => {
-            link.onclick = closeMobileMenu;
-        });
+        mobileNavLinks.forEach(link => link.onclick = closeMobileMenu);
 
         // Security Glow Handler
         function handleCardGlow(e, card) {
@@ -2009,16 +2001,11 @@
             card.style.setProperty('--mouse-y', `${y}%`);
         }
 
-        // Optimized FAQ Toggle logic (One at a time)
         function toggleFaq(row) {
             const rows = document.querySelectorAll('.faq-row');
             const isActive = row.classList.contains('active');
-            
             rows.forEach(r => r.classList.remove('active'));
-            
-            if(!isActive) {
-                row.classList.add('active');
-            }
+            if(!isActive) row.classList.add('active');
         }
 
         // --- RENDER SERVICES ---
@@ -2104,13 +2091,11 @@
                 modal.style.opacity = '1';
                 modal.style.pointerEvents = 'auto';
                 document.body.style.overflow = 'hidden';
-                
                 gsap.timeline()
                     .to(modal, { opacity: 1, duration: 0.8, ease: "power3.inOut" })
                     .to(".reveal-modal-nav", { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.3")
                     .from(".reveal-modal-item", { y: 60, opacity: 0, filter: "blur(10px)", stagger: 0.12, duration: 1.4, ease: "power4.out" }, "-=0.8");
             }
-            
             lucide.createIcons();
         }
 
@@ -2265,203 +2250,132 @@
             initThree();
             initHero3D();
 
-            // Setup enquiry dropdowns
             setupCustomDropdown('isd-dropdown', 'isd-label');
             setupCustomDropdown('category-dropdown', 'category-label');
 
-            // REVEAL HERO
-            gsap.timeline()
-                .to("#hero-main-content, #navbar", { opacity: 1, duration: 1.2, ease: "power2.out" })
-                .from(".hero-headline-line span", { y: 150, opacity: 0, filter: "blur(12px)", duration: 1.8, stagger: 0.15, ease: "expo.out" }, "-=0.4");
+            // Cookie Banner Reveal Logic
+            const banner = document.getElementById('cookie-banner');
+            setTimeout(() => {
+                banner.classList.add('active');
+            }, 1500);
 
-            // ABOUT REVEAL
-            gsap.timeline({ scrollTrigger: { trigger: "#about", start: "top 70%" } })
-                .from(".about-title", { y: 30, opacity: 0, duration: 1.2, ease: "power3.out" });
+            document.getElementById('cookie-accept').onclick = () => banner.classList.remove('active');
+            document.getElementById('cookie-decline').onclick = () => banner.classList.remove('active');
+            document.getElementById('cookie-info').onclick = () => window.location.hash = 'privacy';
 
-            // --- SERVICE CARD ANIMATION ---
-            const cards = gsap.utils.toArray(".service-card");
-            if (window.innerWidth > 1024) {
-                cards.forEach((card, idx) => {
-                    gsap.to(card, { scrollTrigger: { trigger: card, start: "top 92%" }, y: 0, opacity: 1, scale: 1, duration: 1.2, ease: "power2.out", delay: (idx % 3) * 0.1 });
-                });
-            } else {
-                gsap.set(cards, { yPercent: 0, opacity: 1, scale: 1, force3D: true, transformOrigin: "center top", top: 0 });
-                cards.forEach((card, i) => { gsap.set(card, { scale: 1 - (i * 0.06), yPercent: i * 14, opacity: 1 - (i * 0.35), filter: `blur(${i * 2}px)`, zIndex: cards.length - i }); });
-                const serviceStackTl = gsap.timeline({ scrollTrigger: { trigger: "#services", start: "top 5%", end: `+=${cards.length * 120}%`, pin: true, scrub: 0.2, snap: { snapTo: 1 / (cards.length - 1), duration: 0.55, ease: "power2.inOut" }, invalidateOnRefresh: true, anticipatePin: 1 } });
-                cards.forEach((card, i) => { if (i < cards.length - 1) { serviceStackTl.to(card, { yPercent: -120, scale: 0.9, opacity: 0, filter: "blur(15px)", ease: "none", duration: 1 }, i).to(cards.slice(i + 1), { scale: (idx, target) => 1 - ((cards.indexOf(target) - (i + 1)) * 0.06), yPercent: (idx, target) => (cards.indexOf(target) - (i + 1)) * 14, opacity: (idx, target) => 1 - ((cards.indexOf(target) - (i + 1)) * 0.35), filter: (idx, target) => `blur(${(cards.indexOf(target) - (i + 1)) * 2}px)`, ease: "none", duration: 1 }, i); } });
-            }
-
-            // TIMELINE ANIMATIONS
-            gsap.to("#neural-path-fill", { height: "100%", ease: "none", scrollTrigger: { trigger: "#timeline-steps", start: "top center", end: "bottom center", scrub: 1 } });
-            document.querySelectorAll('.process-node').forEach((step) => { ScrollTrigger.create({ trigger: step, start: "top center+=100", end: "bottom center-=100", onEnter: () => step.classList.add('active'), onLeave: () => step.classList.remove('active'), onEnterBack: () => step.classList.add('active'), onLeaveBack: () => step.classList.remove('active'), }); });
-
-            // SECURITY REVEAL
-            const securityCards = gsap.utils.toArray(".ai-feature-card");
-            if (window.innerWidth > 1024) {
-                gsap.timeline({ scrollTrigger: { trigger: "#security", start: "top 70%", once: true } }).from(".reveal-security-content > *", { y: 30, opacity: 0, stagger: 0.2, duration: 1.2, ease: "power3.out" });
-                securityCards.forEach((card, i) => { gsap.from(card, { scrollTrigger: { trigger: card, start: "top 95%", toggleActions: "play none none reverse" }, y: 60, opacity: 0, scale: 0.9, duration: 1.4, ease: "power4.out", delay: i * 0.1 }); });
-            } else {
-                // FIXED: Explicitly removed all blur filters and implemented sharp 1-by-1 highlight logic
-                securityCards.forEach((card, i) => { 
-                    gsap.set(card, { filter: "none", opacity: 0.2, scale: 0.98, transform: "translateZ(0)" }); 
-                    gsap.to(card, { 
-                        opacity: 1, 
-                        scale: 1.02,
-                        borderColor: "rgba(139, 94, 60, 0.7)",
-                        boxShadow: "0 15px 30px rgba(0,0,0,0.3)",
-                        duration: 0.3,
-                        filter: "none",
-                        scrollTrigger: { 
-                            trigger: card, 
-                            start: "top 65%", 
-                            end: "bottom 35%", 
-                            toggleActions: "play reverse play reverse",
-                            invalidateOnRefresh: true
-                        }
-                    }); 
-                });
-            }
-
-            // GOVERNANCE REVEAL - Fitted Mobile Reveal with spacing audited
-            const govTl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: "#governance",
-                    start: "top 85%",
-                    toggleActions: "play none none reverse"
+            // Scroll Blur Logic
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    nav.classList.add('nav-scrolled');
+                } else {
+                    nav.classList.remove('nav-scrolled');
                 }
             });
 
-            govTl.from(".governance-container", {
-                scale: 0.99,
-                opacity: 0,
-                duration: 0.8,
-                ease: "power2.out",
-                clearProps: "filter"
-            })
-            .from(".reveal-governance-visual", {
-                scale: 0.85,
-                opacity: 0,
-                duration: 0.6,
-                ease: "power3.out"
-            }, "-=0.4")
-            .from(".reveal-governance-text > *", {
-                y: 10,
-                opacity: 0,
-                stagger: 0.05,
-                duration: 0.5,
-                ease: "power2.out"
-            }, "-=0.3")
-            .from(".gov-chip", {
-                x: -10,
-                opacity: 0,
-                stagger: 0.05,
-                duration: 0.4,
-                ease: "power2.out"
-            }, "-=0.2");
+            // STRUCTURED SEQUENCED APPEARANCE
+            const masterReveal = gsap.timeline();
+            
+            masterReveal.to("#navbar", { opacity: 1, duration: 1, ease: "power2.out" })
+                .to("#hero-main-content", { opacity: 1, duration: 0.5 }, "-=0.5") 
+                .from(".hero-headline-line span", { y: 150, opacity: 0, filter: "blur(12px)", duration: 1.8, stagger: 0.15, ease: "expo.out" }, "-=0.5")
+                .from(".hero-text-block .reveal-up", { y: 30, opacity: 0, duration: 1.2, stagger: 0.2, ease: "power3.out" }, "-=1.2")
+                .from(".reveal-hero-visual", { opacity: 0, scale: 0.8, duration: 1.5, ease: "power2.out" }, "-=1.8");
 
-            // ENQUIRY REVEAL
-            gsap.timeline({ scrollTrigger: { trigger: "#enquiry", start: "top 70%" } })
-                .from(".reveal-enquiry-text", { x: -50, opacity: 0, duration: 1.2, ease: "power3.out" })
-                .from(".reveal-enquiry-form", { x: 50, opacity: 0, duration: 1.2, ease: "power3.out" }, "-=1.2");
-
-            // FAQ REVEAL - Deep fix for visibility
-            gsap.timeline({ scrollTrigger: { trigger: "#faq", start: "top 80%", toggleActions: "play none none none" } })
-                .from(".reveal-faq-head", { y: 30, opacity: 0, duration: 1, ease: "power3.out" })
-                .from(".reveal-faq-item", { 
-                    y: 30, 
-                    opacity: 0, 
-                    stagger: 0.1, 
-                    duration: 1, 
-                    ease: "power4.out",
-                    clearProps: "all" 
-                }, "-=0.5");
-
-            // FOOTER REVEAL
-            gsap.timeline({ scrollTrigger: { trigger: "footer", start: "top 85%" } }).from(".footer-col", { y: 30, opacity: 0, stagger: 0.15, duration: 1.2, ease: "power3.out" });
-
-            // --- MOBILE MENU LOGIC ---
-            const mobileToggle = document.getElementById('mobile-menu-toggle');
-            const mobileClose = document.getElementById('mobile-menu-close');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-
-            const openMobileMenu = () => {
-                if (!mobileMenu) return;
-                gsap.to(mobileMenu, { 
-                    x: 0, 
-                    opacity: 1, 
-                    pointerEvents: 'auto', 
-                    duration: 0.6, 
-                    ease: "expo.out" 
+            document.querySelectorAll('.section-to-reveal').forEach(section => {
+                gsap.from(section, {
+                    scrollTrigger: { trigger: section, start: "top 85%" },
+                    y: 50, opacity: 0, duration: 1.2, ease: "power2.out"
                 });
-                gsap.from(".mobile-nav-link", { 
-                    x: 30, 
-                    opacity: 0, 
-                    stagger: 0.08, 
-                    duration: 0.8, 
-                    ease: "power3.out", 
-                    delay: 0.2 
-                });
-            };
-
-            const closeMobileMenu = () => {
-                if (!mobileMenu) return;
-                gsap.to(mobileMenu, { 
-                    x: '100%', 
-                    opacity: 0, 
-                    pointerEvents: 'none', 
-                    duration: 0.5, 
-                    ease: "expo.in" 
-                });
-            };
-
-            if (mobileToggle) mobileToggle.onclick = openMobileMenu;
-            if (mobileClose) mobileClose.onclick = closeMobileMenu;
-            mobileNavLinks.forEach(link => {
-                link.onclick = closeMobileMenu;
             });
 
-            // --- GLOBAL ENHANCED PARALLAX & SMOOTHING (INTERACTIVE DEPTH) ---
+            const cards = gsap.utils.toArray(".service-card");
+            if (window.innerWidth <= 1024) {
+                gsap.set(cards, { yPercent: 0, opacity: 1, scale: 1, force3D: true, transformOrigin: "center top", top: 0 });
+                cards.forEach((card, i) => {
+                    gsap.set(card, {
+                        scale: 1 - (i * 0.05),
+                        yPercent: i * 12,
+                        opacity: 1 - (i * 0.3),
+                        zIndex: cards.length - i
+                    });
+                });
+
+                const serviceStackTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#services",
+                        start: "top 5%",
+                        end: `+=${cards.length * 100}%`,
+                        pin: true,
+                        scrub: 0.2,
+                        snap: 1 / (cards.length - 1),
+                        anticipatePin: 1
+                    }
+                });
+
+                cards.forEach((card, i) => {
+                    if (i < cards.length - 1) {
+                        serviceStackTl.to(card, { yPercent: -120, opacity: 0, ease: "none", duration: 1 }, i);
+                        serviceStackTl.to(cards.slice(i + 1), {
+                            scale: (idx, target) => 1 - ((cards.indexOf(target) - (i + 1)) * 0.05),
+                            yPercent: (idx, target) => (cards.indexOf(target) - (i + 1)) * 12,
+                            opacity: (idx, target) => 1 - ((cards.indexOf(target) - (i + 1)) * 0.3),
+                            ease: "none", duration: 1
+                        }, i);
+                    }
+                });
+            } else {
+                cards.forEach((card, idx) => {
+                    gsap.to(card, { scrollTrigger: { trigger: card, start: "top 92%" }, opacity: 1, y: 0, duration: 1.2, ease: "power2.out", delay: (idx % 3) * 0.1 });
+                });
+            }
+
+            gsap.to("#neural-path-fill", { height: "100%", ease: "none", scrollTrigger: { trigger: "#timeline-steps", start: "top center", end: "bottom center", scrub: 1 } });
+            document.querySelectorAll('.process-node').forEach((step) => { 
+                ScrollTrigger.create({ trigger: step, start: "top center+=100", end: "bottom center-=100", onEnter: () => step.classList.add('active'), onLeave: () => step.classList.remove('active'), onEnterBack: () => step.classList.add('active'), onLeaveBack: () => step.classList.remove('active'), }); 
+            });
+
+            // MOBILE STRATEGY AUTO-REVEAL LOGIC
+            if (window.innerWidth <= 1024) {
+                document.querySelectorAll('.engagement-hub').forEach((hub) => {
+                    ScrollTrigger.create({
+                        trigger: hub,
+                        start: "top 75%",
+                        end: "bottom 25%",
+                        onEnter: () => hub.classList.add('active-reveal'),
+                        onLeave: () => hub.classList.remove('active-reveal'),
+                        onEnterBack: () => hub.classList.add('active-reveal'),
+                        onLeaveBack: () => hub.classList.remove('active-reveal'),
+                    });
+                });
+            }
+
+            const securityCards = gsap.utils.toArray(".ai-feature-card");
+            securityCards.forEach((card, i) => { 
+                gsap.set(card, { filter: "none", opacity: 0.2, scale: 0.98 }); 
+                gsap.to(card, { opacity: 1, scale: 1.02, borderColor: "rgba(139, 94, 60, 0.7)", boxShadow: "0 15px 30px rgba(0,0,0,0.3)", duration: 0.3, scrollTrigger: { trigger: card, start: "top 65%", end: "bottom 35%", toggleActions: "play reverse play reverse" } }); 
+            });
+
             const parallaxItems = document.querySelectorAll('.parallax-item');
-            
             ScrollTrigger.create({
-                trigger: "body", start: "top top", end: "bottom bottom",
-                scrub: 4, 
+                trigger: "body", start: "top top", end: "bottom bottom", scrub: 4, 
                 onUpdate: (self) => {
                     const scroll = self.progress;
-                    const velocity = self.getVelocity() / 1000;
-                    
                     parallaxItems.forEach(item => {
                         const speed = parseFloat(item.getAttribute('data-speed')) || 0.1;
                         const movement = (scroll * 1000) * speed;
-                        gsap.to(item, {
-                            y: movement,
-                            skewY: velocity * 0.05, 
-                            duration: 1.2, 
-                            ease: "power2.out",
-                            overwrite: "auto"
-                        });
+                        gsap.to(item, { y: movement, duration: 1.2, ease: "power2.out", overwrite: "auto" });
                     });
-
-                    if(starField) {
-                        gsap.to(starField.position, { z: -scroll * 1200, duration: 1.5, ease: "power2.out" });
-                        gsap.to(starField.rotation, { y: scroll * 0.2, duration: 1.5 });
-                    }
-                    if(bokehGroup) {
-                        gsap.to(bokehGroup.position, { z: -scroll * 1800, duration: 1.5, ease: "power2.out" });
-                    }
-                    if(heroScene) {
-                        gsap.to(heroScene.position, { y: scroll * 3, duration: 1.5, ease: "power2.out" });
-                    }
+                    if(starField) { gsap.to(starField.position, { z: -scroll * 1200, duration: 1.5, ease: "power2.out" }); gsap.to(starField.rotation, { y: scroll * 0.2, duration: 1.5 }); }
+                    if(bokehGroup) { gsap.to(bokehGroup.position, { z: -scroll * 1800, duration: 1.5, ease: "power2.out" }); }
+                    if(heroScene) { gsap.to(heroScene.position, { y: scroll * 3, duration: 1.5, ease: "power2.out" }); }
                 }
             });
 
-            // UTILITIES
             gsap.to("#scroll-progress", { scale: "1 1", ease: "none", scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 0.5 } });
             ScrollTrigger.refresh();
         };
 
-        // --- REFINED ELASTIC CURSOR ---
         const cur = document.getElementById('cursor');
         const curF = document.getElementById('cursor-follower');
         document.addEventListener('mousemove', (e) => { 
