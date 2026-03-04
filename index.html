@@ -33,6 +33,12 @@
             letter-spacing: -0.05em;
         }
 
+        /* Improved responsiveness: remove tap delays */
+        a, button, .service-card, .faq-row, .hub-node, .custom-dropdown, .mobile-nav-link {
+            touch-action: manipulation;
+            cursor: pointer;
+        }
+
         .text-gradient {
             background: linear-gradient(135deg, #8b5e3c 0%, #d4a373 50%, #8b5e3c 100%);
             -webkit-background-clip: text;
@@ -401,6 +407,19 @@
             color: white;
         }
 
+        /* Mobile Menu Refinement */
+        .mobile-nav-link {
+            width: 100%;
+            padding: 1.25rem 0.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: block;
+            text-align: left;
+        }
+
+        .mobile-nav-link:last-of-type {
+            border-bottom: none;
+        }
+
         @media (max-width: 1024px) {
             .hero-container {
                 padding-top: 100px;
@@ -439,6 +458,10 @@
                 padding-right: 1.5rem;
             }
 
+            #services {
+                padding-bottom: 8rem !important; /* Extra breathing space after stacked cards */
+            }
+
             #services-grid {
                 position: relative;
                 height: 55vh; 
@@ -463,6 +486,10 @@
             }
             .service-card p {
                 font-size: 0.9rem !important;
+            }
+
+            #process {
+                padding-top: 12rem !important; /* Prevent overlap with pinned cards above */
             }
 
             #security-cards-grid {
@@ -1246,14 +1273,14 @@
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
         </div>
-        <div class="flex flex-col gap-12 items-start pl-4">
-            <a href="#about" class="mobile-nav-link text-xl font-light tracking-[0.4em] uppercase text-white/95 hover:text-white transition-colors">About</a>
-            <a href="#services" class="mobile-nav-link text-xl font-light tracking-[0.4em] uppercase text-white/95 hover:text-white transition-colors">Services</a>
-            <a href="#process" class="mobile-nav-link text-xl font-light tracking-[0.4em] uppercase text-white/95 hover:text-white transition-colors">Process</a>
-            <a href="#security" class="mobile-nav-link text-xl font-light tracking-[0.4em] uppercase text-white/95 hover:text-white transition-colors">Security</a>
-            <a href="#governance" class="mobile-nav-link text-xl font-light tracking-[0.4em] uppercase text-white/95 hover:text-white transition-colors">Governance</a>
+        <div class="flex flex-col items-start pl-4 pr-4">
+            <a href="#about" class="mobile-nav-link text-xl font-light tracking-[0.3em] uppercase text-white/95 hover:text-white transition-colors">About</a>
+            <a href="#services" class="mobile-nav-link text-xl font-light tracking-[0.3em] uppercase text-white/95 hover:text-white transition-colors">Services</a>
+            <a href="#process" class="mobile-nav-link text-xl font-light tracking-[0.3em] uppercase text-white/95 hover:text-white transition-colors">Process</a>
+            <a href="#security" class="mobile-nav-link text-xl font-light tracking-[0.3em] uppercase text-white/95 hover:text-white transition-colors">Security</a>
+            <a href="#governance" class="mobile-nav-link text-xl font-light tracking-[0.3em] uppercase text-white/95 hover:text-white transition-colors">Governance</a>
             
-            <a href="#enquiry" class="mobile-nav-link mt-12 w-full text-center py-4 bg-[#8b5e3c]/10 border border-[#8b5e3c]/40 text-white text-[10px] font-bold rounded-full uppercase tracking-[0.3em] shadow-[0_0_30px_rgba(139,94,60,0.15)]">Discovery Call</a>
+            <a href="#enquiry" class="mobile-nav-link mt-8 w-full text-center py-5 bg-[#8b5e3c]/10 border border-[#8b5e3c]/40 text-white text-[10px] font-bold rounded-full uppercase tracking-[0.3em] shadow-[0_0_30px_rgba(139,94,60,0.15)]">Discovery Call</a>
         </div>
         
         <div class="mt-auto pt-10 border-t border-white/5 opacity-20">
@@ -1479,7 +1506,7 @@
                             <div class="absolute inset-16 border-2 border-dashed border-[#8b5e3c]/5 rounded-full animate-[spin_20s_linear_infinite]"></div>
                             
                             <!-- Modular Interface Frame -->
-                            <div class="relative z-10 w-52 h-52 sm:w-64 sm:h-64 glass rounded-[3rem] border border-white/10 flex flex-col items-center justify-center shadow-[0_0_80px_rgba(139,94,60,0.1)] overflow-hidden">
+                            <div class="relative z-10 w-52 h-52 sm:w-64 sm:h-64 glass rounded-[3rem] border border-white/10 flex flex-col items-center justify-center shadow-[0_0_80px_rgba(139,94,60,0.15)] overflow-hidden">
                                 <div class="absolute inset-0 bg-radial-gradient(circle, rgba(139, 94, 60, 0.05) 0%, transparent 70%) animate-pulse"></div>
                                 
                                 <div class="relative flex flex-col items-center gap-4 text-center">
@@ -1891,8 +1918,9 @@
             <div class="max-w-[1600px] mx-auto mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] text-white/60 font-bold uppercase tracking-[0.4em]">
                 <div class="flex items-center gap-8">
                     <span>© 2024 GenVerge Inc.</span>
-                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
-                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                    <a href="javascript:void(0)" onclick="openLegalModal('privacy')" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="javascript:void(0)" onclick="openLegalModal('cookie')" class="hover:text-white transition-colors">Cookie Policy</a>
+                    <a href="javascript:void(0)" onclick="openLegalModal('terms')" class="hover:text-white transition-colors">Terms of Service</a>
                 </div>
             </div>
         </footer>
@@ -1908,7 +1936,7 @@
                     <div class="w-10 h-10 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-[#8b5e3c] group-hover:bg-[#8b5e3c] group-hover:text-white transition-all">
                         <i data-lucide="chevron-left" class="w-4 h-4"></i>
                     </div>
-                    <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-white/30 group-hover:text-white transition-all">Services / Overview</span>
+                    <span id="modal-nav-text" class="text-[10px] font-bold uppercase tracking-[0.3em] text-white/30 group-hover:text-white transition-all">Services / Overview</span>
                 </div>
                 <div class="hidden sm:flex gap-6 items-center">
                     <div class="w-2 h-2 rounded-full bg-[#8b5e3c] animate-pulse"></div>
@@ -1929,6 +1957,147 @@
             { id: 'decision', icon: 'trending-up', title: 'Decision Intelligence', shortDesc: 'KPI-linked insights and next-best actions for operators and founders.', fullDesc: 'Dashboards show what happened. Decision Intelligence tells you what to do next based on your specific business rules.', bestFor: ['Founders', 'Ops fulfillment', 'Growth teams'], outcomes: ['Actionable Insights', 'Reduced Guesswork', 'Team Alignment'], engagement: 'Consulting + Platform' },
             { id: 'visibility', icon: 'layout-dashboard', title: 'Dashboards + Real-Time Ops Visibility', shortDesc: 'Live KPIs, alerts, and action signals—role-based and practical.', fullDesc: 'Custom dashboarding that provides live signals and alerts, ensuring role-based visibility across the organization.', bestFor: ['Department Heads', 'Executive North Star', 'Ops Tracking'], outcomes: ['Zero Reporting Latency', 'Accountability', 'Clear Trend-lines'], engagement: 'Project-based' }
         ];
+
+        // --- LEGAL DOCUMENTS DATA ---
+        const legalDocs = {
+            privacy: {
+                title: "Privacy Policy",
+                content: `
+                    <div class="space-y-8 text-white/70 font-light">
+                        <p class="text-xl italic">This Privacy Policy explains how Genverge collects, uses, discloses and protects personal information when you use our website and services.</p>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">1. Information We Collect</h4>
+                            <p>We may collect personal information such as name, email address, phone number, company details, and information submitted through forms. We may also collect technical data such as IP address, browser type, and usage data via cookies.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">2. Legal Basis for Processing</h4>
+                            <p>We process data based on consent, contractual necessity, legal obligations and legitimate business interests, in accordance with GDPR and UK GDPR.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">3. Use of Information</h4>
+                            <p>We use your information to respond to inquiries, provide services, improve our website, and communicate with you.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">4. Cookies</h4>
+                            <p>We use cookies for functionality and analytics. Users may manage cookie preferences via browser settings or consent banners where required.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">5. Data Sharing</h4>
+                            <p>We do not sell personal data. Data may be shared with trusted service providers or legal authorities when required.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">6. International Data Transfers</h4>
+                            <p>Data may be processed outside your country, including India, with appropriate safeguards in place.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">7. Data Retention & Security</h4>
+                            <p>Data is retained only as long as necessary and protected using reasonable security measures.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">8. Your Rights</h4>
+                            <p>Users have rights under GDPR, UK GDPR, and CCPA including access, correction, deletion, and opt-out rights.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">9. Children’s Privacy</h4>
+                            <p>We do not knowingly collect data from individuals under 16.</p>
+                        </section>
+                        <section class="space-y-4 border-t border-white/10 pt-8">
+                            <h4 class="text-white text-lg font-medium">10. Contact</h4>
+                            <p>Email: <a href="mailto:hello@genverge.ai" class="text-[#d4a373]">hello@genverge.ai</a></p>
+                        </section>
+                    </div>
+                `
+            },
+            cookie: {
+                title: "Cookie Policy",
+                content: `
+                    <div class="space-y-8 text-white/70 font-light">
+                        <p class="text-xl italic">This Cookie Policy explains how Genverge uses cookies and similar technologies on its website.</p>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">1. What Are Cookies</h4>
+                            <p>Cookies are small text files stored on your device to improve user experience.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">2. Types of Cookies We Use</h4>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Essential Cookies:</strong> Required for website functionality</li>
+                                <li><strong>Analytics Cookies:</strong> Help us understand website usage</li>
+                                <li><strong>Preference Cookies:</strong> Remember user settings</li>
+                            </ul>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">3. Cookie Consent</h4>
+                            <p>Users from the EU and UK are shown a cookie consent banner allowing them to accept, reject, or manage non-essential cookies.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">4. Managing Cookies</h4>
+                            <p>You can control or delete cookies via your browser settings.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">5. Third-Party Cookies</h4>
+                            <p>Some cookies may be set by third-party services such as analytics tools.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">6. Changes to This Policy</h4>
+                            <p>We may update this Cookie Policy from time to time.</p>
+                        </section>
+                        <section class="space-y-4 border-t border-white/10 pt-8">
+                            <h4 class="text-white text-lg font-medium">7. Contact</h4>
+                            <p>Email: <a href="mailto:hello@genverge.ai" class="text-[#d4a373]">hello@genverge.ai</a></p>
+                        </section>
+                    </div>
+                `
+            },
+            terms: {
+                title: "Terms and Conditions",
+                content: `
+                    <div class="space-y-8 text-white/70 font-light">
+                        <p class="text-sm opacity-50 mb-4">Last Updated: 11-Jan-26</p>
+                        <p class="text-xl italic">These Terms and Conditions ("Terms") govern your use of the website and services provided by Genverge ("Company", "we", "us", "our"). By accessing or using our website, you agree to these Terms.</p>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">1. Services</h4>
+                            <p>We provide software development, digital, and technology-related services. Service details, timelines, and pricing are agreed upon separately.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">2. Use of Website</h4>
+                            <p>You agree to use this website for lawful purposes only and not to engage in any activity that may damage or disrupt the website.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">3. Intellectual Property</h4>
+                            <p>All content, logos, designs, and materials on this website are the intellectual property of Genverge unless otherwise stated.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">4. Confidentiality</h4>
+                            <p>Any confidential information shared during engagements shall be kept confidential unless disclosure is required by law.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">5. Payments</h4>
+                            <p>Payments, milestones, and billing terms will be defined in project agreements. Failure to pay may result in suspension of services.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">6. Limitation of Liability</h4>
+                            <p>We are not liable for indirect, incidental, or consequential damages arising from use of our services or website.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">7. Termination</h4>
+                            <p>We reserve the right to suspend or terminate access if these Terms are violated.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">8. Governing Law</h4>
+                            <p>These Terms shall be governed by the laws of India.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">9. Changes to Terms</h4>
+                            <p>We may update these Terms at any time. Continued use implies acceptance.</p>
+                        </section>
+                        <section class="space-y-4 border-t border-white/10 pt-8">
+                            <h4 class="text-white text-lg font-medium">10. Contact</h4>
+                            <p>Email: <a href="mailto:hello@genverge.ai" class="text-[#d4a373]">hello@genverge.ai</a></p>
+                        </section>
+                    </div>
+                `
+            }
+        };
 
         // Custom Dropdown Implementation
         function setupCustomDropdown(dropdownId, labelId) {
@@ -1990,7 +2159,14 @@
 
         if (mobileToggle) mobileToggle.onclick = openMobileMenu;
         if (mobileClose) mobileClose.onclick = closeMobileMenu;
-        mobileNavLinks.forEach(link => link.onclick = closeMobileMenu);
+        mobileNavLinks.forEach(link => {
+            link.onclick = (e) => {
+                // If it's an internal link, close the menu immediately for better UX
+                if (link.getAttribute('href').startsWith('#')) {
+                    closeMobileMenu();
+                }
+            };
+        });
 
         // Security Glow Handler
         function handleCardGlow(e, card) {
@@ -2041,9 +2217,11 @@
         const modal = document.getElementById('service-modal');
         const modalBody = document.getElementById('modal-body');
         const closeModal = document.getElementById('close-modal');
+        const modalNavText = document.getElementById('modal-nav-text');
 
         function openModal(s) {
             if (!modalBody) return;
+            modalNavText.innerText = "Services / Overview";
             modalBody.innerHTML = `
                 <div class="grid lg:grid-cols-12 gap-12 md:gap-24 items-start">
                     <div class="lg:col-span-7 space-y-12 sm:space-y-16">
@@ -2087,7 +2265,35 @@
                 </div>
             `;
             
+            triggerModalReveal();
+        }
+
+        // --- LEGAL MODAL OPENER ---
+        function openLegalModal(type) {
+            const doc = legalDocs[type];
+            if (!doc || !modalBody) return;
+            
+            modalNavText.innerText = "Company / " + doc.title;
+            modalBody.innerHTML = `
+                <div class="max-w-4xl mx-auto py-12">
+                    <div class="reveal-modal-item mb-16">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#8b5e3c]"></div>
+                            <span class="text-[10px] font-bold uppercase tracking-[0.6em] text-white/20">Legal Framework</span>
+                        </div>
+                        <h2 class="text-5xl md:text-7xl font-light text-white tracking-tight leading-none">${doc.title}</h2>
+                    </div>
+                    <div class="reveal-modal-item">
+                        ${doc.content}
+                    </div>
+                </div>
+            `;
+            triggerModalReveal();
+        }
+
+        function triggerModalReveal() {
             if (modal) {
+                modal.scrollTo(0, 0);
                 modal.style.opacity = '1';
                 modal.style.pointerEvents = 'auto';
                 document.body.style.overflow = 'hidden';
@@ -2261,7 +2467,7 @@
 
             document.getElementById('cookie-accept').onclick = () => banner.classList.remove('active');
             document.getElementById('cookie-decline').onclick = () => banner.classList.remove('active');
-            document.getElementById('cookie-info').onclick = () => window.location.hash = 'privacy';
+            document.getElementById('cookie-info').onclick = () => openLegalModal('cookie');
 
             // Scroll Blur Logic
             window.addEventListener('scroll', () => {
