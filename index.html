@@ -579,7 +579,7 @@
                 border-radius: 2.5rem !important;
                 display: flex !important;
                 flex-direction: column !important;
-                gap: 0 !important;
+                gap: 2rem !important;
                 text-align: left !important;
                 filter: none !important; 
                 -webkit-filter: blur(0px) !important;
@@ -594,10 +594,12 @@
             .reveal-governance-text {
                 text-align: left !important;
                 margin-top: 0 !important;
+                position: relative !important;
+                z-index: 20 !important;
             }
             .reveal-governance-text h2 {
                 font-size: 2rem !important; 
-                margin-top: 4.5rem !important;
+                margin-top: 2rem !important;
                 text-align: left !important;
                 line-height: 1.15 !important;
                 display: block !important;
@@ -612,18 +614,15 @@
                 display: block !important;
             }
             .reveal-governance-visual {
-                max-width: 90px !important;
-                margin: 0 !important;
-                order: -1 !important; 
-                align-self: flex-start !important;
-                position: relative !important;
-                z-index: 10 !important;
+                display: none !important; /* Fixed: Shield icon removed in mobile view */
             }
             .governance-chips {
                 display: flex !important;
                 flex-direction: column !important;
                 gap: 1rem !important;
                 width: 100% !important;
+                position: relative !important;
+                z-index: 30 !important;
             }
             .gov-chip {
                 flex-direction: row !important;
@@ -853,8 +852,7 @@
         }
 
         .engagement-hub {
-            position: relative;
-            flex: 1;
+            position: relative;            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1108,6 +1106,16 @@
             color: rgba(255, 255, 255, 0.15);
         }
 
+        /* Prevent blue autofill background */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 1000px var(--bg) inset !important;
+            -webkit-text-fill-color: #e5e1da !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
         .custom-dropdown {
             position: relative;
             width: 100%;
@@ -1284,7 +1292,7 @@
         </div>
         
         <div class="mt-auto pt-10 border-t border-white/5 opacity-20">
-            <span class="text-[8px] uppercase tracking-widest font-bold">© 2024 GenVerge. Pure Intelligence.</span>
+            <span class="text-[8px] uppercase tracking-widest font-bold">© 2026 GenVerge. Pure Intelligence.</span>
         </div>
     </div>
 
@@ -1327,6 +1335,7 @@
                         <a href="#enquiry" class="btn-animated-primary group">
                             Begin Discovery <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                         </a>
+                        <!-- Fixed: Linked to the process section -->
                         <a href="#process" class="btn-animated-secondary">
                             Our Methodology
                         </a>
@@ -1354,16 +1363,7 @@
                     <p class="text-xl text-white/40 font-light leading-relaxed about-description text-center md:text-left">
                         GenVerge specializes in operationalizing Large Language Models. We move beyond experimental playgrounds to create robust, permission-aware tools that integrate with your existing SOPs.
                     </p>
-                    <div class="grid grid-cols-2 gap-20 pt-10 about-stats">
-                        <div class="parallax-item" data-speed="0.2">
-                            <h4 class="text-[#d4a373] text-4xl md:text-6xl font-light mb-3">90%</h4>
-                            <p class="text-[10px] text-white/30 uppercase tracking-widest font-light">Adoption Rate</p>
-                        </div>
-                        <div class="parallax-item" data-speed="0.25">
-                            <h4 class="text-[#d4a373] text-4xl md:text-6xl font-light mb-3">12+</h4>
-                            <p class="text-[10px] text-white/30 uppercase tracking-widest font-light">SOP Frameworks</p>
-                        </div>
-                    </div>
+                    <!-- Statistics block removed as per previous request -->
                 </div>
                 <div class="relative about-image reveal-about-img">
                     <div class="aspect-[4/5] rounded-[4rem] overflow-hidden border border-white/5 grayscale hover:grayscale-0 transition-all duration-1000 main-img-container parallax-item" data-speed="-0.15">
@@ -1677,8 +1677,8 @@
                     </div>
                 </div>
 
-                <!-- Visual Shield Hub -->
-                <div class="w-full md:w-2/5 aspect-square relative flex items-center justify-center reveal-governance-visual parallax-item" data-speed="0.12">
+                <!-- Visual Shield Hub - Hidden on Mobile per request -->
+                <div class="hidden md:flex w-full md:w-2/5 aspect-square relative items-center justify-center reveal-governance-visual parallax-item" data-speed="0.12">
                     <!-- Orbits -->
                     <div class="absolute inset-0 border border-white/5 rounded-full animate-[spin_40s_linear_infinite]"></div>
                     <div class="absolute inset-12 border border-[#8b5e3c]/10 rounded-full animate-[spin_25s_linear_infinite_reverse]"></div>
@@ -1718,14 +1718,14 @@
 
                 <!-- Right: Form -->
                 <div class="reveal-enquiry-form">
-                    <form action="#" class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2">
+                    <form id="enquiry-form" class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-2">
                         <div class="enquiry-input-group">
                             <label class="enquiry-label">Full Name</label>
-                            <input type="text" class="enquiry-field" placeholder="Full Name">
+                            <input type="text" name="name" class="enquiry-field" placeholder="Full Name" required>
                         </div>
                         <div class="enquiry-input-group">
                             <label class="enquiry-label">E-mail</label>
-                            <input type="email" class="enquiry-field" placeholder="Email Address">
+                            <input type="email" name="email" class="enquiry-field" placeholder="Email Address" required>
                         </div>
                         <div class="enquiry-input-group md:col-span-2">
                             <label class="enquiry-label">Contact Number</label>
@@ -1746,7 +1746,7 @@
                                         <div class="dropdown-item" data-value="+49" data-len="11">+49 (Germany)</div>
                                     </div>
                                 </div>
-                                <input type="tel" id="phone-input" class="enquiry-field" placeholder="Enter 10 digits" maxlength="10">
+                                <input type="tel" id="phone-input" class="enquiry-field" placeholder="Enter 10 digits" maxlength="10" required>
                             </div>
                         </div>
                         <div class="enquiry-input-group md:col-span-2 mt-4">
@@ -1769,11 +1769,12 @@
                         </div>
                         <div class="enquiry-input-group md:col-span-2 mt-4">
                             <label class="enquiry-label">Objective Overview</label>
-                            <textarea class="enquiry-field min-h-[100px] resize-none" placeholder="Brief overview of the service required..."></textarea>
+                            <textarea name="message" class="enquiry-field min-h-[100px] resize-none" placeholder="Brief overview of the service required..." required></textarea>
                         </div>
                         
-                        <div class="md:col-span-2 pt-10">
-                            <button type="submit" class="btn-consultation">Request Consultation</button>
+                        <div class="md:col-span-2 pt-10 relative">
+                            <button type="submit" id="submit-btn" class="btn-consultation">Request Consultation</button>
+                            <div id="form-status" class="mt-4 text-xs font-medium uppercase tracking-[0.2em] hidden"></div>
                         </div>
                     </form>
                 </div>
@@ -1873,7 +1874,6 @@
                     </p>
                     <div class="flex gap-6 pt-2">
                         <a href="#" class="text-white/95 hover:text-[#d4a373] transition-colors"><i data-lucide="linkedin" class="w-5 h-5"></i></a>
-                        <a href="#" class="text-white/95 hover:text-[#d4a373] transition-colors"><i data-lucide="twitter" class="w-5 h-5"></i></a>
                     </div>
                 </div>
 
@@ -1914,13 +1914,15 @@
                 </div>
             </div>
 
-            <!-- Bottom Copyright bar -->
-            <div class="max-w-[1600px] mx-auto mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[9px] text-white/60 font-bold uppercase tracking-[0.4em]">
-                <div class="flex items-center gap-8">
-                    <span>© 2024 GenVerge Inc.</span>
-                    <a href="javascript:void(0)" onclick="openLegalModal('privacy')" class="hover:text-white transition-colors">Privacy Policy</a>
-                    <a href="javascript:void(0)" onclick="openLegalModal('cookie')" class="hover:text-white transition-colors">Cookie Policy</a>
-                    <a href="javascript:void(0)" onclick="openLegalModal('terms')" class="hover:text-white transition-colors">Terms of Service</a>
+            <!-- Bottom Copyright bar - Professional Mobile Stacked/Grouped Layout -->
+            <div class="max-w-[1600px] mx-auto mt-24 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8 text-[9px] text-white/40 font-bold uppercase tracking-[0.3em]">
+                <div class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+                    <a href="javascript:void(0)" onclick="openLegalModal('privacy')" class="hover:text-white transition-colors whitespace-nowrap">Privacy Policy</a>
+                    <a href="javascript:void(0)" onclick="openLegalModal('cookie')" class="hover:text-white transition-colors whitespace-nowrap">Cookie Policy</a>
+                    <a href="javascript:void(0)" onclick="openLegalModal('terms')" class="hover:text-white transition-colors whitespace-nowrap">Terms of Service</a>
+                </div>
+                <div class="text-center md:text-right">
+                    <span>© 2026 GenVerge Inc. All rights reserved.</span>
                 </div>
             </div>
         </footer>
@@ -2458,6 +2460,62 @@
 
             setupCustomDropdown('isd-dropdown', 'isd-label');
             setupCustomDropdown('category-dropdown', 'category-label');
+
+            // --- FORM SUBMISSION INTEGRATION ---
+            const form = document.getElementById('enquiry-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const formStatus = document.getElementById('form-status');
+            const scriptUrl = "https://script.google.com/macros/s/AKfycbzdmW-Hk-sprFg4RG9hbqdX4zKmCM8wIPYLOhoDx_ZQYax1Vx-7ny1_QHNV27WZ6Lme/exec";
+
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    
+                    // Construct Data payload matching doPost parameters
+                    const isd = document.getElementById('isd-label').innerText.split(' ')[0];
+                    const phoneVal = document.getElementById('phone-input').value;
+                    const serviceVal = document.getElementById('category-label').innerText;
+                    
+                    const formData = new FormData(form);
+                    formData.append('phone', isd + phoneVal);
+                    formData.append('service', serviceVal);
+
+                    // UI States
+                    submitBtn.innerText = "Submitting...";
+                    submitBtn.disabled = true;
+                    formStatus.classList.remove('hidden', 'text-red-500', 'text-green-500');
+                    formStatus.innerText = "Processing secure intelligence layer...";
+                    formStatus.classList.add('block');
+
+                    try {
+                        const response = await fetch(scriptUrl, {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        const result = await response.json();
+
+                        if (result.status === "success") {
+                            formStatus.innerText = "Protocol established. We will connect shortly.";
+                            formStatus.classList.add('text-green-500');
+                            form.reset();
+                            document.getElementById('isd-label').innerText = "+91 (IN)";
+                            document.getElementById('category-label').innerText = "Select category";
+                        } else {
+                            throw new Error(result.message || "Unknown error");
+                        }
+                    } catch (error) {
+                        formStatus.innerText = "Neural connection failed. Please try again later.";
+                        formStatus.classList.add('text-red-500');
+                    } finally {
+                        submitBtn.innerText = "Request Consultation";
+                        submitBtn.disabled = false;
+                        setTimeout(() => {
+                            formStatus.classList.add('hidden');
+                        }, 5000);
+                    }
+                });
+            }
 
             // Cookie Banner Reveal Logic
             const banner = document.getElementById('cookie-banner');
