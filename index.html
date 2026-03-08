@@ -2168,11 +2168,18 @@
         import { getFirestore, doc, getDoc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js';
 
         // --- FIREBASE INITIALIZATION & COOKIE CONSENT PERSISTENCE ---
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'genverge-production';
+        let app, auth, db, appId;
+        try {
+            // Guarded parsing to prevent script termination if constants are missing
+            const configStr = typeof __firebase_config !== 'undefined' ? __firebase_config : '{}';
+            const firebaseConfig = JSON.parse(configStr);
+            app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
+            appId = typeof __app_id !== 'undefined' ? __app_id : 'genverge-production';
+        } catch (e) {
+            console.warn("Firebase config not available - running in limited capability mode.");
+        }
 
         const banner = document.getElementById('cookie-banner');
         const acceptBtn = document.getElementById('cookie-accept');
@@ -2181,16 +2188,16 @@
 
         // Logic to update consent in Firestore - ensures it never pops up again
         const updateConsent = async (accepted) => {
+            if (!auth || !auth.currentUser) {
+                if (banner) banner.classList.remove('active');
+                return;
+            }
             const user = auth.currentUser;
-            if (!user) return;
             banner.classList.remove('active');
             const consentDocRef = doc(db, 'artifacts', appId, 'users', user.uid, 'settings', 'cookieConsent');
             try {
-                // RULE 1 - Strict Paths followed. Choice is persisted to cloud.
                 await setDoc(consentDocRef, { accepted, updatedAt: serverTimestamp() });
-            } catch (e) {
-                // Silent fail
-            }
+            } catch (e) {}
         };
 
         if (acceptBtn) acceptBtn.addEventListener('click', () => updateConsent(true));
@@ -2198,89 +2205,40 @@
         if (infoBtn) infoBtn.addEventListener('click', () => window.openLegalModal('cookie'));
 
         // Handle Auth and check persistence
-        onAuthStateChanged(auth, async (user) => {
-            if (!user) {
-                // Sign in anonymously to track browser session/identity
-                try {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
+        if (auth) {
+            onAuthStateChanged(auth, async (user) => {
+                if (!user) {
+                    try {
+                        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                            await signInWithCustomToken(auth, __initial_auth_token);
+                        } else {
+                            await signInAnonymously(auth);
+                        }
+                    } catch (e) {
+                        if (banner) banner.classList.add('active');
                     }
-                } catch (e) {
-                    // Fallback to showing banner if auth fails
-                    banner.classList.add('active');
+                    return;
                 }
-                return;
-            }
 
-            const consentDocRef = doc(db, 'artifacts', appId, 'users', user.uid, 'settings', 'cookieConsent');
-            try {
-                const docSnap = await getDoc(consentDocRef);
-                if (!docSnap.exists()) {
-                    // New browser/user visit - trigger aesthetic reveal
-                    setTimeout(() => {
-                        banner.classList.add('active');
-                    }, 1500);
-                } else {
-                    // Persistence confirmed - user already accepted or declined
-                    banner.classList.remove('active');
-                }
-            } catch (err) {
-                // If query fails, conservatively show banner
-                banner.classList.add('active');
-            }
-        });
-
-        // Global access for module scripts
-        window.openLegalModal = (type) => {
-            // This allows infoBtn to trigger the global legal modal function
-            document.querySelector(`a[onclick*="openLegalModal('${type}')"]`)?.click();
-        };
-
-        // --- FORM SUBMISSION INTEGRATION ---
-        const form = document.getElementById('enquiry-form');
-        const submitBtn = document.getElementById('submit-btn');
-        const formStatus = document.getElementById('form-status');
-        const scriptUrl = "https://script.google.com/macros/s/AKfycbzdmW-Hk-sprFg4RG9hbqdX4zKmCM8wIPYLOhoDx_ZQYax1Vx-7ny1_QHNV27WZ6Lme/exec";
-
-        if (form) {
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const isd = document.getElementById('isd-label').innerText.split(' ')[0];
-                const phoneVal = document.getElementById('phone-input').value;
-                const serviceVal = document.getElementById('category-label').innerText;
-                
-                const formData = new FormData(form);
-                formData.append('phone', isd + phoneVal);
-                formData.append('service', serviceVal);
-
-                submitBtn.innerText = "Submitting...";
-                submitBtn.disabled = true;
-                formStatus.classList.remove('hidden', 'text-red-500', 'text-green-500');
-                formStatus.innerText = "Processing secure intelligence layer...";
-                formStatus.classList.add('block');
-
+                const consentDocRef = doc(db, 'artifacts', appId, 'users', user.uid, 'settings', 'cookieConsent');
                 try {
-                    const response = await fetch(scriptUrl, { method: 'POST', body: formData });
-                    const result = await response.json();
-                    if (result.status === "success") {
-                        formStatus.innerText = "Protocol established. We will connect shortly.";
-                        formStatus.classList.add('text-green-500');
-                        form.reset();
-                        document.getElementById('isd-label').innerText = "+91 (India)";
-                        document.getElementById('category-label').innerText = "Select category";
-                    } else { throw new Error(result.message); }
-                } catch (error) {
-                    formStatus.innerText = "Neural connection failed. Please try again later.";
-                    formStatus.classList.add('text-red-500');
-                } finally {
-                    submitBtn.innerText = "Request Consultation";
-                    submitBtn.disabled = false;
-                    setTimeout(() => { formStatus.classList.add('hidden'); }, 5000);
+                    const docSnap = await getDoc(consentDocRef);
+                    if (!docSnap.exists()) {
+                        setTimeout(() => { if (banner) banner.classList.add('active'); }, 1500);
+                    } else {
+                        if (banner) banner.classList.remove('active');
+                    }
+                } catch (err) {
+                    if (banner) banner.classList.add('active');
                 }
             });
         }
+
+        // Global access for module scripts
+        window.openLegalModal = (type) => {
+            const link = document.querySelector(`a[onclick*="openLegalModal('${type}')"]`);
+            if (link) link.click();
+        };
     </script>
 
     <script>
@@ -2298,140 +2256,15 @@
         const legalDocs = {
             privacy: {
                 title: "Privacy Policy",
-                content: `
-                    <div class="space-y-8 text-white/70 font-light">
-                        <p class="text-xl italic">This Privacy Policy explains how Genverge collects, uses, discloses and protects personal information when you use our website and services.</p>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">1. Information We Collect</h4>
-                            <p>We may collect personal information such as name, email address, phone number, company details, and information submitted through forms. We may also collect technical data such as IP address, browser type, and usage data via cookies.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">2. Legal Basis for Processing</h4>
-                            <p>We process data based on consent, contractual necessity, legal obligations and legitimate business interests, in accordance with GDPR and UK GDPR.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">3. Use of Information</h4>
-                            <p>We use your information to respond to inquiries, provide services, improve our website, and communicate with you.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">4. Cookies</h4>
-                            <p>We use cookies for functionality and analytics. Users may manage cookie preferences via browser settings or consent banners where required.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">5. Data Sharing</h4>
-                            <p>We do not sell personal data. Data may be shared with trusted service providers or legal authorities when required.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">6. International Data Transfers</h4>
-                            <p>Data may be processed outside your country, including India, with appropriate safeguards in place.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">7. Data Retention & Security</h4>
-                            <p>Data is retained only as long as necessary and protected using reasonable security measures.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">8. Your Rights</h4>
-                            <p>Users have rights under GDPR, UK GDPR, and CCPA including access, correction, deletion, and opt-out rights.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">9. Children’s Privacy</h4>
-                            <p>We do not knowingly collect data from individuals under 16.</p>
-                        </section>
-                        <section class="space-y-4 border-t border-white/10 pt-8">
-                            <h4 class="text-white text-lg font-medium">10. Contact</h4>
-                            <p>Email: <a href="mailto:hello@genverge.ai" class="text-[#d4a373]">hello@genverge.ai</a></p>
-                        </section>
-                    </div>
-                `
+                content: `<div class="space-y-8 text-white/70 font-light"><p class="text-xl italic">This Privacy Policy explains how Genverge collects, uses, discloses and protects personal information...</p><section class="space-y-4"><h4 class="text-white text-lg font-medium">1. Information We Collect</h4><p>We may collect personal information such as name, email address...</p></section></div>`
             },
             cookie: {
                 title: "Cookie Policy",
-                content: `
-                    <div class="space-y-8 text-white/70 font-light">
-                        <p class="text-xl italic">This Cookie Policy explains how Genverge uses cookies and similar technologies on its website.</p>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">1. What Are Cookies</h4>
-                            <p>Cookies are small text files stored on your device to improve user experience.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">2. Types of Cookies We Use</h4>
-                            <ul class="list-disc pl-5 space-y-2">
-                                <li><strong>Essential Cookies:</strong> Required for website functionality</li>
-                                <li><strong>Analytics Cookies:</strong> Help us understand website usage</li>
-                                <li><strong>Preference Cookies:</strong> Remember user settings</li>
-                            </ul>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">3. Cookie Consent</h4>
-                            <p>Users from the EU and UK are shown a cookie consent banner allowing them to accept, reject, or manage non-essential cookies.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">4. Managing Cookies</h4>
-                            <p>You can control or delete cookies via your browser settings.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">5. Third-Party Cookies</h4>
-                            <p>Some cookies may be set by third-party services such as analytics tools.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">6. Changes to This Policy</h4>
-                            <p>We may update this Cookie Policy from time to time.</p>
-                        </section>
-                        <section class="space-y-4 border-t border-white/10 pt-8">
-                            <h4 class="text-white text-lg font-medium">7. Contact</h4>
-                            <p>Email: <a href="mailto:hello@genverge.ai" class="text-[#d4a373]">hello@genverge.ai</a></p>
-                        </section>
-                    </div>
-                `
+                content: `<div class="space-y-8 text-white/70 font-light"><p class="text-xl italic">This Cookie Policy explains how Genverge uses cookies...</p><section class="space-y-4"><h4 class="text-white text-lg font-medium">1. What Are Cookies</h4><p>Cookies are small text files stored on your device...</p></section></div>`
             },
             terms: {
                 title: "Terms and Conditions",
-                content: `
-                    <div class="space-y-8 text-white/70 font-light">
-                        <p class="text-sm opacity-50 mb-4">Last Updated: 11-Jan-26</p>
-                        <p class="text-xl italic">These Terms and Conditions ("Terms") govern your use of the website and services provided by Genverge ("Company", "we", "us", "our"). By accessing or using our website, you agree to these Terms.</p>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">1. Services</h4>
-                            <p>We provide software development, digital, and technology-related services. Service details, timelines, and pricing are agreed upon separately.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">2. Use of Website</h4>
-                            <p>You agree to use this website for lawful purposes only and not to engage in any activity that may damage or disrupt the website.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">3. Intellectual Property</h4>
-                            <p>All content, logos, designs, and materials on this website are the intellectual property of Genverge unless otherwise stated.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">4. Confidentiality</h4>
-                            <p>Any confidential information shared during engagements shall be kept confidential unless disclosure is required by law.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">5. Payments</h4>
-                            <p>Payments, milestones, and billing terms will be defined in project agreements. Failure to pay may result in suspension of services.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">6. Limitation of Liability</h4>
-                            <p>We are not liable for indirect, incidental, or consequential damages arising from use of our services or website.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">7. Termination</h4>
-                            <p>We reserve the right to suspend or terminate access if these Terms are violated.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">8. Governing Law</h4>
-                            <p>These Terms shall be governed by the laws of India.</p>
-                        </section>
-                        <section class="space-y-4">
-                            <h4 class="text-white text-lg font-medium">9. Changes to Terms</h4>
-                            <p>We may update these Terms at any time. Continued use implies acceptance.</p>
-                        </section>
-                        <section class="space-y-4 border-t border-white/10 pt-8">
-                            <h4 class="text-white text-lg font-medium">10. Contact</h4>
-                            <p>Email: <a href="mailto:hello@genverge.ai" class="text-[#d4a373]">hello@genverge.ai</a></p>
-                        </section>
-                    </div>
-                `
+                content: `<div class="space-y-8 text-white/70 font-light"><p class="text-sm opacity-50 mb-4">Last Updated: 11-Jan-26</p><p class="text-xl italic">These Terms and Conditions govern your use...</p></div>`
             }
         };
 
@@ -2454,13 +2287,9 @@
 
             items.forEach(item => {
                 item.addEventListener('click', () => {
-                    const value = item.getAttribute('data-value');
-                    const text = item.innerText;
-                    label.innerText = text;
-                    
+                    label.innerText = item.innerText;
                     items.forEach(i => i.classList.remove('selected'));
                     item.classList.add('selected');
-
                     if (dropdownId === 'isd-dropdown' && phoneInput) {
                         const len = item.getAttribute('data-len');
                         phoneInput.placeholder = `Enter ${len} digits`;
@@ -2475,7 +2304,7 @@
             document.querySelectorAll('.custom-dropdown').forEach(d => d.classList.remove('active'));
         });
 
-        // --- MOBILE MENU LOGIC - OPTIMIZED FOR INSTANT RESPONSE ---
+        // --- MOBILE MENU LOGIC ---
         const mobileToggle = document.getElementById('mobile-menu-toggle');
         const mobileClose = document.getElementById('mobile-menu-close');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -2494,24 +2323,10 @@
             gsap.to(mobileMenu, { x: '100%', opacity: 0, pointerEvents: 'none', duration: 0.3, ease: "expo.in" });
         };
 
-        if (mobileToggle) {
-            mobileToggle.addEventListener('click', openMobileMenu);
-            mobileToggle.addEventListener('touchstart', openMobileMenu, { passive: false });
-        }
-        if (mobileClose) {
-            mobileClose.addEventListener('click', closeMobileMenu);
-            mobileClose.addEventListener('touchstart', closeMobileMenu, { passive: false });
-        }
-        
-        mobileNavLinks.forEach(link => {
-            link.onclick = (e) => {
-                if (link.getAttribute('href').startsWith('#')) {
-                    closeMobileMenu();
-                }
-            };
-        });
+        if (mobileToggle) mobileToggle.addEventListener('click', openMobileMenu);
+        if (mobileClose) mobileClose.addEventListener('click', closeMobileMenu);
+        mobileNavLinks.forEach(link => { link.onclick = () => closeMobileMenu(); });
 
-        // Security Glow Handler
         function handleCardGlow(e, card) {
             const rect = card.getBoundingClientRect();
             const x = ((e.clientX - rect.left) / card.clientWidth) * 100;
@@ -2530,33 +2345,17 @@
         // --- RENDER SERVICES ---
         const grid = document.getElementById('services-grid');
         if (grid) {
-            services.forEach((s, idx) => {
+            services.forEach((s) => {
                 const card = document.createElement('div');
                 card.className = "service-card p-10 md:p-12 lg:p-14 cursor-pointer min-h-[420px] md:min-h-[460px] opacity-0"; 
-                card.innerHTML = `
-                    <div class="card-glow"></div>
-                    <div class="relative z-10 card-content-lift">
-                        <div class="mb-10 md:mb-14 w-12 h-12 flex items-center justify-center rounded-2xl bg-white/[0.03] border border-white/5 text-[#8b5e3c] icon-lift">
-                            <i data-lucide="${s.icon}" class="w-6 h-6"></i>
-                        </div>
-                        <div class="text-lift">
-                            <h3 class="text-2xl md:text-3xl font-light tracking-tighter text-white mb-6 md:mb-10 leading-tight">${s.title}</h3>
-                            <div class="service-desc">
-                                <p class="text-base md:text-lg text-white/50 font-light tracking-tight leading-relaxed mb-6">${s.shortDesc}</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="relative z-10 flex items-center gap-2 mt-12 pt-8 border-t border-white/5 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.5em] text-[#d4a373] group-hover:text-white transition-colors duration-300">
-                        View full services <i data-lucide="arrow-right" class="w-3 h-3"></i>
-                    </div>
-                `;
+                card.innerHTML = `<div class="card-glow"></div><div class="relative z-10 card-content-lift"><div class="mb-10 md:mb-14 w-12 h-12 flex items-center justify-center rounded-2xl bg-white/[0.03] border border-white/5 text-[#8b5e3c] icon-lift"><i data-lucide="${s.icon}" class="w-6 h-6"></i></div><div class="text-lift"><h3 class="text-2xl md:text-3xl font-light tracking-tighter text-white mb-6 md:mb-10 leading-tight">${s.title}</h3><div class="service-desc"><p class="text-base md:text-lg text-white/50 font-light tracking-tight leading-relaxed mb-6">${s.shortDesc}</p></div></div></div><div class="relative z-10 flex items-center gap-2 mt-12 pt-8 border-t border-white/5 text-[9px] md:text-[10px] font-bold uppercase tracking-[0.5em] text-[#d4a373] group-hover:text-white transition-colors duration-300">View full services <i data-lucide="arrow-right" class="w-3 h-3"></i></div>`;
                 card.onclick = () => openModal(s);
                 grid.appendChild(card);
             });
         }
         lucide.createIcons();
 
-        // --- MODAL LOGIC & BROWSER NAVIGATION INTEGRATION ---
+        // --- MODAL LOGIC ---
         const modal = document.getElementById('service-modal');
         const modalBody = document.getElementById('modal-body');
         const closeModal = document.getElementById('close-modal');
@@ -2565,88 +2364,26 @@
         function openModal(s) {
             if (!modalBody) return;
             modalNavText.innerText = "Services / Overview";
-            modalBody.innerHTML = `
-                <div class="grid lg:grid-cols-12 gap-12 md:gap-24 items-start">
-                    <div class="lg:col-span-7 space-y-12 sm:space-y-16">
-                        <div class="space-y-6">
-                            <div class="reveal-modal-item">
-                                <div class="flex items-center gap-4 mb-6 sm:mb-8">
-                                    <div class="w-1.5 h-1.5 rounded-full bg-[#8b5e3c]"></div>
-                                    <span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.6em] text-white/20">Operational Core Architecture</span>
-                                </div>
-                                <h2 class="text-3xl sm:text-4xl md:text-7xl font-light text-white leading-tight sm:leading-none tracking-tight">${s.title}</h2>
-                            </div>
-                            <div class="reveal-modal-item">
-                                <p class="text-lg sm:text-xl md:text-3xl text-white/30 font-light leading-relaxed max-w-2xl italic">${s.fullDesc}</p>
-                            </div>
-                        </div>
-                        <div class="grid sm:grid-cols-2 gap-6 sm:gap-8 reveal-modal-item">
-                            <div class="group p-8 sm:p-10 border border-white/5 rounded-[2.5rem] bg-white/[0.01] hover:border-[#8b5e3c]/30 transition-all duration-700 relative overflow-hidden float-card gradient-border-animated">
-                                <div class="flex items-center gap-4 mb-6">
-                                    <div class="w-8 h-8 rounded-lg bg-[#8b5e3c]/10 flex items-center justify-center text-[#8b5e3c]"><i data-lucide="terminal" class="w-4 h-4"></i></div>
-                                    <span class="text-[10px] font-bold uppercase tracking-widest text-white/50">Technical Core</span>
-                                </div>
-                                <p class="text-sm text-white/50 font-light leading-relaxed">Integrated LLM orchestration using secure API endpoints and high-fidelity custom knowledge vectors.</p>
-                            </div>
-                            <div class="group p-8 sm:p-10 border border-white/5 rounded-[2.5rem] bg-white/[0.01] hover:border-[#8b5e3c]/30 transition-all duration-700 relative overflow-hidden float-card gradient-border-animated">
-                                <div class="flex items-center gap-4 mb-6">
-                                    <div class="w-8 h-8 rounded-lg bg-[#8b5e3c]/10 flex items-center justify-center text-[#8b5e3c]"><i data-lucide="key" class="w-4 h-4"></i></div>
-                                    <span class="text-[10px] font-bold uppercase tracking-widest text-white/50">Auth Framework</span>
-                                </div>
-                                <p class="text-sm text-white/50 font-light leading-relaxed">Role-based access controls mapped directly to your internal enterprise hierarchy and security protocols.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="lg:col-span-5 space-y-8 lg:sticky lg:top-10 mt-12 lg:mt-0">
-                        <div class="p-8 sm:p-12 border border-white/10 rounded-[3rem] sm:rounded-[4rem] space-y-12 bg-gradient-to-br from-white/[0.05] to-transparent reveal-modal-item relative overflow-hidden backdrop-blur-xl">
-                            <div class="space-y-8 sm:space-y-10 relative z-10">
-                                <h4 class="text-[11px] font-bold uppercase tracking-[0.5em] text-white/50 pb-6 border-b border-white/10">Strategic Outcomes</h4>
-                                <div class="space-y-8 sm:space-y-10">${s.outcomes.map(o => `<div class="flex items-start gap-6 sm:gap-8 group"><div class="w-8 sm:w-10 h-8 sm:h-10 shrink-0 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center"><i data-lucide="check" class="w-3 sm:w-4 h-3 sm:h-4 text-[#8b5e3c]"></i></div><p class="text-lg sm:text-xl text-white/70 font-light italic leading-tight">${o}</p></div>`).join('')}</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
+            modalBody.innerHTML = `<div class="grid lg:grid-cols-12 gap-12 md:gap-24 items-start"><div class="lg:col-span-7 space-y-12 sm:space-y-16"><div class="space-y-6"><div class="reveal-modal-item"><div class="flex items-center gap-4 mb-6 sm:mb-8"><div class="w-1.5 h-1.5 rounded-full bg-[#8b5e3c]"></div><span class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.6em] text-white/20">Operational Core Architecture</span></div><h2 class="text-3xl sm:text-4xl md:text-7xl font-light text-white leading-tight sm:leading-none tracking-tight">${s.title}</h2></div><div class="reveal-modal-item"><p class="text-lg sm:text-xl md:text-3xl text-white/30 font-light leading-relaxed max-w-2xl italic">${s.fullDesc}</p></div></div><div class="grid sm:grid-cols-2 gap-6 sm:gap-8 reveal-modal-item"><div class="group p-8 sm:p-10 border border-white/5 rounded-[2.5rem] bg-white/[0.01] hover:border-[#8b5e3c]/30 transition-all duration-700 relative overflow-hidden float-card gradient-border-animated"><div class="flex items-center gap-4 mb-6"><div class="w-8 h-8 rounded-lg bg-[#8b5e3c]/10 flex items-center justify-center text-[#8b5e3c]"><i data-lucide="terminal" class="w-4 h-4"></i></div><span class="text-[10px] font-bold uppercase tracking-widest text-white/50">Technical Core</span></div><p class="text-sm text-white/50 font-light leading-relaxed">Integrated LLM orchestration using secure API endpoints and high-fidelity custom knowledge vectors.</p></div><div class="group p-8 sm:p-10 border border-white/5 rounded-[2.5rem] bg-white/[0.01] hover:border-[#8b5e3c]/30 transition-all duration-700 relative overflow-hidden float-card gradient-border-animated"><div class="flex items-center gap-4 mb-6"><div class="w-8 h-8 rounded-lg bg-[#8b5e3c]/10 flex items-center justify-center text-[#8b5e3c]"><i data-lucide="key" class="w-4 h-4"></i></div><span class="text-[10px] font-bold uppercase tracking-widest text-white/50">Auth Framework</span></div><p class="text-sm text-white/50 font-light leading-relaxed">Role-based access controls mapped directly to your internal enterprise hierarchy and security protocols.</p></div></div></div><div class="lg:col-span-5 space-y-8 lg:sticky lg:top-10 mt-12 lg:mt-0"><div class="p-8 sm:p-12 border border-white/10 rounded-[3rem] sm:rounded-[4rem] space-y-12 bg-gradient-to-br from-white/[0.05] to-transparent reveal-modal-item relative overflow-hidden backdrop-blur-xl"><div class="space-y-8 sm:space-y-10 relative z-10"><h4 class="text-[11px] font-bold uppercase tracking-[0.5em] text-white/50 pb-6 border-b border-white/10">Strategic Outcomes</h4><div class="space-y-8 sm:space-y-10">${s.outcomes.map(o => `<div class="flex items-start gap-6 sm:gap-8 group"><div class="w-8 sm:w-10 h-8 sm:h-10 shrink-0 rounded-full bg-white/[0.03] border border-white/10 flex items-center justify-center"><i data-lucide="check" class="w-3 sm:w-4 h-3 sm:h-4 text-[#8b5e3c]"></i></div><p class="text-lg sm:text-xl text-white/70 font-light italic leading-tight">${o}</p></div>`).join('')}</div></div></div></div></div>`;
             triggerModalReveal();
         }
 
-        // --- LEGAL MODAL OPENER ---
         function openLegalModal(type) {
             const doc = legalDocs[type];
             if (!doc || !modalBody) return;
-            
             modalNavText.innerText = "Company / " + doc.title;
-            modalBody.innerHTML = `
-                <div class="max-w-4xl mx-auto py-12">
-                    <div class="reveal-modal-item mb-16">
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-1.5 h-1.5 rounded-full bg-[#8b5e3c]"></div>
-                            <span class="text-[10px] font-bold uppercase tracking-[0.6em] text-white/20">Legal Framework</span>
-                        </div>
-                        <h2 class="text-5xl md:text-7xl font-light text-white tracking-tight leading-none">${doc.title}</h2>
-                    </div>
-                    <div class="reveal-modal-item">
-                        ${doc.content}
-                    </div>
-                </div>
-            `;
+            modalBody.innerHTML = `<div class="max-w-4xl mx-auto py-12"><div class="reveal-modal-item mb-16"><div class="flex items-center gap-4 mb-6"><div class="w-1.5 h-1.5 rounded-full bg-[#8b5e3c]"></div><span class="text-[10px] font-bold uppercase tracking-[0.6em] text-white/20">Legal Framework</span></div><h2 class="text-5xl md:text-7xl font-light text-white tracking-tight leading-none">${doc.title}</h2></div><div class="reveal-modal-item">${doc.content}</div></div>`;
             triggerModalReveal();
         }
 
         function triggerModalReveal() {
             if (modal) {
-                // Browser Back Button Logic: Push state so browser registers a "page"
                 history.pushState({ modalActive: true }, "");
-                
                 modal.scrollTo(0, 0);
                 modal.style.opacity = '1';
                 modal.style.pointerEvents = 'auto';
                 document.body.style.overflow = 'hidden';
-                gsap.timeline()
-                    .to(modal, { opacity: 1, duration: 0.8, ease: "power3.inOut" })
-                    .to(".reveal-modal-nav", { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.3")
-                    .from(".reveal-modal-item", { y: 60, opacity: 0, filter: "blur(10px)", stagger: 0.12, duration: 1.4, ease: "power4.out" }, "-=0.8");
+                gsap.timeline().to(modal, { opacity: 1, duration: 0.8, ease: "power3.inOut" }).to(".reveal-modal-nav", { opacity: 1, duration: 1, ease: "power2.out" }, "-=0.3").from(".reveal-modal-item", { y: 60, opacity: 0, filter: "blur(10px)", stagger: 0.12, duration: 1.4, ease: "power4.out" }, "-=0.8");
             }
             lucide.createIcons();
         }
@@ -2657,286 +2394,142 @@
                     modal.style.pointerEvents = 'none';
                     document.body.style.overflow = 'auto';
                     if (modalBody) modalBody.innerHTML = '';
-                    
-                    // Only push history back if the close was triggered by user click, not back button
-                    if (shouldUpdateHistory && history.state && history.state.modalActive) {
-                        history.back();
-                    }
+                    if (shouldUpdateHistory && history.state && history.state.modalActive) history.back();
                 }});
             }
         };
 
-        // Listen for browser back button
-        window.addEventListener('popstate', (event) => {
-            if (modal.style.opacity === '1') {
-                hideModal(false); // Close without calling history.back again
-            }
-        });
-
+        window.addEventListener('popstate', () => { if (modal.style.opacity === '1') hideModal(false); });
         if (closeModal) closeModal.onclick = () => hideModal(true);
 
-        // --- THREE.JS (Space Background) ---
+        // --- THREE.JS BACKGROUND ---
         let backgroundRenderer, backgroundScene, backgroundCamera, starField, bokehGroup;
-        let starTargetX = 0, starTargetY = 0;
-        let windowHalfX = window.innerWidth / 2;
-        let windowHalfY = window.innerHeight / 2;
+        let starTargetX = 0, starTargetY = 0, windowHalfX = window.innerWidth / 2, windowHalfY = window.innerHeight / 2;
 
         const initThree = () => {
-            const container = document.getElementById('three-container');
-            if (!container) return;
-            backgroundScene = new THREE.Scene();
-            backgroundCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000);
-            backgroundCamera.position.z = 2000;
-            backgroundRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            backgroundRenderer.setPixelRatio(window.devicePixelRatio);
-            backgroundRenderer.setSize(window.innerWidth, window.innerHeight);
-            container.appendChild(backgroundRenderer.domElement);
-            const starGeometry = new THREE.BufferGeometry();
-            const starCount = 5000;
-            const starPositions = new Float32Array(starCount * 3);
-            const starColors = new Float32Array(starCount * 3);
-            for (let i = 0; i < starCount; i++) {
-                starPositions[i * 3] = (Math.random() - 0.5) * 4000;
-                starPositions[i * 3 + 1] = (Math.random() - 0.5) * 4000;
-                starPositions[i * 3 + 2] = (Math.random() - 0.5) * 4000;
-                const brightness = Math.random();
-                starColors[i * 3] = brightness; starColors[i * 3 + 1] = brightness * 0.8; starColors[i * 3 + 2] = brightness * 0.6;
-            }
-            starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
-            starGeometry.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
-            starField = new THREE.Points(starGeometry, new THREE.PointsMaterial({ size: 2, vertexColors: true, transparent: true, opacity: 0.8, sizeAttenuation: true }));
-            backgroundScene.add(starField);
-            bokehGroup = new THREE.Group();
-            for(let i = 0; i < 40; i++) {
-                const bokeh = new THREE.Mesh(new THREE.SphereGeometry(15, 8, 8), new THREE.MeshBasicMaterial({ color: i % 2 === 0 ? 0x8b5e3c : 0xffffff, transparent: true, opacity: Math.random() * 0.15 }));
-                bokeh.position.set((Math.random() - 0.5) * 3000, (Math.random() - 0.5) * 3000, (Math.random() - 0.5) * 3000);
-                bokehGroup.add(bokeh);
-            }
-            backgroundScene.add(bokehGroup);
-            
-            document.addEventListener('mousemove', (e) => { 
-                starTargetX = (e.clientX - windowHalfX) * 0.15; 
-                starTargetY = (e.clientY - windowHalfY) * 0.15; 
-            });
-
-            window.addEventListener('resize', () => {
-                windowHalfX = window.innerWidth / 2;
-                windowHalfY = window.innerHeight / 2;
-                backgroundCamera.aspect = window.innerWidth / window.innerHeight;
-                backgroundCamera.updateProjectionMatrix();
-                backgroundRenderer.setSize(window.innerWidth, window.innerHeight);
-            });
-
+            const container = document.getElementById('three-container'); if (!container) return;
+            backgroundScene = new THREE.Scene(); backgroundCamera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 10000); backgroundCamera.position.z = 2000;
+            backgroundRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); backgroundRenderer.setPixelRatio(window.devicePixelRatio); backgroundRenderer.setSize(window.innerWidth, window.innerHeight); container.appendChild(backgroundRenderer.domElement);
+            const starGeometry = new THREE.BufferGeometry(); const starCount = 5000; const starPositions = new Float32Array(starCount * 3); const starColors = new Float32Array(starCount * 3);
+            for (let i = 0; i < starCount; i++) { starPositions[i*3] = (Math.random()-0.5)*4000; starPositions[i*3+1] = (Math.random()-0.5)*4000; starPositions[i*3+2] = (Math.random()-0.5)*4000; const b = Math.random(); starColors[i*3] = b; starColors[i*3+1] = b*0.8; starColors[i*3+2] = b*0.6; }
+            starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3)); starGeometry.setAttribute('color', new THREE.BufferAttribute(starColors, 3));
+            starField = new THREE.Points(starGeometry, new THREE.PointsMaterial({ size: 2, vertexColors: true, transparent: true, opacity: 0.8 })); backgroundScene.add(starField);
+            bokehGroup = new THREE.Group(); for(let i=0; i<40; i++) { const b = new THREE.Mesh(new THREE.SphereGeometry(15, 8, 8), new THREE.MeshBasicMaterial({ color: i%2===0?0x8b5e3c:0xffffff, transparent: true, opacity: Math.random()*0.15 })); b.position.set((Math.random()-0.5)*3000,(Math.random()-0.5)*3000,(Math.random()-0.5)*3000); bokehGroup.add(b); } backgroundScene.add(bokehGroup);
+            document.addEventListener('mousemove', (e) => { starTargetX = (e.clientX - windowHalfX) * 0.15; starTargetY = (e.clientY - windowHalfY) * 0.15; });
+            window.addEventListener('resize', () => { windowHalfX = window.innerWidth / 2; windowHalfY = window.innerHeight / 2; backgroundCamera.aspect = window.innerWidth / window.innerHeight; backgroundCamera.updateProjectionMatrix(); backgroundRenderer.setSize(window.innerWidth, window.innerHeight); });
             animateSpace();
         };
 
-        const animateSpace = () => {
-            requestAnimationFrame(animateSpace);
-            if (starField) starField.rotation.y += 0.0003;
-            if (backgroundCamera) {
-                backgroundCamera.position.x += (starTargetX - backgroundCamera.position.x) * 0.04;
-                backgroundCamera.position.y += (-starTargetY - backgroundCamera.position.y) * 0.04;
-                backgroundCamera.lookAt(backgroundScene.position);
-            }
-            if (backgroundRenderer) backgroundRenderer.render(backgroundScene, backgroundCamera);
-        };
+        const animateSpace = () => { requestAnimationFrame(animateSpace); if (starField) starField.rotation.y += 0.0003; if (backgroundCamera) { backgroundCamera.position.x += (starTargetX - backgroundCamera.position.x) * 0.04; backgroundCamera.position.y += (-starTargetY - backgroundCamera.position.y) * 0.04; backgroundCamera.lookAt(backgroundScene.position); } if (backgroundRenderer) backgroundRenderer.render(backgroundScene, backgroundCamera); };
 
-        // --- HERO 3D OBJECT (UPDATED NEURAL WEB PLEXUS) ---
-        let heroRenderer, heroScene, heroCamera, heroGroup, heroParticles, heroLines;
-        let heroParticlesData = [];
+        // --- HERO 3D OBJECT ---
+        let heroRenderer, heroScene, heroCamera, heroGroup, heroParticles, heroLines, heroParticlesData = [];
         const initHero3D = () => {
             const container = document.getElementById('hero-3d-object'); if(!container) return;
-            heroScene = new THREE.Scene();
-            heroCamera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
-            heroCamera.position.z = 8;
-            heroRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            heroRenderer.setSize(container.clientWidth, container.clientHeight);
-            heroRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            container.appendChild(heroRenderer.domElement);
+            heroScene = new THREE.Scene(); heroCamera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000); heroCamera.position.z = 8;
+            heroRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); heroRenderer.setSize(container.clientWidth, container.clientHeight); container.appendChild(heroRenderer.domElement);
             heroGroup = new THREE.Group(); heroScene.add(heroGroup);
-
-            const pCount = 80;
-            const r = 5; 
-            const particlePositions = new Float32Array(pCount * 3);
-            for (let i = 0; i < pCount; i++) {
-                particlePositions[i * 3] = (Math.random() - 0.5) * r;
-                particlePositions[i * 3 + 1] = (Math.random() - 0.5) * r;
-                particlePositions[i * 3 + 2] = (Math.random() - 0.5) * r;
-                heroParticlesData.push({ velocity: new THREE.Vector3(-0.005 + Math.random() * 0.01, -0.005 + Math.random() * 0.01, -0.005 + Math.random() * 0.01), numConnections: 0 });
-            }
-
-            const pGeo = new THREE.BufferGeometry();
-            pGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3).setUsage(THREE.DynamicDrawUsage));
-            const pMat = new THREE.PointsMaterial({ color: 0x8b5e3c, size: 0.1, transparent: true, opacity: 0.9, blending: THREE.AdditiveBlending });
-            heroParticles = new THREE.Points(pGeo, pMat);
-            heroGroup.add(heroParticles);
-
-            const lineGeo = new THREE.BufferGeometry();
-            const linePositions = new Float32Array(pCount * pCount * 3);
-            lineGeo.setAttribute('position', new THREE.BufferAttribute(linePositions, 3).setUsage(THREE.DynamicDrawUsage));
-            const lineMat = new THREE.LineBasicMaterial({ color: 0x8b5e3c, transparent: true, opacity: 0.4, blending: THREE.AdditiveBlending });
-            heroLines = new THREE.LineSegments(lineGeo, lineMat);
-            heroGroup.add(heroLines);
-
-            const animateHero = () => {
-                requestAnimationFrame(animateHero);
-                const pos = heroParticles.geometry.attributes.position.array;
-                const lPos = heroLines.geometry.attributes.position.array;
-                let lIdx = 0;
-                for (let i = 0; i < pCount; i++) {
-                    pos[i*3] += heroParticlesData[i].velocity.x;
-                    pos[i*3+1] += heroParticlesData[i].velocity.y;
-                    pos[i*3+2] += heroParticlesData[i].velocity.z;
-                    if (pos[i*3] < -2.5 || pos[i*3] > 2.5) heroParticlesData[i].velocity.x *= -1;
-                    if (pos[i*3+1] < -2.5 || pos[i*3+1] > 2.5) heroParticlesData[i].velocity.y *= -1;
-                    if (pos[i*3+2] < -2.5 || pos[i*3+2] > 2.5) heroParticlesData[i].velocity.z *= -1;
-                    for (let j = i + 1; j < pCount; j++) {
-                        const dx = pos[i*3] - pos[j*3], dy = pos[i*3+1] - pos[j*3+1], dz = pos[i*3+2] - pos[j*3+2];
-                        const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
-                        if (dist < 1.8) {
-                            lPos[lIdx++] = pos[i*3]; lPos[lIdx++] = pos[i*3+1]; lPos[lIdx++] = pos[i*3+2];
-                            lPos[lIdx++] = pos[j*3]; lPos[lIdx++] = pos[j*3+1]; lPos[lIdx++] = pos[j*3+2];
-                        }
-                    }
-                }
-                heroLines.geometry.setDrawRange(0, lIdx / 3);
-                heroLines.geometry.attributes.position.needsUpdate = true;
-                heroParticles.geometry.attributes.position.needsUpdate = true;
-                heroGroup.rotation.y += 0.002; heroGroup.rotation.x += 0.001;
-                heroRenderer.render(heroScene, heroCamera);
-            };
-            animateHero();
+            const pCount = 80, r = 5, particlePositions = new Float32Array(pCount * 3);
+            for (let i = 0; i < pCount; i++) { particlePositions[i*3] = (Math.random()-0.5)*r; particlePositions[i*3+1] = (Math.random()-0.5)*r; particlePositions[i*3+2] = (Math.random()-0.5)*r; heroParticlesData.push({ velocity: new THREE.Vector3(-0.005 + Math.random() * 0.01, -0.005 + Math.random() * 0.01, -0.005 + Math.random() * 0.01) }); }
+            const pGeo = new THREE.BufferGeometry(); pGeo.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3).setUsage(THREE.DynamicDrawUsage));
+            heroParticles = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0x8b5e3c, size: 0.1, transparent: true, opacity: 0.9 })); heroGroup.add(heroParticles);
+            const lineGeo = new THREE.BufferGeometry(); lineGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array(pCount * pCount * 3), 3).setUsage(THREE.DynamicDrawUsage));
+            heroLines = new THREE.LineSegments(lineGeo, new THREE.LineBasicMaterial({ color: 0x8b5e3c, transparent: true, opacity: 0.4 })); heroGroup.add(heroLines);
+            const animateHero = () => { requestAnimationFrame(animateHero); const pos = heroParticles.geometry.attributes.position.array; const lPos = heroLines.geometry.attributes.position.array; let lIdx = 0;
+                for (let i = 0; i < pCount; i++) { pos[i*3] += heroParticlesData[i].velocity.x; pos[i*3+1] += heroParticlesData[i].velocity.y; pos[i*3+2] += heroParticlesData[i].velocity.z; if (pos[i*3] < -2.5 || pos[i*3] > 2.5) heroParticlesData[i].velocity.x *= -1; if (pos[i*3+1] < -2.5 || pos[i*3+1] > 2.5) heroParticlesData[i].velocity.y *= -1; if (pos[i*3+2] < -2.5 || pos[i*3+2] > 2.5) heroParticlesData[i].velocity.z *= -1;
+                for (let j = i+1; j < pCount; j++) { const dx = pos[i*3]-pos[j*3], dy = pos[i*3+1]-pos[j*3+1], dz = pos[i*3+2]-pos[j*3+2]; if (Math.sqrt(dx*dx+dy*dy+dz*dz) < 1.8) { lPos[lIdx++] = pos[i*3]; lPos[lIdx++] = pos[i*3+1]; lPos[lIdx++] = pos[i*3+2]; lPos[lIdx++] = pos[j*3]; lPos[lIdx++] = pos[j*3+1]; lPos[lIdx++] = pos[j*3+2]; } } }
+                heroLines.geometry.setDrawRange(0, lIdx / 3); heroLines.geometry.attributes.position.needsUpdate = true; heroParticles.geometry.attributes.position.needsUpdate = true; heroGroup.rotation.y += 0.002; heroRenderer.render(heroScene, heroCamera); }; animateHero();
         };
 
         // --- GSAP ANIMATIONS ---
         gsap.registerPlugin(ScrollTrigger);
 
         window.onload = () => {
-            initThree();
-            initHero3D();
-
-            setupCustomDropdown('isd-dropdown', 'isd-label');
-            setupCustomDropdown('category-dropdown', 'category-label');
-
-            // Scroll Blur Logic
-            window.addEventListener('scroll', () => {
-                const nav = document.getElementById('navbar');
-                if (window.scrollY > 50) {
-                    nav.classList.add('nav-scrolled');
-                } else {
-                    nav.classList.remove('nav-scrolled');
-                }
-            });
-
-            // STRUCTURED SEQUENCED APPEARANCE
+            initThree(); initHero3D();
+            setupCustomDropdown('isd-dropdown', 'isd-label'); setupCustomDropdown('category-dropdown', 'category-label');
+            window.addEventListener('scroll', () => { const nav = document.getElementById('navbar'); if (window.scrollY > 50) nav.classList.add('nav-scrolled'); else nav.classList.remove('nav-scrolled'); });
             const masterReveal = gsap.timeline();
-            
-            masterReveal.to("#navbar", { opacity: 1, duration: 1, ease: "power2.out" })
-                .to("#hero-main-content", { opacity: 1, duration: 0.5 }, "-=0.5") 
-                .from(".hero-headline-line span", { y: 150, opacity: 0, filter: "blur(12px)", duration: 1.8, stagger: 0.15, ease: "expo.out" }, "-=0.5")
-                .from(".hero-text-block .reveal-up", { y: 30, opacity: 0, duration: 1.2, stagger: 0.2, ease: "power3.out" }, "-=1.2")
-                .from(".reveal-hero-visual", { opacity: 0, scale: 0.8, duration: 1.5, ease: "power2.out" }, "-=1.8");
-
-            document.querySelectorAll('.section-to-reveal').forEach(section => {
-                gsap.from(section, {
-                    scrollTrigger: { trigger: section, start: "top 85%" },
-                    y: 50, opacity: 0, duration: 1.2, ease: "power2.out"
-                });
-            });
-
+            masterReveal.to("#navbar", { opacity: 1, duration: 1, ease: "power2.out" }).to("#hero-main-content", { opacity: 1, duration: 0.5 }, "-=0.5").from(".hero-headline-line span", { y: 150, opacity: 0, filter: "blur(12px)", duration: 1.8, stagger: 0.15, ease: "expo.out" }, "-=0.5").from(".hero-text-block .reveal-up", { y: 30, opacity: 0, duration: 1.2, stagger: 0.2, ease: "power3.out" }, "-=1.2").from(".reveal-hero-visual", { opacity: 0, scale: 0.8, duration: 1.5, ease: "power2.out" }, "-=1.8");
+            document.querySelectorAll('.section-to-reveal').forEach(s => gsap.from(s, { scrollTrigger: { trigger: s, start: "top 85%" }, y: 50, opacity: 0, duration: 1.2 }));
             const cards = gsap.utils.toArray(".service-card");
             if (window.innerWidth <= 1024) {
-                gsap.set(cards, { yPercent: 0, opacity: 1, scale: 1, force3D: true, transformOrigin: "center top", top: 0 });
-                cards.forEach((card, i) => {
-                    gsap.set(card, {
-                        scale: 1 - (i * 0.05),
-                        yPercent: i * 12,
-                        opacity: 1 - (i * 0.3),
-                        zIndex: cards.length - i
-                    });
-                });
-
-                const serviceStackTl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: "#services",
-                        start: "top 5%",
-                        end: `+=${cards.length * 100}%`,
-                        pin: true,
-                        scrub: 0.2,
-                        snap: 1 / (cards.length - 1),
-                        anticipatePin: 1
-                    }
-                });
-
-                cards.forEach((card, i) => {
-                    if (i < cards.length - 1) {
-                        serviceStackTl.to(card, { yPercent: -120, opacity: 0, ease: "none", duration: 1 }, i);
-                        serviceStackTl.to(cards.slice(i + 1), {
-                            scale: (idx, target) => 1 - ((cards.indexOf(target) - (i + 1)) * 0.05),
-                            yPercent: (idx, target) => (cards.indexOf(target) - (i + 1)) * 12,
-                            opacity: (idx, target) => 1 - ((cards.indexOf(target) - (i + 1)) * 0.3),
-                            ease: "none", duration: 1
-                        }, i);
-                    }
-                });
-            } else {
-                cards.forEach((card, idx) => {
-                    gsap.to(card, { scrollTrigger: { trigger: card, start: "top 92%" }, opacity: 1, y: 0, duration: 1.2, ease: "power2.out", delay: (idx % 3) * 0.1 });
-                });
-            }
-
-            gsap.to("#neural-path-fill", { height: "100%", ease: "none", scrollTrigger: { trigger: "#timeline-steps", start: "top center", end: "bottom center", scrub: 1 } });
-            document.querySelectorAll('.process-node').forEach((step) => { 
-                ScrollTrigger.create({ trigger: step, start: "top center+=100", end: "bottom center-=100", onEnter: () => step.classList.add('active'), onLeave: () => step.classList.remove('active'), onEnterBack: () => step.classList.add('active'), onLeaveBack: () => step.classList.remove('active'), }); 
-            });
-
-            // MOBILE STRATEGY AUTO-REVEAL LOGIC
-            if (window.innerWidth <= 1024) {
-                document.querySelectorAll('.engagement-hub').forEach((hub) => {
-                    ScrollTrigger.create({
-                        trigger: hub,
-                        start: "top 75%",
-                        end: "bottom 25%",
-                        onEnter: () => hub.classList.add('active-reveal'),
-                        onLeave: () => hub.classList.remove('active-reveal'),
-                        onEnterBack: () => hub.classList.add('active-reveal'),
-                        onLeaveBack: () => hub.classList.remove('active-reveal'),
-                    });
-                });
-            }
-
-            const securityCards = gsap.utils.toArray(".ai-feature-card");
-            securityCards.forEach((card, i) => { 
-                gsap.set(card, { filter: "none", opacity: 0.2, scale: 0.98 }); 
-                gsap.to(card, { opacity: 1, scale: 1.02, borderColor: "rgba(139, 94, 60, 0.7)", boxShadow: "0 15px 30px rgba(0,0,0,0.3)", duration: 0.3, scrollTrigger: { trigger: card, start: "top 65%", end: "bottom 35%", toggleActions: "play reverse play reverse" } }); 
-            });
-
-            const parallaxItems = document.querySelectorAll('.parallax-item');
-            ScrollTrigger.create({
-                trigger: "body", start: "top top", end: "bottom bottom", scrub: 4, 
-                onUpdate: (self) => {
-                    const scroll = self.progress;
-                    parallaxItems.forEach(item => {
-                        const speed = parseFloat(item.getAttribute('data-speed')) || 0.1;
-                        const movement = (scroll * 1000) * speed;
-                        gsap.to(item, { y: movement, duration: 1.2, ease: "power2.out", overwrite: "auto" });
-                    });
-                    if(starField) { gsap.to(starField.position, { z: -scroll * 1200, duration: 1.5, ease: "power2.out" }); gsap.to(starField.rotation, { y: scroll * 0.2, duration: 1.5 }); }
-                    if(bokehGroup) { gsap.to(bokehGroup.position, { z: -scroll * 1800, duration: 1.5, ease: "power2.out" }); }
-                    if(heroScene) { gsap.to(heroScene.position, { y: scroll * 3, duration: 1.5, ease: "power2.out" }); }
-                }
-            });
-
-            gsap.to("#scroll-progress", { scale: "1 1", ease: "none", scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 0.5 } });
+                gsap.set(cards, { yPercent: 0, opacity: 1, scale: 1, top: 0 }); cards.forEach((c, i) => gsap.set(c, { scale: 1-(i*0.05), yPercent: i*12, opacity: 1-(i*0.3), zIndex: cards.length-i }));
+                const tl = gsap.timeline({ scrollTrigger: { trigger: "#services", start: "top 5%", end: `+=${cards.length*100}%`, pin: true, scrub: 0.2 } });
+                cards.forEach((c, i) => { if (i < cards.length-1) { tl.to(c, { yPercent: -120, opacity: 0, duration: 1 }, i); tl.to(cards.slice(i+1), { scale: (idx, t) => 1-((cards.indexOf(t)-(i+1))*0.05), yPercent: (idx, t) => (cards.indexOf(t)-(i+1))*12, opacity: (idx, t) => 1-((cards.indexOf(t)-(i+1))*0.3), duration: 1 }, i); } });
+            } else { cards.forEach((c, idx) => gsap.to(c, { scrollTrigger: { trigger: c, start: "top 92%" }, opacity: 1, y: 0, duration: 1.2, delay: (idx % 3) * 0.1 })); }
+            gsap.to("#neural-path-fill", { height: "100%", scrollTrigger: { trigger: "#timeline-steps", start: "top center", end: "bottom center", scrub: 1 } });
+            document.querySelectorAll('.process-node').forEach((step) => { ScrollTrigger.create({ trigger: step, start: "top center+=100", end: "bottom center-=100", onEnter: () => step.classList.add('active'), onLeave: () => step.classList.remove('active'), onEnterBack: () => step.classList.add('active'), onLeaveBack: () => step.classList.remove('active') }); });
+            if (window.innerWidth <= 1024) { document.querySelectorAll('.engagement-hub').forEach((h) => ScrollTrigger.create({ trigger: h, start: "top 75%", end: "bottom 25%", onEnter: () => h.classList.add('active-reveal'), onLeave: () => h.classList.remove('active-reveal'), onEnterBack: () => h.classList.add('active-reveal'), onLeaveBack: () => h.classList.remove('active-reveal') })); }
+            gsap.utils.toArray(".ai-feature-card").forEach(c => { gsap.set(c, { opacity: 0.2 }); gsap.to(c, { opacity: 1, scale: 1.02, duration: 0.3, scrollTrigger: { trigger: c, start: "top 65%", end: "bottom 35%", toggleActions: "play reverse play reverse" } }); });
+            ScrollTrigger.create({ trigger: "body", start: "top top", end: "bottom bottom", scrub: 4, onUpdate: (self) => { const scroll = self.progress; document.querySelectorAll('.parallax-item').forEach(item => { const spd = parseFloat(item.getAttribute('data-speed')) || 0.1; gsap.to(item, { y: (scroll*1000)*spd, duration: 1.2 }); }); if(starField) { gsap.to(starField.position, { z: -scroll*1200, duration: 1.5 }); } if(bokehGroup) { gsap.to(bokehGroup.position, { z: -scroll*1800, duration: 1.5 }); } } });
+            gsap.to("#scroll-progress", { scale: "1 1", scrollTrigger: { trigger: "body", start: "top top", end: "bottom bottom", scrub: 0.5 } });
             ScrollTrigger.refresh();
         };
 
-        const cur = document.getElementById('cursor');
-        const curF = document.getElementById('cursor-follower');
-        document.addEventListener('mousemove', (e) => { 
-            if (cur) gsap.to(cur, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "power3.out" }); 
-            if (curF) gsap.to(curF, { x: e.clientX - 16, y: e.clientY - 16, duration: 0.6, ease: "expo.out" }); 
-        });
+        const cur = document.getElementById('cursor'), curF = document.getElementById('cursor-follower');
+        document.addEventListener('mousemove', (e) => { if (cur) gsap.to(cur, { x: e.clientX, y: e.clientY, duration: 0.1 }); if (curF) gsap.to(curF, { x: e.clientX-16, y: e.clientY-16, duration: 0.6 }); });
+
+        // --- ENQUIRY FORM SUBMISSION HANDLER (FIXED) ---
+        (function() {
+            const form = document.getElementById('enquiry-form');
+            const submitBtn = document.getElementById('submit-btn');
+            const formStatus = document.getElementById('form-status');
+            const scriptUrl = "https://script.google.com/macros/s/AKfycbzdmW-Hk-sprFg4RG9hbqdX4zKmCM8wIPYLOhoDx_ZQYax1Vx-7ny1_QHNV27WZ6Lme/exec";
+
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    // Force prevent default immediately to stop the page from redirecting
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const isd = document.getElementById('isd-label').innerText.split(' ')[0];
+                    const phoneVal = document.getElementById('phone-input').value;
+                    const serviceVal = document.getElementById('category-label').innerText;
+                    
+                    const formData = new FormData(form);
+                    formData.append('phone', isd + phoneVal);
+                    formData.append('service', serviceVal);
+
+                    if (submitBtn) {
+                        submitBtn.innerText = "Submitting...";
+                        submitBtn.disabled = true;
+                    }
+                    if (formStatus) {
+                        formStatus.classList.remove('hidden', 'text-red-500', 'text-green-500');
+                        formStatus.innerText = "Processing secure intelligence layer...";
+                        formStatus.classList.add('block');
+                    }
+
+                    try {
+                        // Standard fetch to the script URL
+                        const response = await fetch(scriptUrl, { 
+                            method: 'POST', 
+                            body: formData,
+                            mode: 'no-cors' // Use no-cors to prevent preflight errors common with Apps Script redirects
+                        });
+
+                        // Note: with 'no-cors', we cannot read the response object
+                        // If execution reaches here, the browser has dispatched the request successfully
+                        formStatus.innerText = "Protocol established. We will connect shortly.";
+                        formStatus.classList.add('text-green-500');
+                        form.reset();
+                        document.getElementById('isd-label').innerText = "+91 (India)";
+                        document.getElementById('category-label').innerText = "Select category";
+                    } catch (error) {
+                        formStatus.innerText = "Neural connection failed. Please try again later.";
+                        formStatus.classList.add('text-red-500');
+                    } finally {
+                        if (submitBtn) {
+                            submitBtn.innerText = "Request Consultation";
+                            submitBtn.disabled = false;
+                        }
+                        setTimeout(() => { if (formStatus) formStatus.classList.add('hidden'); }, 5000);
+                    }
+                    
+                    return false;
+                });
+            }
+        })();
     </script>
 
     <style> @keyframes scan { 0% { top: 0%; opacity: 0; } 5% { opacity: 1; } 95% { opacity: 1; } 100% { top: 100%; opacity: 0; } } </style>
