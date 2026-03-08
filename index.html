@@ -2233,12 +2233,6 @@
                 }
             });
         }
-
-        // Global access for module scripts
-        window.openLegalModal = (type) => {
-            const link = document.querySelector(`a[onclick*="openLegalModal('${type}')"]`);
-            if (link) link.click();
-        };
     </script>
 
     <script>
@@ -2256,15 +2250,100 @@
         const legalDocs = {
             privacy: {
                 title: "Privacy Policy",
-                content: `<div class="space-y-8 text-white/70 font-light"><p class="text-xl italic">This Privacy Policy explains how Genverge collects, uses, discloses and protects personal information...</p><section class="space-y-4"><h4 class="text-white text-lg font-medium">1. Information We Collect</h4><p>We may collect personal information such as name, email address...</p></section></div>`
+                content: `
+                    <div class="space-y-8 text-white/70 font-light">
+                        <p class="text-xl italic">This Privacy Policy explains how GenVerge collects, uses, discloses and protects personal information when you use our website and services.</p>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">1. Information We Collect</h4>
+                            <p>We may collect personal information such as name, email address, phone number, company details, and information submitted through forms. We may also collect technical data such as IP address, browser type, and usage data via cookies.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">2. Legal Basis for Processing</h4>
+                            <p>We process data based on consent, contractual necessity, legal obligations and legitimate business interests, in accordance with GDPR and UK GDPR.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">3. Use of Information</h4>
+                            <p>We use your information to respond to inquiries, provide services, improve our website, and communicate with you regarding our enterprise AI solutions.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">4. Cookies</h4>
+                            <p>We use cookies for functionality and analytics. Users may manage cookie preferences via browser settings or our secure consent banner.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">5. Data Sharing</h4>
+                            <p>We do not sell personal data. Data may be shared with trusted service providers or legal authorities when required for the execution of services.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">6. International Data Transfers</h4>
+                            <p>Data may be processed outside your country, including within our global operations, with strictly mapped safeguards in place.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">7. Data Retention & Security</h4>
+                            <p>Data is retained only as long as necessary and protected using multi-layer neural encryption and access controls.</p>
+                        </section>
+                        <section class="space-y-4 border-t border-white/10 pt-8">
+                            <h4 class="text-white text-lg font-medium">8. Contact</h4>
+                            <p>Email: <a href="mailto:hello@genverge.ai" class="text-[#d4a373]">hello@genverge.ai</a></p>
+                        </section>
+                    </div>
+                `
             },
             cookie: {
                 title: "Cookie Policy",
-                content: `<div class="space-y-8 text-white/70 font-light"><p class="text-xl italic">This Cookie Policy explains how Genverge uses cookies...</p><section class="space-y-4"><h4 class="text-white text-lg font-medium">1. What Are Cookies</h4><p>Cookies are small text files stored on your device...</p></section></div>`
+                content: `
+                    <div class="space-y-8 text-white/70 font-light">
+                        <p class="text-xl italic">This Cookie Policy explains how GenVerge uses cookies and similar technologies on its website to enhance the intelligence ecosystem experience.</p>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">1. What Are Cookies</h4>
+                            <p>Cookies are small text files stored on your device that allow us to track preferences and optimize performance.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">2. Types of Cookies We Use</h4>
+                            <ul class="list-disc pl-5 space-y-2">
+                                <li><strong>Essential:</strong> Required for secure login and form handling.</li>
+                                <li><strong>Analytics:</strong> Used to map user flow and improve interaction design.</li>
+                                <li><strong>Preference:</strong> Stores your ISD code and requirement settings.</li>
+                            </ul>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">3. Managing Preferences</h4>
+                            <p>You can adjust your monitoring settings via our banner or browser controls. Restricting cookies may affect neural interface speed.</p>
+                        </section>
+                        <section class="space-y-4 border-t border-white/10 pt-8">
+                            <h4 class="text-white text-lg font-medium">4. Contact</h4>
+                            <p>Email: <a href="mailto:hello@genverge.ai" class="text-[#d4a373]">hello@genverge.ai</a></p>
+                        </section>
+                    </div>
+                `
             },
             terms: {
                 title: "Terms and Conditions",
-                content: `<div class="space-y-8 text-white/70 font-light"><p class="text-sm opacity-50 mb-4">Last Updated: 11-Jan-26</p><p class="text-xl italic">These Terms and Conditions govern your use...</p></div>`
+                content: `
+                    <div class="space-y-8 text-white/70 font-light">
+                        <p class="text-sm opacity-50 mb-4">Last Updated: March 2026</p>
+                        <p class="text-xl italic">By accessing the GenVerge website, you agree to these operational protocols.</p>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">1. Use of Services</h4>
+                            <p>Access to our AI frameworks is provided for enterprise evaluation. Unauthorized scraping or neural reverse engineering is prohibited.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">2. Intellectual Property</h4>
+                            <p>All designs, neural architectures, and content on this site are the exclusive property of GenVerge Inc.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">3. Confidentiality</h4>
+                            <p>Submission of information via our enquiry form is governed by our security protocol. We maintain strict PII masking standards.</p>
+                        </section>
+                        <section class="space-y-4">
+                            <h4 class="text-white text-lg font-medium">4. Limitation of Liability</h4>
+                            <p>GenVerge is not liable for indirect damages arising from the use of our public-facing evaluation tools.</p>
+                        </section>
+                        <section class="space-y-4 border-t border-white/10 pt-8">
+                            <h4 class="text-white text-lg font-medium">5. Contact</h4>
+                            <p>Email: <a href="mailto:hello@genverge.ai" class="text-[#d4a373]">hello@genverge.ai</a></p>
+                        </section>
+                    </div>
+                `
             }
         };
 
@@ -2368,13 +2447,28 @@
             triggerModalReveal();
         }
 
-        function openLegalModal(type) {
+        // Ensure this function is available in the global scope
+        window.openLegalModal = function(type) {
             const doc = legalDocs[type];
             if (!doc || !modalBody) return;
+            
             modalNavText.innerText = "Company / " + doc.title;
-            modalBody.innerHTML = `<div class="max-w-4xl mx-auto py-12"><div class="reveal-modal-item mb-16"><div class="flex items-center gap-4 mb-6"><div class="w-1.5 h-1.5 rounded-full bg-[#8b5e3c]"></div><span class="text-[10px] font-bold uppercase tracking-[0.6em] text-white/20">Legal Framework</span></div><h2 class="text-5xl md:text-7xl font-light text-white tracking-tight leading-none">${doc.title}</h2></div><div class="reveal-modal-item">${doc.content}</div></div>`;
+            modalBody.innerHTML = `
+                <div class="max-w-4xl mx-auto py-12">
+                    <div class="reveal-modal-item mb-16">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-1.5 h-1.5 rounded-full bg-[#8b5e3c]"></div>
+                            <span class="text-[10px] font-bold uppercase tracking-[0.6em] text-white/20">Legal Framework</span>
+                        </div>
+                        <h2 class="text-5xl md:text-7xl font-light text-white tracking-tight leading-none">${doc.title}</h2>
+                    </div>
+                    <div class="reveal-modal-item">
+                        ${doc.content}
+                    </div>
+                </div>
+            `;
             triggerModalReveal();
-        }
+        };
 
         function triggerModalReveal() {
             if (modal) {
@@ -2483,8 +2577,10 @@
                     e.stopPropagation();
 
                     const isd = document.getElementById('isd-label').innerText.split(' ')[0];
-                    const phoneVal = document.getElementById('phone-input').value;
-                    const serviceVal = document.getElementById('category-label').innerText;
+                    const phoneInput = document.getElementById('phone-input');
+                    const phoneVal = phoneInput ? phoneInput.value : '';
+                    const categoryLabel = document.getElementById('category-label');
+                    const serviceVal = categoryLabel ? categoryLabel.innerText : 'Unknown';
                     
                     const formData = new FormData(form);
                     formData.append('phone', isd + phoneVal);
@@ -2502,19 +2598,17 @@
 
                     try {
                         // Standard fetch to the script URL
-                        const response = await fetch(scriptUrl, { 
+                        await fetch(scriptUrl, { 
                             method: 'POST', 
                             body: formData,
-                            mode: 'no-cors' // Use no-cors to prevent preflight errors common with Apps Script redirects
+                            mode: 'no-cors' 
                         });
 
-                        // Note: with 'no-cors', we cannot read the response object
-                        // If execution reaches here, the browser has dispatched the request successfully
                         formStatus.innerText = "Protocol established. We will connect shortly.";
                         formStatus.classList.add('text-green-500');
                         form.reset();
-                        document.getElementById('isd-label').innerText = "+91 (India)";
-                        document.getElementById('category-label').innerText = "Select category";
+                        if (document.getElementById('isd-label')) document.getElementById('isd-label').innerText = "+91 (India)";
+                        if (document.getElementById('category-label')) document.getElementById('category-label').innerText = "Select category";
                     } catch (error) {
                         formStatus.innerText = "Neural connection failed. Please try again later.";
                         formStatus.classList.add('text-red-500');
